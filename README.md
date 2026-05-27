@@ -16,7 +16,9 @@ Thin-Pod Gateway rev 0.1 is a carrier-board prototype intended to connect three 
 
 The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory. 
 
-End-to-end UWB transport, DWM-to-NUCLEO buffer transfer, DSP and TinyML remain verification milestones rather than claims of rev 0.1. The immediate aim is not to claim a completed monitoring product. It is to verify the Gateway PCB, establish the module-to-host data path and preserve an OSHWA-ready documentation discipline from first bring-up.
+Thin-Pod Gateway rev 0.1 is a carrier-board prototype for a modular vibration-telemetry architecture. The Qorvo DWM3001-CDK is intended to operate as a UWB communications subsystem, receiving and validating framed vibration windows before presenting complete records to the STM32 NUCLEO-N657X0-Q through a firmware-defined host interface. The NUCLEO is intended to act as the analytic supervisor for buffering, DSP and later TinyML evaluation. The XIAO ESP32-C6 is optional onward-networking hardware and is outside the measurement-critical path. End-to-end window transfer and analysis remain verification milestones rather than completed rev 0.1 claims.
+
+
 
 ## Revision identity
 
