@@ -14,7 +14,9 @@ Thin-Pod Gateway rev 0.1 is a carrier-board prototype intended to connect three 
 * a **Qorvo DWM3001-CDK** as the Gateway-side UWB development module; and
 * a **Seeed Studio XIAO ESP32-C6** as an optional onward-networking subsystem.
 
-The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory. End-to-end UWB transport, DWM-to-NUCLEO buffer transfer, DSP and TinyML remain verification milestones rather than claims of rev 0.1. The immediate aim is not to claim a completed monitoring product. It is to verify the Gateway PCB, establish the module-to-host data path and preserve an OSHWA-ready documentation discipline from first bring-up.
+The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory. 
+
+End-to-end UWB transport, DWM-to-NUCLEO buffer transfer, DSP and TinyML remain verification milestones rather than claims of rev 0.1. The immediate aim is not to claim a completed monitoring product. It is to verify the Gateway PCB, establish the module-to-host data path and preserve an OSHWA-ready documentation discipline from first bring-up.
 
 ## Revision identity
 
