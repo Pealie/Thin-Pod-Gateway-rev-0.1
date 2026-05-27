@@ -110,29 +110,11 @@ bounded sample window + metadata + integrity field → UWB transfer → Gateway 
 
 
 
-Gateway rev 0.1 is intended to use a credit-controlled, complete-window transfer
-
-model. The Gateway-side DWM3001 subsystem will receive, reassemble and validate
-
-framed vibration windows, but will expose records to the NUCLEO only through a
-
-firmware-defined host interface. The NUCLEO will control bulk SPI transfers,
-
-accept windows into preallocated raw-data buffers and grant further receive
-
-capacity only while buffer space remains available.
+Gateway rev 0.1 is intended to use a credit-controlled, complete-window transfer model. The Gateway-side DWM3001 subsystem will receive, reassemble and validate framed vibration windows, but will expose records to the NUCLEO only through a firmware-defined host interface. The NUCLEO will control bulk SPI transfers, accept windows into preallocated raw-data buffers and grant further receive capacity only while buffer space remains available.
 
 
 
-Where receive or analysis capacity is exhausted, the intended behaviour is to
-
-withhold new window credits or report a busy/overflow-prevention state rather
-
-than silently overwrite accepted measurement data. DSP, TinyML and optional
-
-network reporting remain downstream consumers and must not block the
-
-measurement-ingress path.
+Where receive or analysis capacity is exhausted, the intended behaviour is to withhold new window credits or report a busy/overflow-prevention state rather than silently overwrite accepted measurement data. DSP, TinyML and optional network reporting remain downstream consumers and must not block the measurement-ingress path.
 
 
 
