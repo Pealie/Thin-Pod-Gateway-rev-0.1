@@ -128,24 +128,27 @@ Thin-Pod-Gateway-rev0.1/
 ├── LICENSE-HARDWARE.md
 ├── LICENSE-DOCUMENTATION.md
 │
-├── firmware/
-|   |└── README.md
-│   ├── node-dwm/
-│   │   └── README.md
+firmware/
+├── README.md
+│
+├── node-dwm/
+│   ├── README.md
 │   └── acquisition-characterisation/
-│   │   └── README.md
-|   ├── gateway-dwm/
-│   │   └── README.md
+│       └── README.md
+│
+├── gateway-dwm/
+│   ├── README.md
 │   └── tphip-golden-record/
-│   │    └── README.md
-│   │
-|   ├── nucleo-host/
-│   │   ├── README.md
+│       └── README.md
+│
+├── nucleo-host/
+│   ├── README.md
 │   └── tphip-reader/
-│   │    └── README.md
-│   │
-|   └── test-vectors/
-│   │    └── README.md
+│       └── README.md
+│
+└── test-vectors/
+│   └── README.md
+│
 ├── hardware/
 │   ├── source/
 │   │   ├── Thin-Pod\_Gateway\_rev0.1.kicad\_pro
