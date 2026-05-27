@@ -129,6 +129,7 @@ Thin-Pod-Gateway-rev0.1/
 ├── LICENSE-DOCUMENTATION.md
 │
 ├── firmware/
+|   |└── README.md
 │   ├── node-dwm/
 │   │   └── README.md
 │   └── acquisition-characterisation/
@@ -145,7 +146,6 @@ Thin-Pod-Gateway-rev0.1/
 │   │
 |   └── test-vectors/
 │   │    └── README.md
-├── README.md
 ├── hardware/
 │   ├── source/
 │   │   ├── Thin-Pod\_Gateway\_rev0.1.kicad\_pro
