@@ -106,7 +106,7 @@ The intended transport unit is a bounded **vibration window**, not an indefinite
 bounded sample window + metadata + integrity field → UWB transfer → Gateway receipt
 ```
 
-\### Flow control and overrun prevention
+### 6.2 Flow control and overrun prevention
 
 
 
@@ -136,7 +136,7 @@ measurement-ingress path.
 
 
 
-### 6.2 Current status
+### 6.3 Current status
 
 |Transport aspect|Status|
 |-|-|
