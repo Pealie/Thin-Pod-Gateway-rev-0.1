@@ -106,7 +106,7 @@ The intended transport unit is a bounded **vibration window**, not an indefinite
 bounded sample window + metadata + integrity field → UWB transfer → Gateway receipt
 ```
 
-\## Flow control and overrun prevention
+\### Flow control and overrun prevention
 
 
 
