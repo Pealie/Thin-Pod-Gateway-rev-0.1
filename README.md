@@ -112,31 +112,31 @@ The current PCB uses the NUCLEO `CN3` and `CN15` interfaces only. `CN3` provides
 
 |Net / connection|Intended role|
 |-|-|
-|`5V\\\_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
-|`3V3\\\_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
+|`5V\_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
+|`3V3\_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
 |`GND`|Common reference across NUCLEO, DWM3001-CDK, XIAO and local decoupling|
 
 ### NUCLEO to DWM3001-CDK signal route
 
 |Gateway net|NUCLEO connection|DWM3001-CDK connection|
 |-|-|-|
-|`SPI5\\\_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1\\\_CLK`|
-|`SPI5\\\_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1\\\_MISO`|
-|`SPI5\\\_MOSI`|`CN15.15`|`J10.19` / `SPI1\\\_MOSI`|
-|`DWM\\\_CS`|`CN15.17`|`J10.24` / `CS\\\_RPI`|
-|`DWM\\\_IRQ`|`CN15.16`|`J10.15`|
-|`DWM\\\_RESET`|`CN15.33`|`J10.12`|
+|`SPI5\_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1\_CLK`|
+|`SPI5\_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1\_MISO`|
+|`SPI5\_MOSI`|`CN15.15`|`J10.19` / `SPI1\_MOSI`|
+|`DWM\_CS`|`CN15.17`|`J10.24` / `CS\_RPI`|
+|`DWM\_IRQ`|`CN15.16`|`J10.15`|
+|`DWM\_RESET`|`CN15.33`|`J10.12`|
 
 ### NUCLEO to XIAO ESP32-C6 signal route
 
 |Gateway net|NUCLEO connection|XIAO connection|
 |-|-|-|
-|`SPI5\\\_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
-|`SPI5\\\_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
-|`SPI5\\\_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
-|`C6\\\_CS`|`CN15.19`|`D3` / `GPIO21`|
-|`C6\\\_INT`|`CN15.5`|`D2` / `GPIO2`|
-|`5V\\\_GATEWAY`|`CN3.6`|`5V/VBUS`|
+|`SPI5\_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
+|`SPI5\_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
+|`SPI5\_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
+|`C6\_CS`|`CN15.19`|`D3` / `GPIO21`|
+|`C6\_INT`|`CN15.5`|`D2` / `GPIO2`|
+|`5V\_GATEWAY`|`CN3.6`|`5V/VBUS`|
 |`GND`|Common ground|`GND`|
 
 The route above establishes a physical interface candidate. Firmware-level exchange over that route is a verification objective, not a completed claim.
