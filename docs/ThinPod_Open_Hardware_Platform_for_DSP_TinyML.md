@@ -113,9 +113,9 @@ The current Gateway repository now contains two important firmware layers.
 
 The first is the Zephyr RTT alive-test baseline:
 
-```text
-firmware/gateway/zephyr\_rtt\_alive/
-firmware/node/zephyr\_rtt\_alive/
+```
+firmware/gateway/zephyr_rtt_alive/
+firmware/node/zephyr_rtt_alive/
 ```
 
 These applications prove the basic development loop: build, flash, execute and observe over SEGGER RTT.
@@ -123,10 +123,10 @@ These applications prove the basic development loop: build, flash, execute and o
 The second is the staged UWB role harness:
 
 ```text
-firmware/common/thinpod\_protocol/
-firmware/gateway/uwb\_initiator/
-firmware/node/uwb\_responder/
-tools/packet\_logging/
+firmware/common/thinpod_protocol/
+firmware/gateway/uwb_initiator/
+firmware/node/uwb_responder/
+tools/packet_logging/
 ```
 
 This establishes firmware identities, a shared packet contract, synthetic vibration-window generation, Gateway packet logging and parser-ready ingestion. It does not yet claim real DW3110 RF exchange.
