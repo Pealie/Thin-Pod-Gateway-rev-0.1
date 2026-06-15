@@ -73,8 +73,8 @@ The repository now includes two firmware bring-up layers.
 The first layer is the Zephyr RTT alive-test baseline:
 
 ```
-firmware/gateway/zephyr\_rtt\_alive/
-firmware/node/zephyr\_rtt\_alive/
+firmware/gateway/zephyr_rtt_alive/
+firmware/node/zephyr_rtt_alive/
 ```
 
 These applications prove that the Gateway and node DWM3001CDKs can be built for, flashed, executed and observed over SEGGER RTT.
@@ -82,10 +82,10 @@ These applications prove that the Gateway and node DWM3001CDKs can be built for,
 The second layer is the staged UWB role harness:
 
 ```
-firmware/common/thinpod\_protocol/
-firmware/gateway/uwb\_initiator/
-firmware/node/uwb\_responder/
-tools/packet\_logging/
+firmware/common/thinpod_protocol/
+firmware/gateway/uwb_initiator/
+firmware/node/uwb_responder/
+tools/packet_logging/
 ```
 
 This stage establishes Gateway and node firmware identities, a shared packet contract, parser-friendly Gateway packet logging and synthetic vibration-window ingestion. It does not yet claim a real DW3110 RF exchange. The stub transport is intended to be replaced by the Qorvo DW3 / DW3110 backend in a later verification stage.
@@ -112,31 +112,31 @@ The current PCB uses the NUCLEO `CN3` and `CN15` interfaces only. `CN3` provides
 
 |Net / connection|Intended role|
 |-|-|
-|`5V\_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
-|`3V3\_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
+|`5V_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
+|`3V3_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
 |`GND`|Common reference across NUCLEO, DWM3001-CDK, XIAO and local decoupling|
 
 ### NUCLEO to DWM3001-CDK signal route
 
 |Gateway net|NUCLEO connection|DWM3001-CDK connection|
 |-|-|-|
-|`SPI5\_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1\_CLK`|
-|`SPI5\_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1\_MISO`|
-|`SPI5\_MOSI`|`CN15.15`|`J10.19` / `SPI1\_MOSI`|
-|`DWM\_CS`|`CN15.17`|`J10.24` / `CS\_RPI`|
-|`DWM\_IRQ`|`CN15.16`|`J10.15`|
-|`DWM\_RESET`|`CN15.33`|`J10.12`|
+|`SPI5_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1_CLK`|
+|`SPI5_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1_MISO`|
+|`SPI5_MOSI`|`CN15.15`|`J10.19` / `SPI1_MOSI`|
+|`DWM_CS`|`CN15.17`|`J10.24` / `CS_RPI`|
+|`DWM_IRQ`|`CN15.16`|`J10.15`|
+|`DWM_RESET`|`CN15.33`|`J10.12`|
 
 ### NUCLEO to XIAO ESP32-C6 signal route
 
 |Gateway net|NUCLEO connection|XIAO connection|
 |-|-|-|
-|`SPI5\_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
-|`SPI5\_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
-|`SPI5\_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
-|`C6\_CS`|`CN15.19`|`D3` / `GPIO21`|
-|`C6\_INT`|`CN15.5`|`D2` / `GPIO2`|
-|`5V\_GATEWAY`|`CN3.6`|`5V/VBUS`|
+|`SPI5_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
+|`SPI5_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
+|`SPI5_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
+|`C6_CS`|`CN15.19`|`D3` / `GPIO21`|
+|`C6_INT`|`CN15.5`|`D2` / `GPIO2`|
+|`5V_GATEWAY`|`CN3.6`|`5V/VBUS`|
 |`GND`|Common ground|`GND`|
 
 The route above establishes a physical interface candidate. Firmware-level exchange over that route is a verification objective, not a completed claim.
@@ -159,20 +159,20 @@ Thin-Pod-Gateway-rev-0.1/
 │   ├── README.md
 │   │
 │   ├── common/
-│   │   └── thinpod\_protocol/
+│   │   └── thinpod_protocol/
 │   │       ├── README.md
-│   │       ├── thinpod\_protocol.c
-│   │       └── thinpod\_protocol.h
+│   │       ├── thinpod_protocol.c
+│   │       └── thinpod_protocol.h
 │   │
 │   ├── gateway/
-│   │   ├── zephyr\_rtt\_alive/
+│   │   ├── zephyr_rtt_alive/
 │   │   │   ├── CMakeLists.txt
 │   │   │   ├── README.md
 │   │   │   ├── prj.conf
 │   │   │   └── src/
 │   │   │       └── main.c
 │   │   │
-│   │   └── uwb\_initiator/
+│   │   └── uwb_initiator/
 │   │       ├── CMakeLists.txt
 │   │       ├── README.md
 │   │       ├── prj.conf
@@ -180,14 +180,14 @@ Thin-Pod-Gateway-rev-0.1/
 │   │           └── main.c
 │   │
 │   ├── node/
-│   │   ├── zephyr\_rtt\_alive/
+│   │   ├── zephyr_rtt_alive/
 │   │   │   ├── CMakeLists.txt
 │   │   │   ├── README.md
 │   │   │   ├── prj.conf
 │   │   │   └── src/
 │   │   │       └── main.c
 │   │   │
-│   │   └── uwb\_responder/
+│   │   └── uwb_responder/
 │   │       ├── CMakeLists.txt
 │   │       ├── README.md
 │   │       ├── prj.conf
@@ -214,9 +214,9 @@ Thin-Pod-Gateway-rev-0.1/
 │
 ├── hardware/
 │   ├── source/
-│   │   ├── Thin-Pod\_Gateway\_rev0.1.kicad\_pro
-│   │   ├── Thin-Pod\_Gateway\_rev0.1.kicad\_sch
-│   │   ├── Thin-Pod\_Gateway\_rev0.1.kicad\_pcb
+│   │   ├── Thin-Pod_Gateway_rev0.1.kicad_pro
+│   │   ├── Thin-Pod_Gateway_rev0.1.kicad_sch
+│   │   ├── Thin-Pod_Gateway_rev0.1.kicad_pcb
 │   │   ├── fp-lib-table
 │   │   ├── sym-lib-table
 │   │   └── footprints/
@@ -224,12 +224,12 @@ Thin-Pod-Gateway-rev-0.1/
 │   ├── fabrication/
 │   │   ├── gerbers/
 │   │   ├── drills/
-│   │   ├── Thin-Pod\_Gateway\_rev0.1\_fabrication\_outputs.zip
+│   │   ├── Thin-Pod_Gateway_rev0.1_fabrication_outputs.zip
 │   │   └── RELEASE-MANIFEST.md
 │   │
 │   └── bom/
-│       ├── Thin-Pod\_Gateway\_rev0.1\_BOM.md
-│       └── Thin-Pod\_Gateway\_rev0.1\_BOM.csv
+│       ├── Thin-Pod_Gateway_rev0.1_BOM.md
+│       └── Thin-Pod_Gateway_rev0.1_BOM.csv
 │
 ├── docs/
 │   ├── certification-scope.md
@@ -241,13 +241,13 @@ Thin-Pod-Gateway-rev-0.1/
 │   ├── future-revisions.md
 │   │
 │   └── firmware/
-│       ├── RTT\_Alive\_Test\_Baseline.md
-│       └── UWB\_Roles\_Stage1.md
+│       ├── RTT_Alive_Test_Baseline.md
+│       └── UWB_Roles_Stage1.md
 │
 ├── tools/
-│   └── packet\_logging/
-│       ├── gateway\_rtt\_packet\_parser.py
-│       └── sample\_gateway\_rtt.log
+│   └── packet_logging/
+│       ├── gateway_rtt_packet_parser.py
+│       └── sample_gateway_rtt.log
 │
 ├── images/
 │   ├── fabrication/
@@ -265,8 +265,8 @@ Thin-Pod-Gateway-rev-0.1/
 |[`docs/certification-scope.md`](docs/certification-scope.md)|Establishes the separate Gateway rev 0.1 OSHWA boundary|
 |[`docs/gateway-bring-up-and-verification-protocol.md`](docs/gateway-bring-up-and-verification-protocol.md)|Defines the physical and firmware test sequence for board arrival and staged bring-up|
 |[`docs/system-interface-control-document.md`](docs/system-interface-control-document.md)|Defines the intended boundary between Thin-Pod rev 0.1 and Gateway rev 0.1|
-|[`docs/firmware/RTT\_Alive\_Test\_Baseline.md`](docs/firmware/RTT_Alive_Test_Baseline.md)|Documents the verified Gateway and node Zephyr / J-Link / SEGGER RTT alive-test baseline|
-|[`docs/firmware/UWB\_Roles\_Stage1.md`](docs/firmware/UWB_Roles_Stage1.md)|Documents the staged UWB responder / initiator harness, shared packet contract, packet logging and vibration-window ingestion boundary|
+|[`docs/firmware/RTT_Alive_Test_Baseline.md`](docs/firmware/RTT_Alive_Test_Baseline.md)|Documents the verified Gateway and node Zephyr / J-Link / SEGGER RTT alive-test baseline|
+|[`docs/firmware/UWB_Roles_Stage1.md`](docs/firmware/UWB_Roles_Stage1.md)|Documents the staged UWB responder / initiator harness, shared packet contract, packet logging and vibration-window ingestion boundary|
 
 ## Release and OSHWA gate
 
@@ -287,7 +287,7 @@ The most defensible Gateway certification position is therefore: designed and do
 
 * STMicroelectronics, `NUCLEO-N657X0-Q` product page and board documentation: [https://www.st.com/en/evaluation-tools/nucleo-n657x0-q.html](https://www.st.com/en/evaluation-tools/nucleo-n657x0-q.html)
 * Qorvo, `DWM3001CDK` product page and product brief: [https://www.qorvo.com/products/p/DWM3001CDK](https://www.qorvo.com/products/p/DWM3001CDK)
-* Seeed Studio, `XIAO ESP32C6` documentation and pin map: [https://wiki.seeedstudio.com/xiao\_esp32c6\_getting\_started/](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/)
+* Seeed Studio, `XIAO ESP32C6` documentation and pin map: [https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/)
 * OSHWA Certification Requirements: [https://certification.oshwa.org/requirements.html](https://certification.oshwa.org/requirements.html)
 * OSHWA Documentation Guidance: [https://certification.oshwa.org/process/documentation.html](https://certification.oshwa.org/process/documentation.html)
 
