@@ -1,0 +1,7 @@
+00> Thin-Pod Gateway UWB initiator stage-1
+00> gateway_id=0x0000 role=initiator backend=stub
+00> packet_log_format=TPGW_PKT key=value
+00> TPGW_POLL seq=1 dst=0x0001
+00> TPGW_PKT seq=1 src=0x0001 dst=0x0000 uptime_ms=1000 valid=0 samples=32 rate=1600 first_mg=-41 min_mg=-73 max_mg=86 mean_mg=4 rms_mg=48 checksum=0x12345678
+00> TPGW_POLL seq=2 dst=0x0001
+00> TPGW_PKT seq=2 src=0x0001 dst=0x0000 uptime_ms=2000 valid=0 samples=32 rate=1600 first_mg=-34 min_mg=-66 max_mg=93 mean_mg=9 rms_mg=53 checksum=0x23456789
