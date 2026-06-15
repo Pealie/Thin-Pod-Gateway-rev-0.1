@@ -2,9 +2,9 @@
 
 **Open-hardware Gateway carrier PCB for receiving, supervising and forwarding Thin-Pod vibration-window data**
 
-**Development status:** PCB ordered; physical bring-up pending arrival and assembly.  
+**Development status:** PCB assembled and initial bring-up completed. Gateway and node DWM3001CDK Zephyr / J-Link / SEGGER RTT baselines have been verified. Stage-1 UWB responder / initiator firmware harness, Gateway packet logging and vibration-window ingestion scaffolding have been added. Real DW3110 RF exchange, NUCLEO host-interface transfer, ADXL1005 vibration-window transport and DSP / TinyML remain verification milestones rather than completed rev 0.1 claims.  
 **Certification status:** Candidate for a later, separate OSHWA self-certification application. No Gateway OSHWA application has yet been submitted.  
-**Related certified-item boundary:** The submitted OSHWA application for `Thin-Pod rev 0.1` covers the sensor-node carrier PCB only. This Gateway is a separate hardware artefact and does not alter the submitted node certification boundary.
+**Related certified-item boundary:** `Thin-Pod rev 0.1` covers the OSHWA-certified sensor-node carrier PCB only, UID `UK000091`. This Gateway is a separate hardware artefact and does not alter the certified node boundary.
 
 ## Overview
 
@@ -14,9 +14,11 @@ Thin-Pod Gateway rev 0.1 is a carrier-board prototype intended to connect three 
 * a **Qorvo DWM3001-CDK** as the Gateway-side UWB development module; and
 * a **Seeed Studio XIAO ESP32-C6** as an optional onward-networking subsystem.
 
-The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory. 
+The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory.
 
-Thin-Pod Gateway rev 0.1 is a carrier-board prototype for a modular vibration-telemetry architecture. The Qorvo DWM3001-CDK is intended to operate as a UWB communications subsystem, receiving and validating framed vibration windows before presenting complete records to the STM32 NUCLEO-N657X0-Q through a firmware-defined host interface. The NUCLEO is intended to act as the analytic supervisor for buffering, DSP and later TinyML evaluation. The XIAO ESP32-C6 is optional onward-networking hardware and is outside the measurement-critical path. End-to-end window transfer and analysis remain verification milestones rather than completed rev 0.1 claims.
+Thin-Pod Gateway rev 0.1 is a carrier-board prototype for a modular vibration-telemetry architecture. The Qorvo DWM3001-CDK is intended to operate as a UWB communications subsystem, receiving and validating framed vibration windows before presenting complete records to the STM32 NUCLEO-N657X0-Q through a firmware-defined host interface. The NUCLEO is intended to act as the analytic supervisor for buffering, DSP and later TinyML evaluation. The XIAO ESP32-C6 is optional onward-networking hardware and is outside the measurement-critical path.
+
+Initial board bring-up has now established a working Gateway / node firmware-development baseline using nRF Connect SDK / Zephyr, onboard J-Link OB debug access and SEGGER RTT logging. The repository includes minimal alive-test firmware for both the Gateway and node DWM3001CDKs, plus a Stage-1 UWB responder / initiator harness using a stub transport and shared Thin-Pod packet protocol. Real RF exchange and full vibration-window transfer remain the next verification stages.
 
 ## Measurement-integrity principle
 
@@ -29,6 +31,7 @@ raw vibration windows from the Pod;
 verified window transfer through the UWB subsystem;
 features and later models on the Gateway.
 ```
+
 ### Revision identity
 
 The product release path is:
@@ -63,6 +66,30 @@ Seeed Studio XIAO ESP32-C6
 
 The architecture is deliberately modular. The DWM3001-CDK is treated as a commercially supplied UWB subsystem; the NUCLEO is treated as the Gateway-side host/supervisor; and the XIAO is treated as optional onward networking. The Gateway PCB does not claim those commercial modules as open hardware.
 
+## Firmware bring-up status
+
+The repository now includes two firmware bring-up layers.
+
+The first layer is the Zephyr RTT alive-test baseline:
+
+```text
+firmware/gateway/zephyr\_rtt\_alive/
+firmware/node/zephyr\_rtt\_alive/
+```
+
+These applications prove that the Gateway and node DWM3001CDKs can be built for, flashed, executed and observed over SEGGER RTT.
+
+The second layer is the staged UWB role harness:
+
+```text
+firmware/common/thinpod\_protocol/
+firmware/gateway/uwb\_initiator/
+firmware/node/uwb\_responder/
+tools/packet\_logging/
+```
+
+This stage establishes Gateway and node firmware identities, a shared packet contract, parser-friendly Gateway packet logging and synthetic vibration-window ingestion. It does not yet claim a real DW3110 RF exchange. The stub transport is intended to be replaced by the Qorvo DW3 / DW3110 backend in a later verification stage.
+
 ## Current rev 0.1 carrier-board content
 
 |Reference|Commercial module or circuitry|Intended function|
@@ -85,31 +112,31 @@ The current PCB uses the NUCLEO `CN3` and `CN15` interfaces only. `CN3` provides
 
 |Net / connection|Intended role|
 |-|-|
-|`5V\_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
-|`3V3\_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
+|`5V\\\_GATEWAY` from NUCLEO `CN3.6`|Powers DWM3001-CDK through its 5 V input path and supplies XIAO `5V/VBUS`|
+|`3V3\\\_GATEWAY` from NUCLEO `CN3.16`|Auxiliary/pull-up rail; not the XIAO power input|
 |`GND`|Common reference across NUCLEO, DWM3001-CDK, XIAO and local decoupling|
 
 ### NUCLEO to DWM3001-CDK signal route
 
 |Gateway net|NUCLEO connection|DWM3001-CDK connection|
 |-|-|-|
-|`SPI5\_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1\_CLK`|
-|`SPI5\_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1\_MISO`|
-|`SPI5\_MOSI`|`CN15.15`|`J10.19` / `SPI1\_MOSI`|
-|`DWM\_CS`|`CN15.17`|`J10.24` / `CS\_RPI`|
-|`DWM\_IRQ`|`CN15.16`|`J10.15`|
-|`DWM\_RESET`|`CN15.33`|`J10.12`|
+|`SPI5\\\_SCK`|`CN15.11` / `PE15`|`J10.23` / `SPI1\\\_CLK`|
+|`SPI5\\\_MISO`|`CN15.13` / `PG1`|`J10.21` / `SPI1\\\_MISO`|
+|`SPI5\\\_MOSI`|`CN15.15`|`J10.19` / `SPI1\\\_MOSI`|
+|`DWM\\\_CS`|`CN15.17`|`J10.24` / `CS\\\_RPI`|
+|`DWM\\\_IRQ`|`CN15.16`|`J10.15`|
+|`DWM\\\_RESET`|`CN15.33`|`J10.12`|
 
 ### NUCLEO to XIAO ESP32-C6 signal route
 
 |Gateway net|NUCLEO connection|XIAO connection|
 |-|-|-|
-|`SPI5\_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
-|`SPI5\_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
-|`SPI5\_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
-|`C6\_CS`|`CN15.19`|`D3` / `GPIO21`|
-|`C6\_INT`|`CN15.5`|`D2` / `GPIO2`|
-|`5V\_GATEWAY`|`CN3.6`|`5V/VBUS`|
+|`SPI5\\\_SCK`|`CN15.11`|`D8` / `GPIO19` / `SCK`|
+|`SPI5\\\_MISO`|`CN15.13`|`D9` / `GPIO20` / `MISO`|
+|`SPI5\\\_MOSI`|`CN15.15`|`D10` / `GPIO18` / `MOSI`|
+|`C6\\\_CS`|`CN15.19`|`D3` / `GPIO21`|
+|`C6\\\_INT`|`CN15.5`|`D2` / `GPIO2`|
+|`5V\\\_GATEWAY`|`CN3.6`|`5V/VBUS`|
 |`GND`|Common ground|`GND`|
 
 The route above establishes a physical interface candidate. Firmware-level exchange over that route is a verification objective, not a completed claim.
@@ -123,31 +150,67 @@ It would not claim the STM32 NUCLEO-N657X0-Q, Qorvo DWM3001-CDK or XIAO ESP32-C6
 ## Repository structure
 
 ```text
-Thin-Pod-Gateway-rev0.1/
+Thin-Pod-Gateway-rev-0.1/
 ├── README.md
 ├── LICENSE-HARDWARE.md
 ├── LICENSE-DOCUMENTATION.md
 │
-firmware/
-├── README.md
-│
-├── node-dwm/
+├── firmware/
 │   ├── README.md
-│   └── acquisition-characterisation/
+│   │
+│   ├── common/
+│   │   └── thinpod\_protocol/
+│   │       ├── README.md
+│   │       ├── thinpod\_protocol.c
+│   │       └── thinpod\_protocol.h
+│   │
+│   ├── gateway/
+│   │   ├── zephyr\_rtt\_alive/
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── README.md
+│   │   │   ├── prj.conf
+│   │   │   └── src/
+│   │   │       └── main.c
+│   │   │
+│   │   └── uwb\_initiator/
+│   │       ├── CMakeLists.txt
+│   │       ├── README.md
+│   │       ├── prj.conf
+│   │       └── src/
+│   │           └── main.c
+│   │
+│   ├── node/
+│   │   ├── zephyr\_rtt\_alive/
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── README.md
+│   │   │   ├── prj.conf
+│   │   │   └── src/
+│   │   │       └── main.c
+│   │   │
+│   │   └── uwb\_responder/
+│   │       ├── CMakeLists.txt
+│   │       ├── README.md
+│   │       ├── prj.conf
+│   │       └── src/
+│   │           └── main.c
+│   │
+│   ├── node-dwm/
+│   │   ├── README.md
+│   │   └── acquisition-characterisation/
+│   │       └── README.md
+│   │
+│   ├── gateway-dwm/
+│   │   ├── README.md
+│   │   └── tphip-golden-record/
+│   │       └── README.md
+│   │
+│   ├── nucleo-host/
+│   │   ├── README.md
+│   │   └── tphip-reader/
+│   │       └── README.md
+│   │
+│   └── test-vectors/
 │       └── README.md
-│
-├── gateway-dwm/
-│   ├── README.md
-│   └── tphip-golden-record/
-│       └── README.md
-│
-├── nucleo-host/
-│   ├── README.md
-│   └── tphip-reader/
-│       └── README.md
-│
-└── test-vectors/
-│   └── README.md
 │
 ├── hardware/
 │   ├── source/
@@ -175,7 +238,16 @@ firmware/
 │   ├── third-party-components.md
 │   ├── footprint-provenance.md
 │   ├── design-verification.md
-│   └── future-revisions.md
+│   ├── future-revisions.md
+│   │
+│   └── firmware/
+│       ├── RTT\_Alive\_Test\_Baseline.md
+│       └── UWB\_Roles\_Stage1.md
+│
+├── tools/
+│   └── packet\_logging/
+│       ├── gateway\_rtt\_packet\_parser.py
+│       └── sample\_gateway\_rtt.log
 │
 ├── images/
 │   ├── fabrication/
@@ -186,26 +258,30 @@ firmware/
     └── application-record.md
 ```
 
-## Documentation prepared during PCB manufacture
+## Documentation prepared during manufacture, bring-up and staged firmware work
 
 |Document|Purpose|
 |-|-|
 |[`docs/certification-scope.md`](docs/certification-scope.md)|Establishes the separate Gateway rev 0.1 OSHWA boundary|
-|[`docs/gateway-bring-up-and-verification-protocol.md`](docs/gateway-bring-up-and-verification-protocol.md)|Defines the physical and firmware test sequence for board arrival|
+|[`docs/gateway-bring-up-and-verification-protocol.md`](docs/gateway-bring-up-and-verification-protocol.md)|Defines the physical and firmware test sequence for board arrival and staged bring-up|
 |[`docs/system-interface-control-document.md`](docs/system-interface-control-document.md)|Defines the intended boundary between Thin-Pod rev 0.1 and Gateway rev 0.1|
+|[`docs/firmware/RTT\_Alive\_Test\_Baseline.md`](docs/firmware/RTT_Alive_Test_Baseline.md)|Documents the verified Gateway and node Zephyr / J-Link / SEGGER RTT alive-test baseline|
+|[`docs/firmware/UWB\_Roles\_Stage1.md`](docs/firmware/UWB_Roles_Stage1.md)|Documents the staged UWB responder / initiator harness, shared packet contract, packet logging and vibration-window ingestion boundary|
 
 ## Release and OSHWA gate
 
 No Gateway OSHWA application should be submitted before:
 
-1. the PCB has arrived and been inspected;
-2. unpowered continuity and resistance checks have passed;
-3. module power paths have been validated in a staged bring-up;
-4. the source, Gerbers, BOM and footprint provenance have been reconciled;
-5. any pre-release correction discovered in testing has been incorporated into the release definition; and
-6. a clean Gateway rev 0.1 release tag has been created.
+1. the completed bring-up evidence has been consolidated into the repository;
+2. unpowered continuity, resistance checks and staged power validation are documented;
+3. the Gateway carrier board release definition is reconciled against the manufactured PCB;
+4. source, Gerbers, BOM and footprint provenance are reconciled;
+5. any bring-up corrections or known limitations are explicitly recorded;
+6. the firmware boundary is described accurately, distinguishing verified Zephyr / RTT bring-up and staged UWB scaffolding from unverified real RF exchange;
+7. any pre-release correction discovered in testing has been incorporated into the release definition; and
+8. a clean Gateway rev 0.1 release tag has been created.
 
-The most defensible Gateway certification position is therefore not ‘submitted while waiting for the PCB’, but ‘designed and documented as an open-hardware candidate, physically verified before certification’.
+The most defensible Gateway certification position is therefore: designed and documented as an open-hardware candidate, physically brought up, firmware-baselined, and only then considered for certification once the release boundary is clean and evidence-backed.
 
 ## References
 
