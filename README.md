@@ -26,7 +26,7 @@ The Gateway architecture is intended to preserve raw vibration windows and their
 
 The design principle is therefore:
 
-```text
+```
 raw vibration windows from the Pod;
 verified window transfer through the UWB subsystem;
 features and later models on the Gateway.
@@ -36,13 +36,13 @@ features and later models on the Gateway.
 
 The product release path is:
 
-```text
+```
 Thin-Pod Gateway rev 0.1
 ```
 
 The PCB already ordered for manufacture may carry the existing board/silkscreen identifier:
 
-```text
+```
 rev 0.1f
 ```
 
@@ -52,7 +52,7 @@ A later `rev 0.3` is reserved for an SMT/chip-down transition, potentially repla
 
 ## Intended Gateway architecture
 
-```text
+```
 Thin-Pod rev 0.1 sensor-node carrier PCB
         ↓  future UWB vibration-window transport
 Qorvo DWM3001-CDK on Thin-Pod Gateway rev 0.1
@@ -72,7 +72,7 @@ The repository now includes two firmware bring-up layers.
 
 The first layer is the Zephyr RTT alive-test baseline:
 
-```text
+```
 firmware/gateway/zephyr\_rtt\_alive/
 firmware/node/zephyr\_rtt\_alive/
 ```
@@ -81,7 +81,7 @@ These applications prove that the Gateway and node DWM3001CDKs can be built for,
 
 The second layer is the staged UWB role harness:
 
-```text
+```
 firmware/common/thinpod\_protocol/
 firmware/gateway/uwb\_initiator/
 firmware/node/uwb\_responder/
@@ -149,7 +149,7 @@ It would not claim the STM32 NUCLEO-N657X0-Q, Qorvo DWM3001-CDK or XIAO ESP32-C6
 
 ## Repository structure
 
-```text
+```
 Thin-Pod-Gateway-rev-0.1/
 ├── README.md
 ├── LICENSE-HARDWARE.md
