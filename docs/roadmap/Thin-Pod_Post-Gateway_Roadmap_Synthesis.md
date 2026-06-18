@@ -1,4 +1,4 @@
-# Thin-Pod Post-Gateway Roadmap: Defensible Network Effects, Modular Architecture and EoL Strategy
+# Thin-Pod Post-Gateway Roadmap: Bounded Claims, Modular Architecture and EoL Strategy
 
 **Date:** 18 June 2026  
 **Status:** Working synthesis  
@@ -6,27 +6,27 @@
 
 ## 1. Purpose
 
-This document synthesises the current Thin-Pod direction after completion of the certified node repository and ongoing Gateway work. It integrates the post-Gateway roadmap, the recent discussion around network effects and rent-like platform dynamics, the Gateway module-substitution / EoL strategy, and the need to keep all claims defensible against overstatement.
+This document synthesises the current Thin-Pod direction after completion of the certified node repository and ongoing Gateway work. It integrates the post-Gateway roadmap, the recent discussion around network effects and rent-like platform dynamics, the Gateway module-substitution / EoL strategy, and the need to keep all claims bounded, evidence-led and reviewable.
 
 The central position is deliberately modest:
 
 **Thin-Pod should become a documented, modular, inspectable open-hardware reference architecture for acquiring, transporting and exposing vibration-window data. It should not claim to be a completed predictive-maintenance product, validated industrial diagnostic system or proprietary platform.**
 
-That distinction matters. The project becomes stronger by being more specific, not more inflated.
+That distinction matters. The project becomes stronger by being more specific, more evidenced and easier to review.
 
-## 2. Defensible summary
+## 2. Bounded technical summary
 
-Thin-Pod’s strongest defensible claim is not that it has solved predictive maintenance. It has not.
+Thin-Pod’s strongest current claim is not that it has solved predictive maintenance. It has not.
 
-The defensible claim is that the project is building a traceable open hardware and firmware path from physical vibration sensing to Gateway-side data exposure, with enough architectural discipline to support later DSP, TinyML, validation and reporting layers.
+The bounded technical claim is that the project is building a traceable open hardware and firmware path from physical vibration sensing to Gateway-side data exposure, with enough architectural discipline to support later DSP, TinyML, validation and reporting layers.
 
 A concise formulation would be:
 
 > Thin-Pod provides open hardware and reference firmware needed to acquire, transport and expose vibration-window data. Downstream DSP, TinyML models and diagnostic interpretations remain deliberately separate user-developed layers above the documented interface.
 
-This framing keeps the project serious while avoiding grandiosity. It also protects the OSHWA certification boundary: hardware can be open, documented and certified without implying that every downstream analytic or diagnostic claim has already been validated.
+This framing keeps the project serious, specific and reviewable. It also protects the OSHWA certification boundary: hardware can be open, documented and certified without implying that every downstream analytic or diagnostic claim has already been validated.
 
-## 3. Grandiosity guardrails
+## 3. Claim discipline
 
 The project should avoid language suggesting that Thin-Pod is already any of the following:
 
@@ -647,8 +647,8 @@ The node establishes the first certified open hardware artefact. The Gateway ext
 
 The most important strategic move is to make the interfaces more durable than the parts. Qorvo CDKs, STM Nucleos, ESP32 modules and specific development boards may change or disappear. A well-documented modular interface can survive them.
 
-The most important rhetorical move is to keep the claims bounded. Thin-Pod does not need inflated language. Its strength lies in the paper trail: open hardware files, OSHWA certification, bring-up evidence, failure records, pin mappings, module-substitution planning, and an evidence-led route toward end-to-end demonstration.
+The most important communication move is to keep the claims bounded. Thin-Pod does not need inflated language. Its strength lies in the paper trail: open hardware files, OSHWA certification, bring-up evidence, failure records, pin mappings, module-substitution planning, and an evidence-led route toward end-to-end demonstration.
 
-That is enough. In fact, it is stronger than grandiosity.
+That is enough. In fact, it is stronger than inflated positioning.
 
 The project should proceed as an open, modular, reviewable evidence chain: not a tollgate, not a finished industrial platform, but a serious reference architecture that becomes more useful every time its interfaces, logs, tests and limitations become clearer.
