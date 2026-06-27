@@ -1,5 +1,7 @@
 # NUCLEO SPI5 Gateway PCB Pin Mapping and Overlay Constraints
 
+This document directly supports Gateway completion checklist Item 2: final verified pin map.
+
 ## Purpose
 
 This note records the grounded Zephyr/device-tree evidence for the Thin-Pod Gateway rev 0.1 manufactured PCB host interface between the STM32 NUCLEO-N657X0-Q and the DWM3001-CDK UWB subsystem.
