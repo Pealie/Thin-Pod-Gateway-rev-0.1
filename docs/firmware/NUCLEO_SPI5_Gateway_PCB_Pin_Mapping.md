@@ -25,6 +25,30 @@ Likely Zephyr board target:
 ```text
 nucleo_n657x0_q
 ```
+## Verification status
+
+Status: Final verification in progress for Gateway rev 0.1.
+
+This document directly supports Gateway completion checklist item 2: final verified pin map.
+
+The pin map in this document is the firmware source of truth for the Thin-Pod Gateway rev 0.1 PCB. It is intended to be verified by continuity checks, powered voltage checks, GPIO probing and minimal SPI5 activity from the Gateway probe firmware.
+
+No new Gateway architecture scope is introduced here.
+
+## Gateway rev 0.1 verified signal map
+
+| Signal | NUCLEO / MCU pin | Gateway net | Connected module pin | Verification method | Status |
+|---|---|---|---|---|---|
+| SPI5_SCK | PE15 | SPI5_SCK | DWM3001-CDK J10.23 | Continuity + SPI probe | TBD |
+| SPI5_MISO | PG1 | SPI5_MISO | DWM3001-CDK J10.21 | Continuity + SPI probe | TBD |
+| SPI5_MOSI | PG2 | SPI5_MOSI | DWM3001-CDK J10.19 | Continuity + SPI probe | TBD |
+| DWM_CS | PA3 | DWM_CS | DWM3001-CDK J10.24 | Continuity + GPIO toggle | TBD |
+| DWM_IRQ | PB9 | DWM_IRQ | DWM3001-CDK J10.15 | Continuity + GPIO read | TBD |
+| DWM_RESET | PD0 | DWM_RESET | DWM3001-CDK J10.12 | Continuity + GPIO toggle | TBD |
+| DWM_5V | NUCLEO 5 V rail | DWM_5V | DWM3001-CDK J10.2 | Powered voltage check | TBD |
+| DWM_GND | Gateway GND | DWM_GND | DWM3001-CDK J10.6 / J10.9 / J10.14 / J10.20 / J10.25 | Continuity check | TBD |
+| C6_3V3 | NUCLEO 3.3 V rail | C6_3V3 | XIAO ESP32-C6 3V3 | Powered voltage check | TBD |
+| C6_GND | Gateway GND | C6_GND | XIAO ESP32-C6 GND | Continuity check | TBD |
 
 ## Manufactured Gateway PCB mapping
 
