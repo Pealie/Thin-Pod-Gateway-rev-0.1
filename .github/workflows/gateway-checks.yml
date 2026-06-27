@@ -1,0 +1,32 @@
+name: Gateway checks
+
+on:
+  push:
+    branches:
+      - main
+      - stage2-uwb-rf-proof
+      - gateway-rev0.1-completion-checklist
+
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  gateway-artifact-check:
+    name: Gateway artifact check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Compile Python scripts
+        run: python -m compileall scripts
+
+      - name: Run Gateway artifact check
+        run: python scripts/check_gateway_release_artifacts.py
