@@ -24,11 +24,11 @@ Initial board bring-up has now established a working Gateway / node firmware-dev
 
 The Thin-Pod Gateway rev 0.1 repository includes photographic evidence of the assembled Gateway PCB and the Gateway in context with the Thin-Pod sensor node. These images provide a visual reference for the current hardware state, including the bench-built Gateway carrier PCB, module placement and the node-to-Gateway hardware relationship.
 
-![Thin-Pod Gateway PCB](images/Thin-Pod%20Gateway%20PCB.JPG)
+<img src="images/Thin-Pod%20Gateway%20PCB.JPG" alt="Thin-Pod Gateway PCB" width="700">
 
 *Thin-Pod Gateway rev 0.1 PCB assembly.*
 
-![Thin-Pod Gateway and Thin-Pod node](images/Thin-Pod%20Gateway%20and%20Thin-Pod%20node.JPG)
+<img src="images/Thin-Pod%20Gateway%20and%20Thin-Pod%20node.JPG" alt="Thin-Pod Gateway and Thin-Pod node" width="700">
 
 *Thin-Pod Gateway shown with the Thin-Pod node hardware.*
 
