@@ -20,6 +20,18 @@ Thin-Pod Gateway rev 0.1 is a carrier-board prototype for a modular vibration-te
 
 Initial board bring-up has now established a working Gateway / node firmware-development baseline using nRF Connect SDK / Zephyr, onboard J-Link OB debug access and SEGGER RTT logging. The repository includes minimal alive-test firmware for both the Gateway and node DWM3001CDKs, plus a Stage-1 UWB responder / initiator harness using a stub transport and shared Thin-Pod packet protocol. Real RF exchange and full vibration-window transfer remain the next verification stages.
 
+## Gateway hardware evidence
+
+The Thin-Pod Gateway rev 0.1 repository includes photographic evidence of the assembled Gateway PCB and the Gateway in context with the Thin-Pod sensor node. These images provide a visual reference for the current hardware state, including the bench-built Gateway carrier PCB, module placement and the node-to-Gateway hardware relationship.
+
+![Thin-Pod Gateway PCB](images/Thin-Pod%20Gateway%20PCB.JPG)
+
+*Thin-Pod Gateway rev 0.1 PCB assembly.*
+
+![Thin-Pod Gateway and Thin-Pod node](images/Thin-Pod%20Gateway%20and%20Thin-Pod%20node.JPG)
+
+*Thin-Pod Gateway shown with the Thin-Pod node hardware.*
+
 ## Measurement-integrity principle
 
 The Gateway architecture is intended to preserve raw vibration windows and their associated metadata before derived features or model outputs are generated. This keeps later DSP and TinyML results traceable to the acquired measurement, node identity, sampling configuration, transport-integrity state and processing version.
