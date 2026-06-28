@@ -1,38 +1,40 @@
-# 88 Engineering Log: Gateway Completion Checklist, Observability Notes and Hardware Evidence
+# 88 Engineering Log: Gateway Completion Checklist, Observability Notes, Hardware Evidence and PR Consolidation
 
 **Date:** 28 June 2026  
 **Repository:** `Pealie/Thin-Pod-Gateway-rev-0.1`  
-**Working branch:** `gateway-rev0.1-completion-checklist`  
-**Scope:** Thin-Pod Gateway rev 0.1 repository completion work, observability evaluation, branch alignment and hardware evidence
+**Final branch state:** `main`  
+**Merged branch:** `gateway-rev0.1-completion-checklist`  
+**Scope:** Thin-Pod Gateway rev 0.1 repository completion work, observability evaluation, hardware evidence, README presentation, engineering-log capture, pull-request merge and branch cleanup
 
 ## Summary
 
-This weekend’s work strengthened the Thin-Pod Gateway rev 0.1 repository as a more complete, reviewable and evidence-backed open-source hardware project. The work was split across two useful modes.
+This weekend’s work strengthened the Thin-Pod Gateway rev 0.1 repository as a more complete, reviewable and evidence-backed open-source hardware project.
 
-The morning work focused on the project’s completion checklist, external observability fit and pull-request hygiene. In particular, the Gateway repository was advanced through documentation around Memfault and nRF Cloud as possible observability, fleet-monitoring and device-telemetry layers. This helped clarify which cloud-style diagnostic ideas are useful for Thin-Pod Gateway, and which should remain out of scope for rev 0.1.
+The morning work focused on the project’s completion-checklist branch, Stage-2 preparation, firmware scaffolding, validation documentation and observability evaluation. Memfault and nRF Cloud were considered as possible diagnostic and fleet-observability layers, while keeping the core Gateway rev 0.1 evidence package modular and not dependent on a proprietary cloud service.
 
-The evening work focused on repository evidence and presentation. Two photographs of the physical Gateway hardware were added to a new `images` folder, committed to `main`, then merged into the active `gateway-rev0.1-completion-checklist` branch. A short README section was also prepared so the images can be referenced directly from the project front page.
+The evening work focused on repository evidence, presentation and consolidation. Two photographs of the physical Gateway hardware were added under `images/`, referenced from `README.md`, and documented in this engineering log. The completion-checklist branch was then opened as Pull Request #2, reviewed at a high level, merged into `main`, pulled locally, and cleaned up by deleting the merged feature branch.
 
-Taken together, the weekend’s work moved the repository closer to a credible Gateway rev 0.1 completion package: not only a set of design files and notes, but a cleaner engineering record with visible hardware evidence, branch alignment and documented observability boundaries.
+Taken together, the work moved the Gateway repository from a set of parallel development notes and branch-local evidence into a cleaner `main` branch containing hardware images, README evidence, firmware scaffolds, validation notes, observability notes, release-checking scripts and a dated engineering log.
 
-## Morning work: completion checklist and observability evaluation
+## Morning work: completion checklist, Stage-2 preparation and observability evaluation
 
 The morning work continued the `gateway-rev0.1-completion-checklist` branch and examined how Memfault and nRF Cloud might fit into the Thin-Pod Gateway project.
 
-The important outcome was architectural clarification rather than immediate implementation. Memfault and nRF Cloud were treated as possible observability and diagnostics layers, not as required dependencies for the first Gateway hardware release. This preserves the modular character of Thin-Pod: the core hardware, firmware, telemetry and evidence path should remain understandable and usable without depending on a specific proprietary cloud service.
+The important outcome was architectural clarification rather than immediate cloud implementation. Memfault and nRF Cloud were treated as possible observability and diagnostics layers, not as required dependencies for the first Gateway hardware release. This preserves the modular character of Thin-Pod: the core hardware, firmware, telemetry and evidence path should remain understandable and usable without depending on a specific proprietary service.
 
 The work helped separate three concerns:
 
 1. **Gateway rev 0.1 completion evidence**  
-   The repository still needs to show clear hardware design files, build evidence, documentation, known limits and release-readiness material.
+   The repository needs to show clear hardware design files, build evidence, documentation, known limits and release-readiness material.
 
-2. **Device and fleet observability**  
-   Memfault-style crash, log, metric and fleet-health concepts are highly relevant to later Gateway development, especially if Thin-Pod moves from bench prototype to deployed sensor network.
+2. **Stage-2 UWB RF proof preparation**  
+   The repository gained firmware scaffolding and notes for the next verification phase, while keeping the real DW3110 driver port, RF exchange and vibration-window transfer clearly marked as future work.
 
-3. **Cloud integration boundaries**  
-   nRF Cloud may be useful in Nordic-centred development and evaluation, but it should not become a hard requirement for interpreting the Gateway repository or validating the open hardware release.
+3. **Device and fleet observability**  
+   Memfault-style crash, log, metric and fleet-health concepts are relevant to later Gateway development, especially if Thin-Pod moves from bench prototype to deployed sensor network.
 
-The work resulted in commits and pull-request notes around Memfault and nRF Cloud evaluation.
+4. **Cloud integration boundaries**  
+   nRF Cloud may be useful in Nordic-centred evaluation, but it should not become a hard requirement for interpreting the Gateway repository or validating the open hardware release.
 
 Relevant recent commits included:
 
@@ -43,6 +45,36 @@ Relevant recent commits included:
 ```
 
 This gave the branch a cleaner evidence trail for why observability was considered, how it relates to the Gateway, and why it remains a bounded future-facing layer rather than an immediate rev 0.1 blocker.
+
+## Repository files consolidated by the completion-checklist branch
+
+The merged completion-checklist work added or consolidated a substantial set of repository files, including:
+
+```text
+.github/workflows/gateway-checks.yml
+.gitignore
+docs/archive/architecture/Gateway_Module_Substitution_and_EOL_Strategy.md
+docs/archive/roadmap/Thin-Pod_Post-Gateway_Roadmap_Synthesis.md
+docs/bringup/Gateway_rev0_1_Hardware_Bringup_Note.md
+docs/firmware/NUCLEO_SPI5_Gateway_PCB_Pin_Mapping.md
+docs/firmware/ThinPod_Gateway_NUCLEO_SPI5_GPIO_Probe_App_Commit_Plan.md
+docs/firmware/UWB_RF_Proof_Stage2.md
+docs/firmware/Zephyr_DW3110_Stage2_RF_Bringup_Plan.md
+docs/observability/Thin-Pod_Memfault_nRFCloud_Evaluation.md
+docs/observability/Thin-Pod_Memfault_nRFCloud_PR_Notes.md
+docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md
+docs/protocol/ThinPod_Gateway_Telemetry_Packet_v1.md
+docs/validation/Gateway_rev0_1_Validation_Log.md
+firmware/gateway/uwb_initiator_stage2_rf/
+firmware/gateway_probe/
+firmware/node/uwb_responder_stage2_rf/
+logs/88_Engineering_Log.md
+samples/telemetry_packet_v1_sample.hex
+scripts/check_gateway_release_artifacts.py
+scripts/gateway_packet_logger.py
+```
+
+This is a meaningful repo consolidation step. It brings architecture, firmware intent, validation, telemetry protocol, observability, release checking and engineering-log evidence into the same mainline history.
 
 ## Evening work: hardware image evidence
 
@@ -57,7 +89,26 @@ images/Thin-Pod Gateway and Thin-Pod node.JPG
 
 The first image records the Gateway PCB as a physical assembled board. The second image places the Gateway in context with the Thin-Pod node, helping show the relationship between the sensor node and Gateway hardware.
 
-This is important because open-source hardware repositories are stronger when they provide visible continuity between design intent, fabricated hardware and system context. The images help demonstrate that Gateway rev 0.1 is not only a schematic or KiCad exercise, but a real bench-built hardware artefact.
+This matters because open-source hardware repositories are stronger when they provide visible continuity between design intent, fabricated hardware and system context. The images help demonstrate that Gateway rev 0.1 is not only a schematic or KiCad exercise, but a real bench-built hardware artefact.
+
+## README hardware evidence section
+
+The README was updated to include a concise `Gateway hardware evidence` section. This section explains the purpose of the photographs and displays the Gateway PCB and Gateway-plus-node images directly from the repository.
+
+The README image rendering was checked in GitHub and refined so that the images display at a controlled width rather than overwhelming the page.
+
+The section now provides a useful front-page evidence path:
+
+```text
+Gateway hardware evidence
+short explanatory paragraph
+Gateway PCB image
+caption
+Gateway and Thin-Pod node image
+caption
+```
+
+This makes the physical build visible to a reviewer, certifier, collaborator or future user arriving at the repository cold.
 
 ## Branch and commit work
 
@@ -77,66 +128,148 @@ Relevant merge commit:
 b54ca01 Merge branch 'main' into gateway-rev0.1-completion-checklist
 ```
 
-The merge added the image files cleanly:
+The image evidence, README changes and this engineering log were then committed on the completion-checklist branch.
+
+Relevant commits included:
 
 ```text
-images/Thin-Pod Gateway PCB.JPG
-images/Thin-Pod Gateway and Thin-Pod node.JPG
+ff56e86 Reference Gateway hardware images in README
+648953e Add engineering log 88 for Gateway weekend work
+768fd7b Reference Gateway hardware images in README
 ```
 
-After the merge, the branch was pushed successfully to GitHub.
+The duplicate README commit message is harmless. It reflects a refinement of the README image presentation after the initial README update.
 
-The final repository checks showed:
+## Pull Request #2
+
+A pull request was opened from:
 
 ```text
-On branch gateway-rev0.1-completion-checklist
-Your branch is up to date with 'origin/gateway-rev0.1-completion-checklist'.
+gateway-rev0.1-completion-checklist
+```
+
+into:
+
+```text
+main
+```
+
+The PR title was:
+
+```text
+Complete Gateway rev 0.1 checklist, RF proof scaffolds and hardware evidence
+```
+
+GitHub showed:
+
+```text
+27 commits
+31 files changed
+All checks have passed
+No conflicts with base branch
+```
+
+The PR was then merged successfully.
+
+Final merge commit on `main`:
+
+```text
+38aacb5 Merge pull request #2 from Pealie/gateway-rev0.1-completion-checklist
+```
+
+This merged the completion-checklist branch into `main`.
+
+## Local main update after merge
+
+After the GitHub merge, the local repository was switched to `main` and updated from GitHub.
+
+Commands used:
+
+```bat
+cd C:\ThinPod\Thin-Pod-Gateway-rev-0.1
+
+git switch main
+git pull origin main
+
+git status
+git log --oneline --decorate -5
+```
+
+The pull fast-forwarded local `main` from:
+
+```text
+b960ddc
+```
+
+to:
+
+```text
+38aacb5
+```
+
+The pull brought in 31 files and 5666 insertions.
+
+The final status confirmed:
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
 
 nothing to commit, working tree clean
 ```
 
-The recent log confirmed the expected branch state:
+The recent log confirmed:
 
 ```text
+38aacb5 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #2 from Pealie/gateway-rev0.1-completion-checklist
+768fd7b Reference Gateway hardware images in README
+648953e Add engineering log 88 for Gateway weekend work
+ff56e86 Reference Gateway hardware images in README
 b54ca01 Merge branch 'main' into gateway-rev0.1-completion-checklist
-b960ddc Add Gateway PCB and node images
-1b64b26 Merge pull request #1 from Pealie/memfault-nrfcloud-evaluation
-87d51ab Add Memfault nRF Cloud PR notes
-696e6c5 Evaluate Memfault nRF Cloud observability fit
 ```
 
-## README image reference section
+## Branch cleanup
 
-A short README section was composed so the new images can be referenced directly from the repository front page.
+After PR #2 was merged into `main` and local `main` was updated successfully, the merged feature branch was deleted locally and remotely.
 
-Suggested heading:
+Commands used:
 
-```md
-## Gateway hardware evidence
+```bat
+git branch -d gateway-rev0.1-completion-checklist
+git push origin --delete gateway-rev0.1-completion-checklist
+git fetch --all --prune
+git branch -a
 ```
 
-Suggested image references:
+The local deletion succeeded:
 
-```md
-![Thin-Pod Gateway PCB](images/Thin-Pod%20Gateway%20PCB.JPG)
-
-![Thin-Pod Gateway and Thin-Pod node](images/Thin-Pod%20Gateway%20and%20Thin-Pod%20node.JPG)
+```text
+Deleted branch gateway-rev0.1-completion-checklist (was 768fd7b).
 ```
 
-A suitable section for `README.md` is:
+The remote deletion succeeded:
 
-```md
-## Gateway hardware evidence
+```text
+- [deleted]         gateway-rev0.1-completion-checklist
+```
 
-The Thin-Pod Gateway rev 0.1 repository includes photographic evidence of the assembled Gateway PCB and the Gateway in context with the Thin-Pod sensor node. These images provide a visual reference for the current hardware state, including the bench-built Gateway carrier PCB, module placement and the node-to-Gateway hardware relationship.
+The remaining branches were:
 
-![Thin-Pod Gateway PCB](images/Thin-Pod%20Gateway%20PCB.JPG)
+```text
+* main
+  stage2-uwb-rf-proof
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/stage2-uwb-rf-proof
+```
 
-*Thin-Pod Gateway rev 0.1 PCB assembly.*
+The final repository check showed:
 
-![Thin-Pod Gateway and Thin-Pod node](images/Thin-Pod%20Gateway%20and%20Thin-Pod%20node.JPG)
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
 
-*Thin-Pod Gateway shown with the Thin-Pod node hardware.*
+nothing to commit, working tree clean
 ```
 
 ## Engineering significance
@@ -145,38 +278,63 @@ The weekend’s work matters because it improves the repository in several pract
 
 First, it gives the Gateway project a stronger public evidence trail. The images show the real hardware and make the repo more immediately understandable to someone arriving cold.
 
-Second, it keeps the completion-checklist branch aligned with `main`. This reduces branch drift and makes future review, merge and release work safer.
+Second, it brings the completion-checklist work into `main`. That matters because the repo’s main branch now contains the documentation, scripts, firmware scaffolds, validation notes, observability notes and hardware evidence needed to support a more coherent release-readiness story.
 
-Third, it documents the observability discussion without allowing it to derail the rev 0.1 release boundary. Memfault and nRF Cloud are useful ideas, but the core Gateway repository still needs to remain modular, open and understandable without cloud lock-in.
+Third, it keeps cloud observability in the right architectural place. Memfault and nRF Cloud are useful ideas, but the core Gateway repository remains modular, open and understandable without cloud lock-in.
 
-Fourth, it improves the project’s OSHWA-readiness. Hardware images, README references, explicit design boundaries, logs and checklist documentation all contribute to a repository that is easier to review as an open-source hardware artefact.
+Fourth, it improves OSHWA-readiness. Hardware images, README references, explicit design boundaries, logs, validation notes, licensing awareness and checklist documentation all contribute to a repository that is easier to review as an open-source hardware artefact.
 
-## Current repository state
+Fifth, it leaves the repository tidy. The merged branch was deleted after successful integration, avoiding unnecessary stale branch clutter while preserving the full commit history through the PR merge.
+
+## Final repository state
 
 At the end of the weekend:
 
-- `main` contains the Gateway hardware images.
-- `gateway-rev0.1-completion-checklist` also contains the Gateway hardware images.
-- The completion-checklist branch is up to date with its remote.
-- The working tree is clean.
-- Memfault and nRF Cloud observability evaluation notes have been merged.
-- A README-ready hardware evidence section has been composed.
-- The repository now has a stronger connection between hardware design, physical build evidence and completion documentation.
+- `main` contains the completion-checklist work.
+- Pull Request #2 has been merged and closed.
+- `logs/88_Engineering_Log.md` is present on `main`.
+- The Gateway hardware images are present under `images/`.
+- `README.md` references the hardware images.
+- The README images render correctly on GitHub.
+- Memfault and nRF Cloud observability evaluation notes are present.
+- Stage-2 UWB RF proof scaffolds are present.
+- Gateway firmware probe scaffolding is present.
+- Validation, telemetry packet and release-checking documentation are present.
+- The local repository is clean.
+- `origin/main` and local `main` are aligned.
+- The merged `gateway-rev0.1-completion-checklist` branch has been deleted locally and remotely.
+- The remaining active development branch is `stage2-uwb-rf-proof`.
 
-## Next steps
+## Remaining active branch
 
-The next practical step is to add the `Gateway hardware evidence` section to `README.md` and confirm that GitHub renders the images correctly.
+The branch list now shows:
 
-After that, the remaining Gateway rev 0.1 work should continue through the completion checklist. Priority items are likely to include:
+```text
+* main
+  stage2-uwb-rf-proof
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/stage2-uwb-rf-proof
+```
 
-1. confirming that all hardware design files are present and clearly named;
-2. checking that documentation describes the Gateway boundary and module roles;
-3. ensuring that licensing is explicit and suitable for open-source hardware;
-4. preserving known limitations and non-goals;
-5. adding any missing bring-up notes or test evidence;
-6. deciding what must be complete before a tagged Gateway rev 0.1 release;
-7. keeping future observability integrations modular and optional.
+This means `main` is the current clean release-facing branch, while `stage2-uwb-rf-proof` remains available for continuing the UWB RF verification path.
+
+## Suggested next steps
+
+The next work should proceed from the now-clean `main` branch state.
+
+Suggested next steps are:
+
+1. Review `main` on GitHub and confirm that the README, images, log and docs render as expected.
+2. Re-check the Gateway OSHWA preparation checklist against the current repository tree.
+3. Decide whether remaining work should continue on `stage2-uwb-rf-proof` or on a new, narrower branch.
+4. Keep the Stage-2 RF proof work clearly separated from the Gateway rev 0.1 release boundary unless it becomes verified evidence.
+5. Continue documenting real hardware bring-up, RF tests, telemetry packet tests and validation results as they occur.
+6. When the Gateway rev 0.1 evidence package is judged complete, prepare a tagged hardware release.
+7. Consider a future release title such as `Thin-Pod Gateway rev 0.1 – Open Hardware Release`.
 
 ## Closing note
 
-This weekend’s work was not dramatic firmware advancement, but it was valuable repository engineering. The Gateway project is now better evidenced, better aligned and easier to understand. That is exactly the sort of quiet structural work that makes a hardware repository more credible when someone later reviews it, forks it, certifies it or builds from it.
+This weekend’s work was valuable repository engineering. It did not claim completion of the full DW3110 driver port, real RF exchange, full vibration-window transfer or production telemetry pipeline. Instead, it made the Gateway repository more coherent, more evidenced and more release-ready.
+
+The Gateway project now has a cleaner main branch, visible hardware evidence, a documented completion trail, validated merge history and an explicit separation between current rev 0.1 evidence and future Stage-2 verification. That is a solid foundation for the next phase.
