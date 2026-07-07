@@ -7,7 +7,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 
-#define SPI5_FREQUENCY_HZ 100000U
+#define SPI5_FREQUENCY_HZ 1000000U
 #define PROBE_SLEEP_MS 1000
 #define RESET_LOW_MS 10
 #define RESET_SETTLE_MS 100
@@ -82,7 +82,9 @@ const struct spi_buf_set rx_set = {
 
 const struct spi_config spi_cfg = {
 .frequency = SPI5_FREQUENCY_HZ,
-.operation = SPI_WORD_SET(8) | SPI_TRANSFER_MSB,
+.operation = SPI_OP_MODE_MASTER |
+     SPI_WORD_SET(8) |
+     SPI_TRANSFER_MSB,
 .slave = 0,
 };
 
