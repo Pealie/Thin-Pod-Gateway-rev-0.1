@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <stdint.h>
+#include <string.h>
 
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
@@ -8,6 +9,7 @@
 #include <zephyr/sys/printk.h>
 
 #define SPI5_FREQUENCY_HZ 1000000U
+#define SPI_PROBE_BYTES 64U
 #define PROBE_SLEEP_MS 1000
 #define RESET_LOW_MS 10
 #define RESET_SETTLE_MS 100
@@ -56,9 +58,15 @@ int main(void)
 int ret;
 int irq_level;
 uint32_t probe = 0U;
+uint32_t i;
 
-uint8_t tx_buf[4] = { 0xAA, 0x55, 0x00, 0xFF };
-uint8_t rx_buf[4] = { 0 };
+static const uint8_t pattern[4] = { 0xAA, 0x55, 0x00, 0xFF };
+static uint8_t tx_buf[SPI_PROBE_BYTES];
+static uint8_t rx_buf[SPI_PROBE_BYTES];
+
+for (i = 0U; i < SPI_PROBE_BYTES; i++) {
+tx_buf[i] = pattern[i % sizeof(pattern)];
+}
 
 const struct spi_buf tx_spi_buf = {
 .buf = tx_buf,
@@ -88,10 +96,11 @@ const struct spi_config spi_cfg = {
 .slave = 0,
 };
 
-printk("\nThin-Pod Gateway rev0.1 NUCLEO SPI5 dummy-transfer probe\n");
+printk("\nThin-Pod Gateway rev0.1 NUCLEO SPI5 stretched dummy-transfer probe\n");
 printk("Board: nucleo_n657x0_q\n");
-printk("Purpose: SPI5 edge/path confirmation only\n");
-printk("Pattern: 0xAA 0x55 0x00 0xFF\n");
+printk("Purpose: SPI5 electrical/path confirmation only\n");
+printk("Pattern: repeated 0xAA 0x55 0x00 0xFF\n");
+printk("Transfer length: %u bytes\n", SPI_PROBE_BYTES);
 printk("No DW3110 register access. No UWB RF.\n\n");
 
 if (!device_is_ready(spi5_dev)) {
@@ -135,10 +144,7 @@ printk("Manual CS is idle high and driven low during SPI transfer\n\n");
 dwm_reset_pulse();
 
 while (1) {
-rx_buf[0] = 0U;
-rx_buf[1] = 0U;
-rx_buf[2] = 0U;
-rx_buf[3] = 0U;
+memset(rx_buf, 0, sizeof(rx_buf));
 
 irq_level = gpio_pin_get_raw(dwm_irq.port, dwm_irq.pin);
 
@@ -150,12 +156,13 @@ ret = spi_transceive(spi5_dev, &spi_cfg, &tx_set, &rx_set);
 k_usleep(CS_HOLD_US);
 gpio_pin_set_raw(dwm_cs.port, dwm_cs.pin, 1);
 
-printk("spi_probe=%u ret=%d irq=%d "
-       "tx=%02x %02x %02x %02x "
-       "rx=%02x %02x %02x %02x\n",
+printk("spi_probe=%u ret=%d irq=%d len=%u "
+       "tx_start=%02x %02x %02x %02x "
+       "rx_start=%02x %02x %02x %02x\n",
        probe,
        ret,
        irq_level,
+       SPI_PROBE_BYTES,
        tx_buf[0], tx_buf[1], tx_buf[2], tx_buf[3],
        rx_buf[0], rx_buf[1], rx_buf[2], rx_buf[3]);
 
