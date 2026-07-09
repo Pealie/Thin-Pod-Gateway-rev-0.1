@@ -59,8 +59,8 @@ static int configure_ready_pin(void)
         return -ENODEV;
     }
 
-    ret = gpio_pin_configure_dt(&host_ready, GPIO_OUTPUT_INACTIVE);
-    printk("pin_config name=HOST_READY port=%s pin=%u mode=output_inactive ret=%d\n",
+    ret = gpio_pin_configure_dt(&host_ready, GPIO_OUTPUT_INACTIVE | GPIO_INPUT);
+    printk("pin_config name=HOST_READY port=%s pin=%u mode=output_input_inactive ret=%d\n",
            host_ready.port->name, (unsigned int)host_ready.pin, ret);
 
     return ret;
@@ -105,19 +105,28 @@ int main(void)
     }
 
     while (1) {
+        int set_ret;
         int ready_level;
         int cs_level;
 
-        gpio_pin_toggle_dt(&host_ready);
+        set_ret = gpio_pin_set_dt(&host_ready, 1);
         ready_level = gpio_pin_get_dt(&host_ready);
         cs_level = gpio_pin_get_dt(&host_cs);
 
-        printk("host_if_stub heartbeat=%u ready=%d cs=%d role=gateway_initiator backend=stub state=pre_spis\n",
-               heartbeat, ready_level, cs_level);
+        printk("host_if_stub heartbeat=%u phase=ready_high set_ret=%d ready=%d cs=%d role=gateway_initiator backend=stub state=pre_spis\n",
+               heartbeat, set_ret, ready_level, cs_level);
+
+        k_msleep(HEARTBEAT_MS);
+
+        set_ret = gpio_pin_set_dt(&host_ready, 0);
+        ready_level = gpio_pin_get_dt(&host_ready);
+        cs_level = gpio_pin_get_dt(&host_cs);
+
+        printk("host_if_stub heartbeat=%u phase=ready_low set_ret=%d ready=%d cs=%d role=gateway_initiator backend=stub state=pre_spis\n",
+               heartbeat, set_ret, ready_level, cs_level);
 
         heartbeat++;
         k_msleep(HEARTBEAT_MS);
     }
-
     return 0;
 }
