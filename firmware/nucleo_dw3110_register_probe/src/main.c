@@ -11,18 +11,22 @@
 
 #define SPI5_FREQUENCY_HZ 1000000U
 
-#define PROBE_SLEEP_MS 1000
+#define PROBE_SLEEP_MS 2000
+#define INTER_VARIANT_SLEEP_MS 200
+
 #define RESET_LOW_MS 10
 #define RESET_SETTLE_MS 500
 
 #define CS_SETUP_US 10
 #define CS_HOLD_US 10
+#define CS_WAKE_US 700
+#define CS_WAKE_SETTLE_MS 2
 
 #define DW3110_DEV_ID_REG 0x00U
 #define DW3110_DEV_ID_LEN 4U
 #define DW3110_EXPECTED_DEV_ID 0xDECA0302U
 
-#define DW_READ_PROBE_LEN 6U
+#define MAX_PROBE_LEN 8U
 
 static const struct device *const spi5_dev = DEVICE_DT_GET(DT_NODELABEL(spi5));
 
@@ -34,6 +38,59 @@ static const struct gpio_dt_spec dwm_cs =
 
 static const struct gpio_dt_spec dwm_irq =
 	GPIO_DT_SPEC_GET(DT_ALIAS(dwm_irq), gpios);
+
+struct dw3110_probe_variant {
+	const char *name;
+	size_t len;
+	size_t nominal_data_offset;
+	uint8_t tx[MAX_PROBE_LEN];
+};
+
+static const struct dw3110_probe_variant probe_variants[] = {
+	/*
+	 * DEV_ID / register 0x00 minimal read.
+	 * One zero header byte, followed by four read clocks.
+	 */
+	{
+		.name = "v0_minimal_1_header_4_read",
+		.len = 5U,
+		.nominal_data_offset = 1U,
+		.tx = { 0x00, 0x00, 0x00, 0x00, 0x00 },
+	},
+
+	/*
+	 * Diagnostic form matching the previous first probe: six zero bytes.
+	 * This also clocks sixteen zero bits at the start of the transfer.
+	 */
+	{
+		.name = "v1_six_zero_clocks",
+		.len = 6U,
+		.nominal_data_offset = 2U,
+		.tx = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+	},
+
+	/*
+	 * Experimental two-byte subaddress-style framing:
+	 * register 0x00, offset 0x00, then four read clocks.
+	 */
+	{
+		.name = "v2_subaddr_2_header_4_read",
+		.len = 6U,
+		.nominal_data_offset = 2U,
+		.tx = { 0x40, 0x00, 0x00, 0x00, 0x00, 0x00 },
+	},
+
+	/*
+	 * Experimental extended three-byte header-style framing:
+	 * register 0x00, extended offset 0x0000, then four read clocks.
+	 */
+	{
+		.name = "v3_ext_3_header_4_read",
+		.len = 7U,
+		.nominal_data_offset = 3U,
+		.tx = { 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+	},
+};
 
 static int check_gpio_ready(const struct gpio_dt_spec *spec, const char *name)
 {
@@ -48,17 +105,46 @@ static int check_gpio_ready(const struct gpio_dt_spec *spec, const char *name)
 	return 0;
 }
 
-static void dwm_reset_pulse(void)
+static int dwm_reset_low_then_release(void)
 {
-	printk("Applying DWM reset pulse on PD0\n");
+	int ret;
+	int reset_level;
+
+	printk("Applying DWM reset pulse on PD0: drive low, then release high-Z\n");
+
+	ret = gpio_pin_configure(dwm_reset.port, dwm_reset.pin, GPIO_OUTPUT);
+	if (ret != 0) {
+		printk("ERROR: failed to configure DWM_RESET / PD0 as output ret=%d\n", ret);
+		return ret;
+	}
 
 	gpio_pin_set_raw(dwm_reset.port, dwm_reset.pin, 0);
 	k_msleep(RESET_LOW_MS);
 
-	gpio_pin_set_raw(dwm_reset.port, dwm_reset.pin, 1);
+	ret = gpio_pin_configure(dwm_reset.port, dwm_reset.pin, GPIO_INPUT);
+	if (ret != 0) {
+		printk("ERROR: failed to release DWM_RESET / PD0 as input ret=%d\n", ret);
+		return ret;
+	}
+
 	k_msleep(RESET_SETTLE_MS);
 
-	printk("DWM reset released\n");
+	reset_level = gpio_pin_get_raw(dwm_reset.port, dwm_reset.pin);
+	printk("DWM reset released high-Z; reset_level=%d\n", reset_level);
+
+	return 0;
+}
+
+static void dwm_cs_wake_pulse(void)
+{
+	printk("Applying CS wake pulse: CS low for %u us\n", CS_WAKE_US);
+
+	gpio_pin_set_raw(dwm_cs.port, dwm_cs.pin, 0);
+	k_usleep(CS_WAKE_US);
+	gpio_pin_set_raw(dwm_cs.port, dwm_cs.pin, 1);
+
+	k_msleep(CS_WAKE_SETTLE_MS);
+	printk("CS wake pulse complete\n");
 }
 
 static void print_bytes(const char *label, const uint8_t *data, size_t len)
@@ -94,17 +180,15 @@ static uint32_t read_be32_at(const uint8_t *data, size_t offset)
 	       ((uint32_t)data[offset + 3U]);
 }
 
-static void print_candidate(const char *name, const uint8_t *rx, size_t len,
-			    size_t offset)
+static int print_candidate(const char *name, const uint8_t *rx, size_t len,
+			   size_t offset, size_t nominal_data_offset)
 {
 	uint32_t le;
 	uint32_t be;
+	int matched = 0;
 
 	if ((offset + DW3110_DEV_ID_LEN) > len) {
-		printk("%s offset=%u unavailable\n",
-		       name,
-		       (unsigned int)offset);
-		return;
+		return 0;
 	}
 
 	le = read_le32_at(rx, offset);
@@ -116,12 +200,18 @@ static void print_candidate(const char *name, const uint8_t *rx, size_t len,
 	       (unsigned int)le,
 	       (unsigned int)be);
 
+	if (offset == nominal_data_offset) {
+		printk(" NOMINAL");
+	}
+
 	if (le == DW3110_EXPECTED_DEV_ID) {
 		printk(" MATCH_LE");
+		matched = 1;
 	}
 
 	if (be == DW3110_EXPECTED_DEV_ID) {
 		printk(" MATCH_BE");
+		matched = 1;
 	}
 
 	if (((le & 0xFFFF0000U) == 0xDECA0000U) ||
@@ -130,24 +220,29 @@ static void print_candidate(const char *name, const uint8_t *rx, size_t len,
 	}
 
 	printk("\n");
+
+	return matched;
 }
 
-static int dw3110_raw_dev_id_probe(uint32_t probe)
+static int dw3110_probe_variant(uint32_t cycle,
+				const struct dw3110_probe_variant *variant)
 {
 	int ret;
 	int irq_level;
+	int match_count = 0;
+	size_t i;
 
-	uint8_t tx[DW_READ_PROBE_LEN] = { 0 };
-	uint8_t rx[DW_READ_PROBE_LEN] = { 0 };
+	uint8_t tx[MAX_PROBE_LEN] = { 0 };
+	uint8_t rx[MAX_PROBE_LEN] = { 0 };
 
-	const struct spi_buf tx_spi_buf = {
+	struct spi_buf tx_spi_buf = {
 		.buf = tx,
-		.len = sizeof(tx),
+		.len = variant->len,
 	};
 
 	struct spi_buf rx_spi_buf = {
 		.buf = rx,
-		.len = sizeof(rx),
+		.len = variant->len,
 	};
 
 	const struct spi_buf_set tx_set = {
@@ -168,18 +263,7 @@ static int dw3110_raw_dev_id_probe(uint32_t probe)
 		.slave = 0,
 	};
 
-	/*
-	 * First bring-up read attempt:
-	 *
-	 * DEV_ID is register 0x00.
-	 * TX byte 0 is the register header/address.
-	 * Remaining bytes clock out the possible 4-byte response.
-	 *
-	 * Candidate parsing checks offset 0, offset 1 and offset 2 so the log
-	 * remains useful even if the first response byte is dummy/alignment data.
-	 */
-	tx[0] = DW3110_DEV_ID_REG;
-
+	memcpy(tx, variant->tx, variant->len);
 	memset(rx, 0, sizeof(rx));
 
 	irq_level = gpio_pin_get_raw(dwm_irq.port, dwm_irq.pin);
@@ -192,27 +276,38 @@ static int dw3110_raw_dev_id_probe(uint32_t probe)
 	k_usleep(CS_HOLD_US);
 	gpio_pin_set_raw(dwm_cs.port, dwm_cs.pin, 1);
 
-	printk("\ndw3110_probe=%u ret=%d irq=%d reg=0x%02x len=%u\n",
-	       probe,
+	printk("\ndw3110_cycle=%u variant=%s ret=%d irq=%d len=%u nominal_data_offset=%u\n",
+	       cycle,
+	       variant->name,
 	       ret,
 	       irq_level,
-	       DW3110_DEV_ID_REG,
-	       (unsigned int)sizeof(tx));
+	       (unsigned int)variant->len,
+	       (unsigned int)variant->nominal_data_offset);
 
-	print_bytes("tx=", tx, sizeof(tx));
-	print_bytes("rx=", rx, sizeof(rx));
+	print_bytes("tx=", tx, variant->len);
+	print_bytes("rx=", rx, variant->len);
 
 	if (ret != 0) {
-		printk("ERROR: SPI transaction failed before register data could be evaluated\n");
+		printk("probe_result=SPI_ERROR ret=%d\n", ret);
 		return ret;
 	}
 
-	print_candidate("candidate", rx, sizeof(rx), 0U);
-	print_candidate("candidate", rx, sizeof(rx), 1U);
-	print_candidate("candidate", rx, sizeof(rx), 2U);
+	for (i = 0U; i <= (variant->len - DW3110_DEV_ID_LEN); i++) {
+		match_count += print_candidate("candidate",
+					       rx,
+					       variant->len,
+					       i,
+					       variant->nominal_data_offset);
+	}
 
 	printk("expected_dw3110_dev_id=0x%08x\n",
 	       (unsigned int)DW3110_EXPECTED_DEV_ID);
+
+	if (match_count > 0) {
+		printk("probe_result=DEV_ID_MATCH match_count=%d\n", match_count);
+	} else {
+		printk("probe_result=SPI_OK_NO_DEV_ID_MATCH\n");
+	}
 
 	return ret;
 }
@@ -220,15 +315,18 @@ static int dw3110_raw_dev_id_probe(uint32_t probe)
 int main(void)
 {
 	int ret;
-	uint32_t probe = 0U;
+	uint32_t cycle = 0U;
+	size_t i;
 
-	printk("\nThin-Pod Gateway rev0.1 NUCLEO DW3110 register-read probe\n");
+	printk("\nThin-Pod Gateway rev0.1 NUCLEO DW3110 register-read probe v2\n");
 	printk("Board: nucleo_n657x0_q\n");
-	printk("Purpose: Gateway-local DW3110 DEV_ID read over verified SPI5 path\n");
+	printk("Purpose: Gateway-local DW3110 DEV_ID read refinement over verified SPI5 path\n");
 	printk("Register: DEV_ID / register 0x00 / length 4 bytes\n");
 	printk("SPI naming: SCK, CS, COPI/MOSI, CIPO/MISO\n");
 	printk("Expected DW3110-class DEV_ID candidate: 0x%08x\n",
 	       (unsigned int)DW3110_EXPECTED_DEV_ID);
+	printk("Reset handling: drive low, then release high-Z\n");
+	printk("CS handling: manual CS low across complete header/read transaction\n");
 	printk("No UWB RF. No ranging. No node-to-Gateway traffic.\n\n");
 
 	if (!device_is_ready(spi5_dev)) {
@@ -251,11 +349,6 @@ int main(void)
 		return 0;
 	}
 
-	if (gpio_pin_configure_dt(&dwm_reset, GPIO_OUTPUT_HIGH) != 0) {
-		printk("ERROR: failed to configure DWM_RESET / PD0\n");
-		return 0;
-	}
-
 	if (gpio_pin_configure_dt(&dwm_cs, GPIO_OUTPUT_HIGH) != 0) {
 		printk("ERROR: failed to configure DWM_CS / PA3\n");
 		return 0;
@@ -267,20 +360,25 @@ int main(void)
 	}
 
 	printk("GPIO configuration complete\n");
-	printk("Manual CS is idle high and driven low during SPI transfer\n\n");
+	printk("Manual CS is idle high and driven low during each complete SPI transfer\n\n");
 
-	dwm_reset_pulse();
+	ret = dwm_reset_low_then_release();
+	if (ret != 0) {
+		printk("ERROR: reset release sequence failed ret=%d\n", ret);
+		return 0;
+	}
+
+	dwm_cs_wake_pulse();
 
 	while (1) {
-		ret = dw3110_raw_dev_id_probe(probe);
+		printk("\n=== DW3110 register-probe cycle %u ===\n", cycle);
 
-		if (ret == 0) {
-			printk("probe_result=SPI_OK\n");
-		} else {
-			printk("probe_result=SPI_ERROR ret=%d\n", ret);
+		for (i = 0U; i < (sizeof(probe_variants) / sizeof(probe_variants[0])); i++) {
+			(void)dw3110_probe_variant(cycle, &probe_variants[i]);
+			k_msleep(INTER_VARIANT_SLEEP_MS);
 		}
 
-		probe++;
+		cycle++;
 		k_msleep(PROBE_SLEEP_MS);
 	}
 
