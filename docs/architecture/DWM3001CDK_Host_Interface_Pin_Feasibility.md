@@ -269,3 +269,54 @@ SPI peripheral / SPIS remains the preferred proof route if the J10 `SPI1_*` and 
 The first implementation should therefore attempt a DWM-side SPI-peripheral stub on the J10 host-interface pins and a NUCLEO-side SPI host probe on the already-proven Gateway SPI5 pins.
 
 If SPIS on those pins is not supported or conflicts with the DWM3001-CDK firmware environment, the fallback route is a UART or GPIO-mailbox proof over exposed J10 GPIO/interface pins.
+---
+
+## 11. Qorvo DWM3001CDK J10-to-DWM3001C pin mapping
+
+The Gateway KiCad schematic confirms the NUCLEO-to-DWM3001-CDK J10 wiring for the intended host-interface route.
+
+The Qorvo DWM3001CDK Quick Start Guide confirms the corresponding J10-to-DWM3001C module pin mapping.
+
+| Gateway TP | Gateway signal | DWM3001-CDK J10 function | DWM3001C module pin | nRF52833 GPIO | Host-interface use |
+|---|---|---|---|---|---|
+| TP10 | SPI5_SCK | J10.23 / SPI1_CLK | Pin 42 | P0.31 | SPI peripheral clock input candidate |
+| TP11 | SPI5_MOSI | J10.19 / SPI1_MOSI | Pin 41 | P0.27 | SPI peripheral COPI/MOSI input candidate |
+| TP12 | SPI5_MISO | J10.21 / SPI1_MISO | Pin 40 | P0.07 | SPI peripheral CIPO/MISO output candidate |
+| TP7 | DWM_CS | J10.24 / CS_RPI | Pin 43 | P0.30 | SPI chip-select input candidate |
+| TP6 | DWM_IRQ | J10.15 / GPIO_RPI | Pin 33 | P0.28 | DWM-to-NUCLEO ready/status notification candidate |
+| TP5 | DWM_RESET | J10.12 / RESET | Pin 47 | P0.18 | Reset / recovery path, not normal data path |
+
+Additional J10 interface pins available for fallback investigation:
+
+| DWM3001-CDK J10 function | DWM3001C module pin | nRF52833 GPIO | Possible use |
+|---|---|---|---|
+| J10.8 / TXD | Pin 32 | P0.15 | UART fallback candidate |
+| J10.10 / RXD_RPI / RXD | Pin 34 | P0.19 | UART fallback candidate |
+| J10.3 / SDA_RPI | Pin 37 | P0.26 | I2C/GPIO fallback candidate |
+| J10.5 / SCL_RPI | Pin 39 | P0.23 | I2C/GPIO fallback candidate |
+
+## 12. Feasibility conclusion after schematic and Qorvo pin-map check
+
+The Gateway rev 0.1 hardware route is now confirmed at both sides of the interface:
+
+```text
+NUCLEO SPI5 / GPIO pins
+    -> Gateway PCB nets and test points
+        -> DWM3001-CDK J10 Raspberry Pi-compatible header
+            -> DWM3001C / nRF52833 GPIO pins
+```
+
+This supports proceeding to a DWM-side SPI-peripheral proof using:
+
+```text
+SPIS SCK  = P0.31
+SPIS MOSI = P0.27
+SPIS MISO = P0.07
+SPIS CS   = P0.30
+IRQ/READY = P0.28
+RESET     = P0.18, controlled externally through J10.12
+```
+
+The next firmware step is to create a DWM3001-CDK host-interface stub overlay that configures the J10 SPI1_* pins as an nRF SPIS endpoint, while preserving the separate onboard nRF-to-DW3110 SPI path.
+
+The implementation remains a proof of the DWM-to-NUCLEO firmware host interface. It is not a direct NUCLEO-to-DW3110 register-control path.
