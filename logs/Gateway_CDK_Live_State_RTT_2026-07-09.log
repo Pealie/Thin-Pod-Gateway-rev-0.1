@@ -1,0 +1,64 @@
+# SEGGER J-Link RTT Viewer V8.52 Terminal Log File
+# Compiled: 12:07:30 on Jul 16 2025
+# Logging started @ 09 Jul 2026 19:23:30
+00> TPGW_POLL seq=11 dst=0x0001
+00> TPGW_PKT seq=11 src=0x0001 dst=0x0000 uptime_ms=10261 valid=0 samples=32 rate=1600 first_mg=29 min_mg=-86 max_mg=91 mean_mg=4 rms_mg=44 checksum=0x34ac6e39
+00> TPGW_POLL seq=12 dst=0x0001
+00> TPGW_PKT seq=12 src=0x0001 dst=0x0000 uptime_ms=11262 valid=0 samples=32 rate=1600 first_mg=36 min_mg=-91 max_mg=86 mean_mg=2 rms_mg=45 checksum=0x1a0ded0f
+00> TPGW_POLL seq=13 dst=0x0001
+00> TPGW_PKT seq=13 src=0x0001 dst=0x0000 uptime_ms=12263 valid=0 samples=32 rate=1600 first_mg=43 min_mg=-86 max_mg=81 mean_mg=0 rms_mg=45 checksum=0xdee22ba4
+00> TPGW_POLL seq=14 dst=0x0001
+00> TPGW_PKT seq=14 src=0x0001 dst=0x0000 uptime_ms=13264 valid=0 samples=32 rate=1600 first_mg=50 min_mg=-91 max_mg=88 mean_mg=3 rms_mg=47 checksum=0x5c846673
+00> TPGW_POLL seq=15 dst=0x0001
+00> TPGW_PKT seq=15 src=0x0001 dst=0x0000 uptime_ms=14265 valid=0 samples=32 rate=1600 first_mg=57 min_mg=-84 max_mg=81 mean_mg=1 rms_mg=44 checksum=0xa33a7925
+00> TPGW_POLL seq=16 dst=0x0001
+00> TPGW_PKT seq=16 src=0x0001 dst=0x0000 uptime_ms=15266 valid=0 samples=32 rate=1600 first_mg=64 min_mg=-91 max_mg=88 mean_mg=0 rms_mg=48 checksum=0x89859017
+00> TPGW_POLL seq=17 dst=0x0001
+00> TPGW_PKT seq=17 src=0x0001 dst=0x0000 uptime_ms=16267 valid=0 samples=32 rate=1600 first_mg=71 min_mg=-84 max_mg=83 mean_mg=2 rms_mg=47 checksum=0x535c427f
+00> TPGW_POLL seq=18 dst=0x0001
+00> TPGW_PKT seq=18 src=0x0001 dst=0x0000 uptime_ms=17268 valid=0 samples=32 rate=1600 first_mg=78 min_mg=-89 max_mg=90 mean_mg=0 rms_mg=51 checksum=0xe5bd5e62
+00> TPGW_POLL seq=19 dst=0x0001
+00> TPGW_PKT seq=19 src=0x0001 dst=0x0000 uptime_ms=18269 valid=0 samples=32 rate=1600 first_mg=85 min_mg=-82 max_mg=85 mean_mg=-1 rms_mg=47 checksum=0x2ea07aea
+00> TPGW_POLL seq=20 dst=0x0001
+00> TPGW_PKT seq=20 src=0x0001 dst=0x0000 uptime_ms=19270 valid=0 samples=32 rate=1600 first_mg=-48 min_mg=-87 max_mg=90 mean_mg=-3 rms_mg=46 checksum=0xedc6ff02
+00> TPGW_POLL seq=21 dst=0x0001
+00> TPGW_PKT seq=21 src=0x0001 dst=0x0000 uptime_ms=20271 valid=0 samples=32 rate=1600 first_mg=-41 min_mg=-92 max_mg=85 mean_mg=-4 rms_mg=46 checksum=0x67e3f48b
+00> *** Booting nRF Connect SDK v3.3.1-1d7a0b0e49b8 ***
+00> *** Using Zephyr OS v4.3.99-37e6c28576ee ***
+00> 
+00> 
+00> Thin-Pod Gateway UWB initiator stage-1
+00> gateway_id=0x0000 role=initiator backend=stub
+00> packet_log_format=TPGW_PKT key=value
+00> TPGW_POLL seq=1 dst=0x0001
+00> TPGW_PKT seq=1 src=0x0001 dst=0x0000 uptime_ms=252 valid=0 samples=32 rate=1600 first_mg=-41 min_mg=-92 max_mg=85 mean_mg=-4 rms_mg=46 checksum=0x1abff43f
+00> TPGW_POLL seq=2 dst=0x0001
+00> TPGW_PKT seq=2 src=0x0001 dst=0x0000 uptime_ms=1253 valid=0 samples=32 rate=1600 first_mg=-34 min_mg=-87 max_mg=80 mean_mg=-6 rms_mg=45 checksum=0x45fc01f0
+00> TPGW_POLL seq=3 dst=0x0001
+00> TPGW_PKT seq=3 src=0x0001 dst=0x0000 uptime_ms=2254 valid=0 samples=32 rate=1600 first_mg=-27 min_mg=-92 max_mg=87 mean_mg=-3 rms_mg=47 checksum=0x0ab9e53d
+00> TPGW_POLL seq=4 dst=0x0001
+00> TPGW_PKT seq=4 src=0x0001 dst=0x0000 uptime_ms=3255 valid=0 samples=32 rate=1600 first_mg=-20 min_mg=-85 max_mg=80 mean_mg=-5 rms_mg=42 checksum=0x58e56b9f
+00> TPGW_POLL seq=5 dst=0x0001
+00> TPGW_PKT seq=5 src=0x0001 dst=0x0000 uptime_ms=4256 valid=0 samples=32 rate=1600 first_mg=-13 min_mg=-90 max_mg=87 mean_mg=-3 rms_mg=44 checksum=0xdce91e83
+00> TPGW_POLL seq=6 dst=0x0001
+00> TPGW_PKT seq=6 src=0x0001 dst=0x0000 uptime_ms=5257 valid=0 samples=32 rate=1600 first_mg=-6 min_mg=-83 max_mg=82 mean_mg=0 rms_mg=42 checksum=0x65efee02
+00> TPGW_POLL seq=7 dst=0x0001
+00> TPGW_PKT seq=7 src=0x0001 dst=0x0000 uptime_ms=6258 valid=0 samples=32 rate=1600 first_mg=1 min_mg=-90 max_mg=89 mean_mg=-2 rms_mg=46 checksum=0x5cf7989b
+00> TPGW_POLL seq=8 dst=0x0001
+00> TPGW_PKT seq=8 src=0x0001 dst=0x0000 uptime_ms=7259 valid=0 samples=32 rate=1600 first_mg=8 min_mg=-83 max_mg=84 mean_mg=0 rms_mg=44 checksum=0x4cc7b889
+00> TPGW_POLL seq=9 dst=0x0001
+00> TPGW_PKT seq=9 src=0x0001 dst=0x0000 uptime_ms=8260 valid=0 samples=32 rate=1600 first_mg=15 min_mg=-88 max_mg=91 mean_mg=3 rms_mg=46 checksum=0x46ec0569
+00> TPGW_POLL seq=10 dst=0x0001
+00> TPGW_PKT seq=10 src=0x0001 dst=0x0000 uptime_ms=9261 valid=0 samples=32 rate=1600 first_mg=22 min_mg=-81 max_mg=84 mean_mg=1 rms_mg=42 checksum=0x65ad238e
+00> TPGW_POLL seq=11 dst=0x0001
+00> TPGW_PKT seq=11 src=0x0001 dst=0x0000 uptime_ms=10261 valid=0 samples=32 rate=1600 first_mg=29 min_mg=-86 max_mg=91 mean_mg=4 rms_mg=44 checksum=0x34ac6e39
+00> TPGW_POLL seq=12 dst=0x0001
+00> TPGW_PKT seq=12 src=0x0001 dst=0x0000 uptime_ms=11262 valid=0 samples=32 rate=1600 first_mg=36 min_mg=-91 max_mg=86 mean_mg=2 rms_mg=45 checksum=0x1a0ded0f
+00> TPGW_POLL seq=13 dst=0x0001
+00> TPGW_PKT seq=13 src=0x0001 dst=0x0000 uptime_ms=12263 valid=0 samples=32 rate=1600 first_mg=43 min_mg=-86 max_mg=81 mean_mg=0 rms_mg=45 checksum=0xdee22ba4
+00> TPGW_POLL seq=14 dst=0x0001
+00> TPGW_PKT seq=14 src=0x0001 dst=0x0000 uptime_ms=13264 valid=0 samples=32 rate=1600 first_mg=50 min_mg=-91 max_mg=88 mean_mg=3 rms_mg=47 checksum=0x5c846673
+00> TPGW_POLL seq=15 dst=0x0001
+00> TPGW_PKT seq=15 src=0x0001 dst=0x0000 uptime_ms=14265 valid=0 samples=32 rate=1600 first_mg=57 min_mg=-84 max_mg=81 mean_mg=1 rms_mg=44 checksum=0xa33a7925
+
+# Logging stopped @ 09 Jul 2026 19:23:47
