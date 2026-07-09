@@ -26,7 +26,7 @@
 #error "Missing devicetree alias tphost-ready"
 #endif
 
-#define HEARTBEAT_MS 500
+#define HEARTBEAT_MS 2000
 
 static const struct gpio_dt_spec host_sck = GPIO_DT_SPEC_GET(DT_ALIAS(tphost_sck), gpios);
 static const struct gpio_dt_spec host_mosi = GPIO_DT_SPEC_GET(DT_ALIAS(tphost_mosi), gpios);
