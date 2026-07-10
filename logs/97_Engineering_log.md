@@ -1,7 +1,7 @@
-# Engineering Log 97 — DWM3001-CDK Host-Interface Boot Stub and TP6 READY Proof
+# Engineering Log 97 — DWM3001-CDK Host-Interface Boot Stub and TP6 READY Timing Correlation
 
-Date: 2026-07-09
-Branch: gateway-dw3110-register-probe
+Date: 2026-07-09  
+Branch: gateway-dw3110-register-probe  
 Repository: Thin-Pod-Gateway-rev-0.1
 
 ## Summary
@@ -10,7 +10,7 @@ This session moved the Gateway rev 0.1 DWM3001-CDK host-interface work from docu
 
 The DWM3001-CDK was treated as the Gateway UWB coprocessor/module. The NUCLEO remained the Gateway supervisor and future SPI host. The work focused on proving that the DWM-side firmware can own the J10 host-interface pins and drive the READY/IRQ path toward the Gateway PCB.
 
-No direct NUCLEO-to-DW3110 register-control claim is made by this log.
+This log makes no direct NUCLEO-to-DW3110 register-control claim.
 
 ## Firmware work completed
 
@@ -23,12 +23,12 @@ firmware/dwm3001cdk_host_interface_stub/
 The application defines and uses the DWM3001-CDK J10 host-interface pin map:
 
 ```text
-SCK candidate        = P0.31 / J10.23 / SPI1_CLK
-MOSI candidate       = P0.27 / J10.19 / SPI1_MOSI
-MISO candidate       = P0.07 / J10.21 / SPI1_MISO
-CS candidate         = P0.30 / J10.24 / CS_RPI
+SCK candidate         = P0.31 / J10.23 / SPI1_CLK
+MOSI candidate        = P0.27 / J10.19 / SPI1_MOSI
+MISO candidate        = P0.07 / J10.21 / SPI1_MISO
+CS candidate          = P0.30 / J10.24 / CS_RPI
 READY / IRQ candidate = P0.28 / J10.15 / GPIO_RPI
-RESET external path  = P0.18 / J10.12 / RESET
+RESET external path   = P0.18 / J10.12 / RESET
 ```
 
 The firmware configures SCK, MOSI, MISO and CS as safe GPIO inputs. READY / P0.28 is configured as an output with input readback enabled.
@@ -77,13 +77,17 @@ RTT evidence file:
 logs/thinpod_gateway_stage8_rtt.log
 ```
 
-## TP6 physical proof
+## TP6 physical timing proof
 
 The READY loop was slowed to make the physical signal easier to observe:
 
 ```text
 HEARTBEAT_MS = 2000
 ```
+
+This produced an intended READY cadence of approximately two seconds high and two seconds low.
+
+Earlier TP6 scope captures showed faster, lower-amplitude activity that did not match the firmware cadence. Those captures are treated as exploratory only.
 
 With the NUCLEO powered as part of the Gateway assembly, TP6 / DWM_IRQ showed slow physical activity on the handheld scope consistent with the slowed READY high/low firmware loop.
 
@@ -103,7 +107,7 @@ DWM-side J10 pin ownership: PASS
 Zephyr overlay and GPIO alias resolution: PASS
 READY / P0.28 set/read firmware proof: PASS
 CS / P0.30 readback high: PASS
-TP6 / DWM_IRQ physical activity: PASS
+TP6 / DWM_IRQ physical activity with Gateway assembly powered: PASS
 TP6 timing correlation with slowed READY loop: PASS
 TP6 final rail-level 0 V to 3.3 V characterisation: PARTIAL
 SPIS receive/respond behaviour: NOT YET STARTED
@@ -120,15 +124,16 @@ The remaining electrical caution is voltage-level characterisation. The present 
 
 ## Boundaries
 
-This log does not claim direct NUCLEO ownership of the DW3110 radio silicon.
+This log makes no direct NUCLEO ownership claim over the DW3110 radio silicon.
 
 This log does not yet claim a completed SPI peripheral transaction or a completed GET_CAPABILITIES response.
 
 ## Next steps
 
 1. Optionally confirm TP6 voltage levels with a multimeter or cleaner scope setup while the 2000 ms loop runs.
-2. Return HEARTBEAT_MS to the desired development value after physical proof is complete.
-3. Add SPIS peripheral configuration on the confirmed J10 SPI pins.
-4. Implement only GET_CAPABILITIES first.
-5. Build the matching NUCLEO-side SPI host probe.
-6. Capture the first DWM-to-NUCLEO command/response proof.
+2. Record `HEARTBEAT_MS = 2000` as a temporary physical-proof setting.
+3. Return `HEARTBEAT_MS` to the desired development value before SPIS transaction work, unless the slower cadence remains useful for measurement.
+4. Add SPIS peripheral configuration on the confirmed J10 SPI pins.
+5. Implement only `GET_CAPABILITIES` first.
+6. Build the matching NUCLEO-side SPI host probe.
+7. Capture the first DWM-to-NUCLEO command/response proof.
