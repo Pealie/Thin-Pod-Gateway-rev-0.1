@@ -1,0 +1,123 @@
+# SEGGER J-Link RTT Viewer V8.52 Terminal Log File
+# Compiled: 12:07:30 on Jul 16 2025
+# Logging started @ 11 Jul 2026 00:12:07
+00> host_if_stub heartbeat=40 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> *** Booting Zephyr OS build v4.4.0-7558-g9a27e2e135af ***
+00> 
+00> Thin-Pod DWM3001-CDK host-interface stub
+00> stage=boot_identity_ready_toggle
+00> board=decawave_dwm3001cdk
+00> role=gateway_initiator backend=stub state=pre_spis
+00> build_date=Jul 10 2026 build_time=22:25:47
+00> j10_pin_map sck=P0.31 mosi=P0.27 miso=P0.07 cs=P0.30 ready=P0.28 reset=P0.18_external
+00> purpose=prove DWM-side firmware owns host-interface pin definitions before SPIS proof
+00> pin_config name=HOST_SCK_P0_31 port=gpio@50000000 pin=31 mode=input ret=0
+00> pin_config name=HOST_MOSI_P0_27 port=gpio@50000000 pin=27 mode=input ret=0
+00> pin_config name=HOST_MISO_P0_07 port=gpio@50000000 pin=7 mode=input ret=0
+00> pin_config name=HOST_CS_P0_30 port=gpio@50000000 pin=30 mode=input ret=0
+00> pin_config name=HOST_READY port=gpio@50000000 pin=28 mode=output_input_inactive ret=0
+00> host_if_stub heartbeat=0 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=0 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=1 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=1 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=2 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=2 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=3 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=3 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=4 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=4 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=5 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=5 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=6 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=6 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=7 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=7 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=8 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=8 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=9 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=9 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=10 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=10 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=11 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=11 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=12 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=12 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=13 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=13 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=14 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=14 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=15 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=15 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=16 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=16 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=17 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=17 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=18 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=18 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=19 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=19 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=20 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=20 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=21 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=21 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=22 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=22 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=23 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=23 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=24 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=24 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=25 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=25 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=26 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=26 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=27 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=27 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=28 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=28 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=29 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=29 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=30 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=30 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=31 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=31 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=32 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=32 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=33 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=33 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=34 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=34 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=35 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=35 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=36 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=36 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=37 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=37 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=38 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=38 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=39 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=39 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=40 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=40 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=41 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=41 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=42 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=42 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=43 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=43 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=44 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=44 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=45 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=45 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=46 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=46 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=47 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=47 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=48 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=48 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=49 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=49 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=50 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=50 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
+00> host_if_stub heartbeat=51 phase=ready_high set_ret=0 ready=1 cs=0 role=gateway_initiator backend=stub state=pre_spis
+
+# Logging stopped @ 11 Jul 2026 00:29:02

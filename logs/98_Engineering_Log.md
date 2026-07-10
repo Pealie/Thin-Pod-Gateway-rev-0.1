@@ -66,7 +66,7 @@ phase=ready_low  set_ret=0 ready=0
 RTT evidence file:
 
 ```text
-logs/RTT TP1 TP6.log
+logs/thinpod_gateway_tp6_ready_after_reflow_rtt_2026-07-11.log
 ```
 
 ## Continuity and isolation checks
