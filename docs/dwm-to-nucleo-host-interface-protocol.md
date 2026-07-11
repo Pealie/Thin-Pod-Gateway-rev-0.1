@@ -3,7 +3,7 @@
 ## Document control
 
 **Document identifier:** TP-GW-PROT-0001
-**Document revision:** Draft A.1
+**Document revision:** Draft A.2
 **Product context:** Thin-Pod Gateway rev 0.1
 **Document status:** Firmware-enabling protocol contract
 **Related architecture:** `docs/architecture/Gateway_UWB_Module_Access_Model.md`
@@ -212,6 +212,34 @@ XorOut:  0x0000
 0x0006 UNKNOWN_OPCODE
 0x0007 NOT_READY
 0x0008 INTERNAL_ERROR
+0x0009 BAD_FLAGS
+```
+
+
+### 6.1 Frozen GET_CAPABILITIES transaction lengths
+
+The first hardware proof uses fixed physical transaction lengths:
+
+```text
+request transaction:   16 bytes
+response transaction:  32 bytes
+```
+
+A successful `GET_CAPABILITIES` response has a 16-byte header and a 16-byte
+payload. An error response has a 16-byte logical frame, sets `payload_len` to
+zero, and zero-fills physical bytes 16 through 31. In both cases the NUCLEO
+clocks exactly 32 response bytes. CRC covers the logical frame length only.
+
+The DWM endpoint must reject:
+
+```text
+unknown protocol versions
+reserved request flags
+non-zero request reserved field
+payload lengths greater than 64
+non-zero GET_CAPABILITIES payload lengths
+invalid CRC values
+unknown opcodes
 ```
 
 ---
@@ -247,19 +275,21 @@ Offset  Size  Field
 12      4     interface_build_id
 ```
 
-Initial values for proof:
+Initial values for this proof:
 
 ```text
-protocol_major:    1
-protocol_minor:    0
-capability_flags:  bit0 = status supported
-                   bit1 = counters supported
-                   bit2 = IRQ supported
-                   bit3 = CRC supported
-max_payload_bytes: 64 for first proof
-max_record_bytes:  4160 reserved target, may be 0 if not implemented
-interface_build_id: implementation-defined constant
+protocol_major:     1
+protocol_minor:     0
+capability_flags:   0x000c
+                    bit2 = IRQ supported
+                    bit3 = CRC supported
+max_payload_bytes:  64
+max_record_bytes:   0
+interface_build_id: 0x00010001
 ```
+
+Status and counters capability bits remain clear until those command handlers
+exist. `max_record_bytes` remains zero until record transfer is implemented.
 
 ### 7.2 GET_STATUS
 
@@ -356,26 +386,30 @@ For the first proof, `poll_count` and `packet_count` may be generated from the e
 
 ---
 
-## 8. Minimal proof acceptance criteria
+## 8. GET_CAPABILITIES proof acceptance criteria
 
-The proof passes when the following are observed in NUCLEO output:
-
-```text
-host_if_probe=GET_CAPABILITIES ret=0 status=OK protocol=1.0 counters=1 crc=1
-host_if_probe=GET_STATUS ret=0 status=OK role=gateway_initiator backend=stub state=ready
-host_if_probe=GET_COUNTERS ret=0 status=OK poll_count=N packet_count=M bad_command_count=0
-```
-
-Additional pass conditions:
+The first proof passes when all of the following are observed:
 
 ```text
-sequence number in each response matches the request
-CRC validates on every received response
-unknown opcode test returns UNKNOWN_OPCODE
-bad CRC test increments bad_command_count or crc_error_count
+request physical length is exactly 16 bytes
+response physical length is exactly 32 bytes
+response sequence matches the outstanding request sequence
+response CRC validates
+10 valid GET_CAPABILITIES exchanges pass in each cold boot
+unknown version returns BAD_VERSION
+reserved flags return BAD_FLAGS
+oversized payload returns BAD_LENGTH
+bad CRC returns BAD_CRC
+unknown opcode returns UNKNOWN_OPCODE
+local valid-CRC sequence-mismatch parser test is rejected
+all static-buffer guard words remain intact
+READY asserts only after the response transfer is armed
+READY returns low after every response transfer
 ```
 
-For the first implementation, the unknown-opcode and bad-CRC tests may be included as a second proof step.
+The hardware acceptance target is three cold power cycles with 30 of 30 valid
+exchanges, zero CRC failures, zero sequence mismatches, zero guard failures and
+zero READY timeouts.
 
 ---
 
@@ -392,7 +426,7 @@ Recommended documentation/evidence additions:
 
 ```text
 docs/dwm-to-nucleo-host-interface-protocol.md
-logs/97_Engineering_Log.md
+logs/99_Engineering_Log.md
 logs/DWM_to_NUCLEO_Host_Interface_Proof_*.log
 ```
 
@@ -470,3 +504,4 @@ The existing `GET_CAPABILITIES`, `GET_STATUS` and `GET_COUNTERS` commands remain
 | Date | Revision | Change |
 |---|---|---|
 | 2026-07-11 | Draft A.1 | Added protocol-security freeze conditions and explicit CRC-versus-authentication boundary |
+| 2026-07-11 | Draft A.2 | Froze GET_CAPABILITIES transaction lengths, BAD_FLAGS status, initial capability values and proof acceptance criteria |
