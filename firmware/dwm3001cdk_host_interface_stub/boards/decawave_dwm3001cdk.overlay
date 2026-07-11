@@ -1,24 +1,9 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
 
 / {
-    thinpod_host_if: thinpod_host_if {
+    thinpod_host_if {
         compatible = "gpio-leds";
-
-        tphost_sck: tphost_sck {
-            gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>;
-        };
-
-        tphost_mosi: tphost_mosi {
-            gpios = <&gpio0 27 GPIO_ACTIVE_HIGH>;
-        };
-
-        tphost_miso: tphost_miso {
-            gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
-        };
-
-        tphost_cs: tphost_cs {
-            gpios = <&gpio0 30 GPIO_ACTIVE_LOW>;
-        };
 
         tphost_ready: tphost_ready {
             gpios = <&gpio0 28 GPIO_ACTIVE_HIGH>;
@@ -26,10 +11,39 @@
     };
 
     aliases {
-        tphost-sck = &tphost_sck;
-        tphost-mosi = &tphost_mosi;
-        tphost-miso = &tphost_miso;
-        tphost-cs = &tphost_cs;
         tphost-ready = &tphost_ready;
     };
+};
+
+&pinctrl {
+    tphip_spis2_default: tphip_spis2_default {
+        group1 {
+            psels = <NRF_PSEL(SPIS_SCK, 0, 31)>,
+                    <NRF_PSEL(SPIS_MOSI, 0, 27)>,
+                    <NRF_PSEL(SPIS_MISO, 0, 7)>,
+                    <NRF_PSEL(SPIS_CSN, 0, 30)>;
+        };
+    };
+
+    tphip_spis2_sleep: tphip_spis2_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIS_SCK, 0, 31)>,
+                    <NRF_PSEL(SPIS_MOSI, 0, 27)>,
+                    <NRF_PSEL(SPIS_MISO, 0, 7)>,
+                    <NRF_PSEL(SPIS_CSN, 0, 30)>;
+            low-power-enable;
+        };
+    };
+};
+
+&spi2 {
+    compatible = "nordic,nrf-spis";
+    status = "okay";
+
+    pinctrl-0 = <&tphip_spis2_default>;
+    pinctrl-1 = <&tphip_spis2_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    def-char = <0xff>;
+    overrun-character = <0xff>;
 };
