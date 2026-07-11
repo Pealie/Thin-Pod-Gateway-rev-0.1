@@ -3,7 +3,7 @@
 # Logging started @ 11 Jul 2026 00:12:07
 00> host_if_stub heartbeat=40 phase=ready_low set_ret=0 ready=0 cs=0 role=gateway_initiator backend=stub state=pre_spis
 00> *** Booting Zephyr OS build v4.4.0-7558-g9a27e2e135af ***
-00> 
+00>
 00> Thin-Pod DWM3001-CDK host-interface stub
 00> stage=boot_identity_ready_toggle
 00> board=decawave_dwm3001cdk

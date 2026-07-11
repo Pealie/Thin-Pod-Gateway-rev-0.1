@@ -1,7 +1,7 @@
 # Engineering Log 98 — TP6 READY Rail-Level Proof After Reflow
 
-Date: 2026-07-11  
-Branch: gateway-dw3110-register-probe  
+Date: 2026-07-11<br>
+Branch: gateway-dw3110-register-probe<br>
 Repository: Thin-Pod-Gateway-rev-0.1
 
 ## Summary

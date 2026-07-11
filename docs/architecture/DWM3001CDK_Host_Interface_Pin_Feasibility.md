@@ -2,13 +2,13 @@
 
 ## Document control
 
-**Document identifier:** TP-GW-ARCH-0004  
-**Document revision:** Draft A  
-**Product context:** Thin-Pod Gateway rev 0.1  
-**Document status:** Pin/interface feasibility investigation  
-**Related documents:**  
-- `docs/architecture/Gateway_UWB_Module_Access_Model.md`  
-- `docs/dwm-to-nucleo-host-interface-protocol.md`  
+**Document identifier:** TP-GW-ARCH-0004<br>
+**Document revision:** Draft A<br>
+**Product context:** Thin-Pod Gateway rev 0.1<br>
+**Document status:** Pin/interface feasibility investigation<br>
+**Related documents:**<br>
+- `docs/architecture/Gateway_UWB_Module_Access_Model.md`<br>
+- `docs/dwm-to-nucleo-host-interface-protocol.md`<br>
 - `logs/96_Engineering_Log.md`
 
 ---

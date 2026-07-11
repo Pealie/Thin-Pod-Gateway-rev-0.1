@@ -25,8 +25,8 @@
 00> TPGW_PKT seq=21 src=0x0001 dst=0x0000 uptime_ms=20271 valid=0 samples=32 rate=1600 first_mg=-41 min_mg=-92 max_mg=85 mean_mg=-4 rms_mg=46 checksum=0x67e3f48b
 00> *** Booting nRF Connect SDK v3.3.1-1d7a0b0e49b8 ***
 00> *** Using Zephyr OS v4.3.99-37e6c28576ee ***
-00> 
-00> 
+00>
+00>
 00> Thin-Pod Gateway UWB initiator stage-1
 00> gateway_id=0x0000 role=initiator backend=stub
 00> packet_log_format=TPGW_PKT key=value

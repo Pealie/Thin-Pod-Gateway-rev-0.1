@@ -2,9 +2,9 @@
 
 ## NUCLEO-N657X0-Q standalone Zephyr bring-up
 
-**Date:** 6 July 2026  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Branch:** `gateway-nucleo-spi5-gpio-probe`  
+**Date:** 6 July 2026<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Branch:** `gateway-nucleo-spi5-gpio-probe`<br>
 **Scope:** Gateway firmware-led bring-up, NUCLEO supervisor validation before Gateway PCB pin-path probing.
 
 ## Summary

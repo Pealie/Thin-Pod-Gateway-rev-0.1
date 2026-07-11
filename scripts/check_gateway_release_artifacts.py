@@ -60,6 +60,13 @@ REQUIRED_CURRENT_FILES = [
     "docs/protocol/ThinPod_Gateway_Telemetry_Packet_v1.md",
     "samples/telemetry_packet_v1_sample.hex",
     "scripts/gateway_packet_logger.py",
+    "docs/architecture/Gateway_UWB_Module_Access_Model.md",
+    "docs/architecture/DWM3001CDK_Host_Interface_Pin_Feasibility.md",
+    "docs/dwm-to-nucleo-host-interface-protocol.md",
+    "SECURITY.md",
+    "docs/security/Thin-Pod_Security_Architecture_and_Threat_Model.md",
+    "docs/security/Thin-Pod_Protocol_Security_Requirements.md",
+    "docs/security/Thin-Pod_Firmware_Assurance_Register.md",
 ]
 
 
@@ -71,7 +78,6 @@ REQUIRED_RELEASE_FILES = [
 
 
 ACTIVE_SCOPE_RISK_PATHS = [
-    "docs/architecture",
     "docs/roadmap",
 ]
 

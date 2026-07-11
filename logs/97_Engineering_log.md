@@ -1,7 +1,7 @@
 # Engineering Log 97 — DWM3001-CDK Host-Interface Boot Stub and TP6 READY Timing Correlation
 
-Date: 2026-07-09  
-Branch: gateway-dw3110-register-probe  
+Date: 2026-07-09<br>
+Branch: gateway-dw3110-register-probe<br>
 Repository: Thin-Pod-Gateway-rev-0.1
 
 ## Summary

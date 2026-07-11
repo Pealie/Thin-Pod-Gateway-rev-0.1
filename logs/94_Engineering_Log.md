@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1: SPI5 Electrical Proof at Gateway/DWM Boundary
 
-**Date:** 8 July 2026  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Branch:** `gateway-nucleo-spi5-gpio-probe`  
+**Date:** 8 July 2026<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Branch:** `gateway-nucleo-spi5-gpio-probe`<br>
 **Scope:** SPI5 electrical signal-path confirmation using 64-byte stretched dummy-transfer probe
 
 ---

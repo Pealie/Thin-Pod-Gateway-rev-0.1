@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1 — Initial DW3110 Register-Read Probe
 
-**Date:** 2026-07-09  
-**Branch:** `gateway-dw3110-register-probe`  
-**Commit:** `8697c5c Add NUCLEO DW3110 register-read probe`  
+**Date:** 2026-07-09<br>
+**Branch:** `gateway-dw3110-register-probe`<br>
+**Commit:** `8697c5c Add NUCLEO DW3110 register-read probe`<br>
 **Repository path:** `C:\ThinPod\Thin-Pod-Gateway-rev-0.1`
 
 ---

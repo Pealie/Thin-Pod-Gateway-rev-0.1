@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1: SPI5 Dummy-Transfer Probe Firmware Proof
 
-**Date:** 7 July 2026  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Branch:** `gateway-nucleo-spi5-gpio-probe`  
+**Date:** 7 July 2026<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Branch:** `gateway-nucleo-spi5-gpio-probe`<br>
 **Scope:** NUCLEO-N657X0-Q SPI5 dummy-transfer firmware bring-up
 
 ---

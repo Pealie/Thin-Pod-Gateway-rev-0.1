@@ -1,10 +1,10 @@
 # 89 Engineering Log - Gateway Branch Consolidation and NUCLEO Probe Direction
 
-**Date:** 2026-06-30  
-**Project:** Thin-Pod Gateway rev 0.1  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Primary branch at end of session:** `gateway-nucleo-spi5-gpio-probe`  
-**Definitive base branch:** `main`  
+**Date:** 2026-06-30<br>
+**Project:** Thin-Pod Gateway rev 0.1<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Primary branch at end of session:** `gateway-nucleo-spi5-gpio-probe`<br>
+**Definitive base branch:** `main`<br>
 
 ## Summary
 

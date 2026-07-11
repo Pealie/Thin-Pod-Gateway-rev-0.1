@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1 — DWM3001-CDK Live State and UWB Module Access Model
 
-**Date:** 2026-07-09  
-**Branch:** `gateway-dw3110-register-probe`  
-**Repository path:** `C:\ThinPod\Thin-Pod-Gateway-rev-0.1`  
+**Date:** 2026-07-09<br>
+**Branch:** `gateway-dw3110-register-probe`<br>
+**Repository path:** `C:\ThinPod\Thin-Pod-Gateway-rev-0.1`<br>
 **Status:** Completed live-state and access-model closeout record
 
 ---

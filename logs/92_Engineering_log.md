@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1: GPIO Signal-Path Confirmation at DWM3001-CDK Header
 
-**Date:** 7 July 2026  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Branch:** `gateway-nucleo-spi5-gpio-probe`  
+**Date:** 7 July 2026<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Branch:** `gateway-nucleo-spi5-gpio-probe`<br>
 **Scope:** Gateway PCB signal-path confirmation for NUCLEO GPIO probe outputs and IRQ input
 
 ---

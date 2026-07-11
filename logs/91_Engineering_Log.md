@@ -2,9 +2,9 @@
 
 ## Thin-Pod Gateway rev 0.1: NUCLEO GPIO Probe Runtime Proof
 
-**Date:** 7 July 2026  
-**Repository:** `Thin-Pod-Gateway-rev-0.1`  
-**Branch:** `gateway-nucleo-spi5-gpio-probe`  
+**Date:** 7 July 2026<br>
+**Repository:** `Thin-Pod-Gateway-rev-0.1`<br>
+**Branch:** `gateway-nucleo-spi5-gpio-probe`<br>
 **Scope:** NUCLEO-N657X0-Q GPIO-only firmware probe for Gateway bring-up
 
 ---
