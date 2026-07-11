@@ -1,14 +1,23 @@
-﻿# NUCLEO DWM Host Interface Probe
+# NUCLEO DWM Host Interface Probe
 
-Runs on the STM32 NUCLEO-N657X0-Q.
+Runs on the STM32 NUCLEO-N657X0-Q and proves the first real host-interface
+exchange with the Gateway DWM3001-CDK.
 
-Purpose:
-- Act as SPI host/controller.
-- Send GET_CAPABILITIES, GET_STATUS and GET_COUNTERS.
-- Validate response status, sequence and CRC.
-- Print host-interface proof lines over serial.
+The application:
 
-Expected first proof lines:
-host_if_probe=GET_CAPABILITIES ret=0 status=OK protocol=1.0 counters=1 crc=1
-host_if_probe=GET_STATUS ret=0 status=OK role=gateway_initiator backend=stub state=ready
-host_if_probe=GET_COUNTERS ret=0 status=OK poll_count=N packet_count=M bad_command_count=0
+- drives SPI5 at 1 MHz, mode 0, MSB first;
+- uses PA3 as manual active-low CS;
+- reads PB9 as DWM READY;
+- optionally resets the DWM through PD0;
+- sends an exactly 16-byte `GET_CAPABILITIES` request;
+- clocks an exactly 32-byte response;
+- checks magic, version, flags, lengths, CRC, status, opcode and sequence;
+- runs ten valid exchanges;
+- checks unknown version, reserved flags, oversized payload, bad CRC and
+  unknown opcode handling;
+- runs a local valid-CRC sequence-mismatch parser self-test;
+- uses fixed static buffers with guard words and no dynamic allocation.
+
+One cold boot runs one complete suite. The hardware acceptance target is three
+cold power cycles, each with ten valid exchanges and zero CRC, sequence, guard
+or READY failures.

@@ -1,0 +1,75 @@
+/*
+ * Thin-Pod Gateway rev 0.1
+ * NUCLEO-N657X0-Q host-interface probe.
+ */
+
+/ {
+    aliases {
+        dwm-reset = &dwm_reset;
+        dwm-cs = &dwm_cs;
+        dwm-ready = &dwm_ready;
+    };
+
+    thinpod_gateway_host_gpios {
+        compatible = "gpio-leds";
+
+        dwm_reset: dwm_reset {
+            gpios = <&gpiod 0 GPIO_ACTIVE_HIGH>;
+            label = "DWM_RESET_PD0";
+        };
+
+        dwm_cs: dwm_cs {
+            gpios = <&gpioa 3 GPIO_ACTIVE_HIGH>;
+            label = "DWM_CS_PA3";
+        };
+
+        dwm_ready: dwm_ready {
+            gpios = <&gpiob 9 GPIO_ACTIVE_HIGH>;
+            label = "DWM_READY_PB9";
+        };
+    };
+};
+
+&pinctrl {
+    spi5_sck_pe15: spi5_sck_pe15 {
+        pinmux = <STM32_PINMUX('E', 15, AF5)>;
+    };
+
+    spi5_miso_pg1: spi5_miso_pg1 {
+        pinmux = <STM32_PINMUX('G', 1, AF5)>;
+    };
+
+    spi5_mosi_pg2: spi5_mosi_pg2 {
+        pinmux = <STM32_PINMUX('G', 2, AF5)>;
+    };
+};
+
+&spi5 {
+    status = "okay";
+    pinctrl-0 = <&spi5_sck_pe15 &spi5_miso_pg1 &spi5_mosi_pg2>;
+    pinctrl-names = "default";
+};
+
+&fdcan1 {
+    status = "disabled";
+};
+
+&gpioa {
+    status = "okay";
+};
+
+&gpiob {
+    status = "okay";
+};
+
+&gpiod {
+    status = "okay";
+};
+
+&gpioe {
+    status = "okay";
+};
+
+&gpiog {
+    status = "okay";
+};
