@@ -1,0 +1,57 @@
+﻿/*
+ * Thin-Pod Gateway rev 0.1
+ * NUCLEO-N657X0-Q GPIO-only pin-path probe.
+ *
+ * Purpose:
+ * - prove NUCLEO control of DWM_RESET and DWM_CS
+ * - prove NUCLEO read path for DWM_IRQ
+ * - do not initialise SPI
+ * - do not attempt DW3110 register access
+ */
+
+/ {
+aliases {
+dwm-reset = &dwm_reset;
+dwm-cs = &dwm_cs;
+dwm-irq = &dwm_irq;
+};
+
+thinpod_gateway_probe_gpios {
+compatible = "gpio-leds";
+
+dwm_reset: dwm_reset {
+gpios = <&gpiod 0 GPIO_ACTIVE_HIGH>;
+label = "DWM_RESET_PD0";
+};
+
+dwm_cs: dwm_cs {
+gpios = <&gpioa 3 GPIO_ACTIVE_HIGH>;
+label = "DWM_CS_PA3";
+};
+
+dwm_irq: dwm_irq {
+gpios = <&gpiob 9 GPIO_ACTIVE_HIGH>;
+label = "DWM_IRQ_PB9";
+};
+};
+};
+
+/*
+ * PD0 is used by the Gateway as DWM_RESET.
+ * Disable FDCAN1 so it cannot claim PD0.
+ */
+&fdcan1 {
+status = "disabled";
+};
+
+&gpioa {
+status = "okay";
+};
+
+&gpiob {
+status = "okay";
+};
+
+&gpiod {
+status = "okay";
+};

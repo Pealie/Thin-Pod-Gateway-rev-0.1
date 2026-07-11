@@ -139,6 +139,33 @@ Telemetry Packet v1 is deliberately narrow. It does not yet define:
 
 Those features may be added in later packet versions.
 
+
+## Security classification and freeze condition
+
+Telemetry Packet v1 is a laboratory parser and transport test vector.
+
+The current fields have the following security meaning:
+
+- `node_id` is an asserted identifier and is not cryptographically verified;
+- `sequence` supports ordering observation but does not provide replay resistance without an authenticated sender, boot epoch and receiver replay state;
+- `crc16` detects accidental corruption and does not provide sender authenticity or resistance to deliberate alteration.
+
+Telemetry Packet v1 must not be described as secure, authenticated, replay-resistant or suitable for external deployment.
+
+A secure successor must use a new packet version and satisfy `docs/security/Thin-Pod_Protocol_Security_Requirements.md`. At minimum, it must bind node identity, boot epoch or session identifier, sequence number, key identifier, acquisition context, payload length and payload to a cryptographic authentication tag. Security fields must not be retrofitted ambiguously into the reserved v1 status bits.
+
+The v1 parser should retain separate future output fields for:
+
+```text
+crc_valid
+authentication_status
+replay_status
+key_id
+boot_epoch
+```
+
+For v1, only `crc_valid` can be populated from the packet. The other fields must remain `not_present` or equivalent.
+
 ## Completion checklist link
 
 This document satisfies:
@@ -157,3 +184,4 @@ It also supports:
 | Date | Change |
 |---|---|
 | 2026-06-27 | Initial Telemetry Packet v1 definition |
+| 2026-07-11 | Added explicit laboratory-only security classification and secure-successor gate |
