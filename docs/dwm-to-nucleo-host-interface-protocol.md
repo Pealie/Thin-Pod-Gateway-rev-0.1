@@ -2,11 +2,11 @@
 
 ## Document control
 
-**Document identifier:** TP-GW-PROT-0001  
-**Document revision:** Draft A  
-**Product context:** Thin-Pod Gateway rev 0.1  
-**Document status:** Firmware-enabling protocol contract  
-**Related architecture:** `docs/architecture/Gateway_UWB_Module_Access_Model.md`  
+**Document identifier:** TP-GW-PROT-0001
+**Document revision:** Draft A.1
+**Product context:** Thin-Pod Gateway rev 0.1
+**Document status:** Firmware-enabling protocol contract
+**Related architecture:** `docs/architecture/Gateway_UWB_Module_Access_Model.md`
 **Certification boundary:** Supports Gateway rev 0.1 open-hardware packaging by documenting the modular DWM3001-CDK-to-NUCLEO interface. It does not claim direct NUCLEO ownership of the DW3110 silicon.
 
 ---
@@ -445,3 +445,28 @@ DWM3001-CDK owns UWB/radio-side behaviour.
 NUCLEO communicates with the DWM subsystem through a defined host interface.
 Gateway PCB supplies the open-hardware modular interconnect layer.
 ```
+---
+
+## 13. Security freeze condition
+
+The Draft A host-interface protocol remains a laboratory bring-up contract.
+
+Its CRC-16/CCITT-FALSE field detects accidental corruption. It does not authenticate the DWM firmware, the originating node or the record payload, and it does not provide replay resistance.
+
+Before this interface is designated suitable for external deployment:
+
+1. the requirements in `docs/security/Thin-Pod_Protocol_Security_Requirements.md` must be allocated to a new protocol revision;
+2. a transferred measurement descriptor must preserve node identity, boot epoch, UWB/application sequence, key identifier, authentication result, replay result, acquisition configuration identity and complete-record length;
+3. control commands that modify state must require an authorised security context;
+4. the parser must reject unknown versions, reserved flags, oversized lengths, invalid state transitions and unmatched request/response sequences;
+5. future status semantics must distinguish `BAD_CRC`, `AUTH_FAILED`, `UNKNOWN_KEY`, `REPLAY_DUPLICATE`, `REPLAY_TOO_OLD` and `STALE_EPOCH`;
+6. deterministic valid and adverse test vectors must be committed;
+7. host-interface fuzzing and recovery tests must pass within fixed memory limits.
+
+The existing `GET_CAPABILITIES`, `GET_STATUS` and `GET_COUNTERS` commands remain valid for the immediate firmware proof. Their success does not establish a secure deployment channel.
+
+## 14. Revision history
+
+| Date | Revision | Change |
+|---|---|---|
+| 2026-07-11 | Draft A.1 | Added protocol-security freeze conditions and explicit CRC-versus-authentication boundary |
