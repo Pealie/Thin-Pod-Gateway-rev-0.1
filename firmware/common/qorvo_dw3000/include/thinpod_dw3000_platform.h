@@ -10,24 +10,21 @@
 extern "C" {
 #endif
 
-/*
- * Build-time integration marker.
- *
- * This function does not access the DW3110. It ensures that the Qorvo
- * compatibility layer, device driver and Thin-Pod Zephyr platform adapter
- * are all linked into the application.
- */
 const char *thinpod_dw3000_driver_version(void);
 
-/*
- * Prepare the Zephyr SPI/GPIO objects.
- *
- * This is intentionally not called by the Stage-2 scaffold applications
- * during the first build-only milestone.
- */
+/* Prepare the Zephyr SPI and GPIO objects. */
 int thinpod_dw3000_platform_prepare(void);
 
-/* Read the physical DW3110 IRQ input. */
+/*
+ * Assert DW3110 RESET low, release it to input mode, and allow the
+ * transceiver to settle.
+ */
+int thinpod_dw3000_reset(void);
+
+/* Return the physical IRQ level, or a negative errno-style result. */
+int thinpod_dw3000_irq_level(void);
+
+/* Convenience Boolean IRQ check. */
 bool thinpod_dw3000_irq_is_active(void);
 
 /* Qorvo probe interface for the DW3000/DW3110 driver family. */

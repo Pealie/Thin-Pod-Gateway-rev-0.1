@@ -108,16 +108,21 @@ int thinpod_dw3000_platform_prepare(void)
     return 0;
 }
 
-bool thinpod_dw3000_irq_is_active(void)
+int thinpod_dw3000_irq_level(void)
 {
-    int value;
+    int rc;
 
-    if (ensure_platform_prepared() != 0) {
-        return false;
+    rc = ensure_platform_prepared();
+    if (rc != 0) {
+        return rc;
     }
 
-    value = gpio_pin_get_dt(&dw3000_irq);
-    return value > 0;
+    return gpio_pin_get_dt(&dw3000_irq);
+}
+
+bool thinpod_dw3000_irq_is_active(void)
+{
+    return thinpod_dw3000_irq_level() > 0;
 }
 
 void port_set_dw_ic_spi_slowrate(void)
@@ -264,20 +269,39 @@ int32_t readfromspi(
         &rx_set) == 0 ? 0 : -1;
 }
 
-void reset_DWIC(void)
+int thinpod_dw3000_reset(void)
 {
-    if (ensure_platform_prepared() != 0) {
-        return;
+    int rc;
+
+    rc = ensure_platform_prepared();
+    if (rc != 0) {
+        return rc;
     }
 
     /*
-     * Assert RESET by driving low, hold it, then release the line by
-     * returning the GPIO to input mode. Never drive RESET high.
+     * RESET is active low. Drive it low for 2 ms, then release the
+     * open-drain-style line by returning the GPIO to input mode.
+     * The line is never actively driven high.
      */
-    (void)gpio_pin_configure_dt(&dw3000_reset, GPIO_OUTPUT_ACTIVE);
-    k_busy_wait(20U);
-    (void)gpio_pin_configure_dt(&dw3000_reset, GPIO_INPUT);
+    rc = gpio_pin_configure_dt(&dw3000_reset, GPIO_OUTPUT_ACTIVE);
+    if (rc != 0) {
+        return rc;
+    }
+
     k_msleep(2);
+
+    rc = gpio_pin_configure_dt(&dw3000_reset, GPIO_INPUT);
+    if (rc != 0) {
+        return rc;
+    }
+
+    k_msleep(2);
+    return 0;
+}
+
+void reset_DWIC(void)
+{
+    (void)thinpod_dw3000_reset();
 }
 
 void wakeup_device_with_io(void)
