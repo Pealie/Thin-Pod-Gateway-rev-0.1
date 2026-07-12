@@ -1,0 +1,78 @@
+# SEGGER J-Link RTT Viewer V9.50 Terminal Log File
+# Compiled: 12:26:04 on Jun 10 2026
+# Logging started @ 12 Jul 2026 18:53:01
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> *** Booting nRF Connect SDK v3.3.1-1d7a0b0e49b8 ***
+00> *** Using Zephyr OS v4.3.99-37e6c28576ee ***
+00> 
+00> 
+00> Thin-Pod Gateway-side DWM3001-CDK DW3110 identity proof
+00> role=gateway role_id=0x0000 proof=identity-initialise-v1
+00> driver=DW3XXX Device Driver Version 08.19.02
+00> 
+00> TPDW_BEGIN role=gateway role_id=0x0000 proof=identity-initialise-v1
+00> TPDW_STAGE role=gateway stage=platform rc=0 result=PASS
+00> TPDW_STAGE role=gateway stage=slow_spi rate_hz=2000000 result=PASS
+00> TPDW_STAGE role=gateway stage=reset rc=0 result=PASS
+00> TPDW_STAGE role=gateway stage=probe rc=0 result=PASS
+00> TPDW_STAGE role=gateway stage=device_id id=0xdeca0302 expected=0xdeca0312 mask=0xffffff0f match=1 result=PASS
+00> TPDW_STAGE role=gateway stage=idle_rc value=1 rc=0 result=PASS
+00> TPDW_STAGE role=gateway stage=initialise rc=0 result=PASS
+00> TPDW_STAGE role=gateway stage=fast_spi rate_hz=8000000 id=0xdeca0302 match=1 stable=1 result=PASS
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+00> TPDW_RESULT role=gateway role_id=0x0000 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=gateway api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=gateway part_id=0x0f34872a lot_hi=0x00005056 lot_lo=0x36583637 otp_revision=1 ref_voltage=119 ref_temperature=124
+00> TPDW_IRQ role=gateway before=1 after=1
+
+# Logging stopped @ 12 Jul 2026 18:53:57

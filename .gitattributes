@@ -20,3 +20,5 @@ CMakeLists.txt text eol=lf
 *.log text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+logs/validation/dw3110-identity-init/*.log -text -diff -whitespace
+logs/validation/dw3110-one-way-rf/*.log -text -diff -whitespace
