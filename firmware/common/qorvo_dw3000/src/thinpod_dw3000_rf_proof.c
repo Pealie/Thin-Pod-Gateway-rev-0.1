@@ -214,7 +214,7 @@ static int wait_for_status(
     start_ms = k_uptime_get_32();
 
     do {
-        current_status = dwt_read32bitreg(SYS_STATUS_ID);
+        current_status = dwt_readsysstatuslo();
 
         if ((current_status & event_mask) != 0U) {
             *status = current_status;
@@ -224,15 +224,13 @@ static int wait_for_status(
         k_busy_wait(THINPOD_RF_STATUS_POLL_US);
     } while ((uint32_t)(k_uptime_get_32() - start_ms) < timeout_ms);
 
-    *status = dwt_read32bitreg(SYS_STATUS_ID);
+    *status = dwt_readsysstatuslo();
     return -ETIMEDOUT;
 }
 
 static void clear_rx_events(void)
 {
-    dwt_write32bitreg(
-        SYS_STATUS_ID,
-        (uint32_t)THINPOD_RF_RX_CLEAR_MASK);
+    dwt_writesysstatuslo((uint32_t)THINPOD_RF_RX_CLEAR_MASK);
 }
 
 int thinpod_dw3000_rf_prepare(
@@ -260,7 +258,7 @@ int thinpod_dw3000_rf_prepare(
 
     dwt_forcetrxoff();
     clear_rx_events();
-    dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
+    dwt_writesysstatuslo(SYS_STATUS_TXFRS_BIT_MASK);
 
     rc = dwt_configure(&thinpod_rf_config);
 
@@ -326,7 +324,7 @@ void thinpod_dw3000_rf_run_transmitter(
         irq_before = thinpod_dw3000_irq_level();
 
         dwt_forcetrxoff();
-        dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
+        dwt_writesysstatuslo(SYS_STATUS_TXFRS_BIT_MASK);
 
         write_rc = dwt_writetxdata(
             THINPOD_RF_PROOF_PAYLOAD_LEN,
@@ -354,9 +352,7 @@ void thinpod_dw3000_rf_run_transmitter(
                ((status & SYS_STATUS_TXFRS_BIT_MASK) != 0U);
 
         if ((status & SYS_STATUS_TXFRS_BIT_MASK) != 0U) {
-            dwt_write32bitreg(
-                SYS_STATUS_ID,
-                SYS_STATUS_TXFRS_BIT_MASK);
+            dwt_writesysstatuslo(SYS_STATUS_TXFRS_BIT_MASK);
         }
 
         irq_after_clear = thinpod_dw3000_irq_level();
@@ -472,8 +468,11 @@ void thinpod_dw3000_rf_run_receiver(
             ((status & SYS_STATUS_RXFCG_BIT_MASK) != 0U)) {
 
             event_name = "good_frame";
-            frame_length = dwt_read32bitreg(RX_FINFO_ID) &
-                           RX_FINFO_RXFLEN_BIT_MASK;
+            {
+                uint8_t ranging = 0U;
+
+                frame_length = dwt_getframelength(&ranging);
+            }
 
             length_valid =
                 (frame_length == THINPOD_RF_PROOF_AIR_LEN);
@@ -526,9 +525,7 @@ void thinpod_dw3000_rf_run_receiver(
                 }
             }
 
-            dwt_write32bitreg(
-                SYS_STATUS_ID,
-                SYS_STATUS_RXFCG_BIT_MASK);
+            dwt_writesysstatuslo(SYS_STATUS_RXFCG_BIT_MASK);
 
             if (payload_valid && sequence_valid) {
                 suite_valid++;
@@ -568,7 +565,6 @@ void thinpod_dw3000_rf_run_receiver(
             ((status & (SYS_STATUS_ALL_RX_TO |
                         SYS_STATUS_ALL_RX_ERR)) != 0U)) {
             dwt_forcetrxoff();
-            dwt_rxreset();
         }
 
         irq_after_clear = thinpod_dw3000_irq_level();
