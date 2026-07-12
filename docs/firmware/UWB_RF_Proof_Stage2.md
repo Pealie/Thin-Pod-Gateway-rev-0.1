@@ -1,5 +1,11 @@
 \# UWB RF Proof Stage 2
 
+> **Current gated milestone, 12 July 2026:** the first physical RF proof is a
+> bounded one-way frame exchange from the Gateway DWM3001-CDK to the Node
+> DWM3001-CDK. The return path, ranging and vibration-window transport remain
+> later milestones. The implementation procedure is recorded in
+> `DW3110_One_Way_RF_Exchange_Procedure.md`.
+
 
 
 This document tracks the Stage-2 Thin-Pod UWB RF proof for the Gateway and node DWM3001-CDK firmware.
