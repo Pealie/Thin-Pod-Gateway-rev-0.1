@@ -189,6 +189,19 @@ static int send_response(void)
         return ret;
     }
 
+    /*
+     * Supported bring-up diagnostic: confirm that the asserted READY output
+     * is also sensed at the expected physical logic level.
+     */
+    k_busy_wait(10);
+    {
+        int ready_physical = gpio_pin_get_dt(&host_ready);
+
+        printk("tphip_dwm ready_set_ret=%d ready_physical=%d\n",
+               ret,
+               ready_physical);
+    }
+
     printk("tphip_dwm ready=1 response_armed len=%u\n",
            TPHIP_RESPONSE_TRANSACTION_LEN);
 
@@ -233,7 +246,11 @@ int main(void)
         return -ENODEV;
     }
 
-    ret = gpio_pin_configure_dt(&host_ready, GPIO_OUTPUT_INACTIVE);
+    /*
+     * Input sensing is enabled solely to read back the READY level driven by
+     * this bring-up endpoint. Protocol flow does not depend on the readback.
+     */
+    ret = gpio_pin_configure_dt(&host_ready, GPIO_INPUT | GPIO_OUTPUT_INACTIVE);
     if (ret != 0) {
         printk("ERROR: HOST_READY configure ret=%d\n", ret);
         return ret;

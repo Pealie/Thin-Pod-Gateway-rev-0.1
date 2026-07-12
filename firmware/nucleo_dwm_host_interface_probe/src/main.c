@@ -262,6 +262,23 @@ static int exchange_request(
         return ret;
     }
 
+    print_bytes(
+        "response_after_clock=",
+        response_rx.bytes,
+        sizeof(response_rx.bytes));
+
+    validation = tphip_validate_response(
+        response_rx.bytes,
+        sizeof(response_rx.bytes),
+        expected_response_opcode,
+        expected_sequence,
+        &response);
+
+    printk("response_after_clock test=%s validation=%s ready=%d\n",
+           test_name,
+           tphip_validation_name(validation),
+           gpio_pin_get_raw(dwm_ready.port, dwm_ready.pin));
+
     ret = wait_ready_level(0, READY_TIMEOUT_MS);
     if (ret != 0) {
         printk("test=%s result=FAIL phase=ready_low ret=%d\n", test_name, ret);
