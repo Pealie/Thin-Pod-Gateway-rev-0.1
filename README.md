@@ -2,8 +2,8 @@
 
 **Open-hardware Gateway carrier PCB for receiving, supervising and forwarding Thin-Pod vibration-window data**
 
-**Development status:** PCB assembled and initial bring-up completed. Gateway and node DWM3001CDK Zephyr / J-Link / SEGGER RTT baselines have been verified. Stage-1 UWB responder / initiator firmware harness, Gateway packet logging and vibration-window ingestion scaffolding have been added. Real DW3110 RF exchange, NUCLEO host-interface transfer, ADXL1005 vibration-window transport and DSP / TinyML remain verification milestones rather than completed rev 0.1 claims.  
-**Certification status:** Candidate for a later, separate OSHWA self-certification application. No Gateway OSHWA application has yet been submitted.  
+**Development status:** PCB assembled and initial bring-up completed. Gateway and node DWM3001CDK Zephyr / J-Link / SEGGER RTT baselines have been verified. Stage-1 UWB responder / initiator firmware harness, Gateway packet logging and vibration-window ingestion scaffolding have been added. The NUCLEO-to-DWM TPHIP host-interface transfer has been verified across the manufactured carrier. Real DW3110 RF exchange, ADXL1005 vibration-window transport and DSP / TinyML remain verification milestones rather than completed rev 0.1 claims.
+**Certification status:** Candidate for a later, separate OSHWA self-certification application. No Gateway OSHWA application has yet been submitted.
 **Related certified-item boundary:** `Thin-Pod rev 0.1` covers the OSHWA-certified sensor-node carrier PCB only, UID `UK000091`. This Gateway is a separate hardware artefact and does not alter the certified node boundary.
 
 ## Overview
@@ -14,11 +14,11 @@ Thin-Pod Gateway rev 0.1 is a carrier-board prototype intended to connect three 
 * a **Qorvo DWM3001-CDK** as the Gateway-side UWB development module; and
 * a **Seeed Studio XIAO ESP32-C6** as an optional onward-networking subsystem.
 
-The design provides the physical interconnect, candidate host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory.
+The design provides the physical interconnect, verified host-interface route, separate control signals, local decoupling, power distribution and test access required to evaluate a future vibration-window data path from a Thin-Pod node to Gateway-host memory.
 
 Thin-Pod Gateway rev 0.1 is a carrier-board prototype for a modular vibration-telemetry architecture. The Qorvo DWM3001-CDK is intended to operate as a UWB communications subsystem, receiving and validating framed vibration windows before presenting complete records to the STM32 NUCLEO-N657X0-Q through a firmware-defined host interface. The NUCLEO is intended to act as the analytic supervisor for buffering, DSP and later TinyML evaluation. The XIAO ESP32-C6 is optional onward-networking hardware and is outside the measurement-critical path.
 
-Initial board bring-up has now established a working Gateway / node firmware-development baseline using nRF Connect SDK / Zephyr, onboard J-Link OB debug access and SEGGER RTT logging. The repository includes minimal alive-test firmware for both the Gateway and node DWM3001CDKs, plus a Stage-1 UWB responder / initiator harness using a stub transport and shared Thin-Pod packet protocol. Real RF exchange and full vibration-window transfer remain the next verification stages.
+Initial board bring-up has now established a working Gateway / node firmware-development baseline using nRF Connect SDK / Zephyr, onboard J-Link OB debug access and SEGGER RTT logging. The repository includes minimal alive-test firmware for both the Gateway and node DWM3001CDKs, plus a Stage-1 UWB responder / initiator harness using a stub transport and shared Thin-Pod packet protocol. The NUCLEO-to-DWM TPHIP GET_CAPABILITIES exchange is now verified; real RF exchange and full vibration-window transfer remain the next verification stages.
 
 ## Gateway hardware evidence
 
@@ -68,7 +68,7 @@ A later `rev 0.3` is reserved for an SMT/chip-down transition, potentially repla
 Thin-Pod rev 0.1 sensor-node carrier PCB
         ↓  future UWB vibration-window transport
 Qorvo DWM3001-CDK on Thin-Pod Gateway rev 0.1
-        ↓  host-interface route to be proven
+        ↓  verified TPHIP host-interface route
 STM32 NUCLEO-N657X0-Q
         ↓
 buffer capture / logging / future DSP and TinyML

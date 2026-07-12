@@ -1,6 +1,6 @@
 # 99 Engineering Log
 
-**Date:** 11â€“12 July 2026
+**Date:** 11–12 July 2026
 **Repository:** `Pealie/Thin-Pod-Gateway-rev-0.1`
 **Branch:** `gateway-dwm-spis-get-capabilities`
 **Scope:** Completion of the PoE-powered NUCLEO-to-DWM TPHIP `GET_CAPABILITIES` physical host-interface proof
@@ -36,7 +36,7 @@ The TPHIP SPIS endpoint was restored and rebuilt with the supported READY readba
 | Main host | STM32 NUCLEO-N657X0-Q |
 | UWB subsystem | Qorvo DWM3001-CDK |
 | Power | PoE splitter into NUCLEO USB-C sink/user connector |
-| NUCLEO selector | Pins 3â€“4, `5V_USB_SNK` |
+| NUCLEO selector | Pins 3–4, `5V_USB_SNK` |
 | DWM power | Gateway carrier 5 V path to DWM J10.2 |
 | NUCLEO console | ST-LINK virtual COM port, 115200 8N1 |
 | Host bus | SPI5, mode 0, 1 MHz, MSB first |
@@ -161,17 +161,17 @@ The completed proof covers:
 
 ```text
 NUCLEO SPI5 SCK / COPI / CS
-    â†’
+    →
 Gateway carrier routing and test access
-    â†’
+    →
 DWM3001-CDK SPIS request reception
-    â†’
+    →
 TPHIP request validation and response construction
-    â†’
+    →
 DWM READY assertion and CIPO response transfer
-    â†’
+    →
 Gateway carrier READY / CIPO routing
-    â†’
+    →
 NUCLEO response reception, CRC validation and decoding
 ```
 
