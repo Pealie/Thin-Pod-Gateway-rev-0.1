@@ -1,176 +1,145 @@
-\# Thin-Pod Gateway rev 0.1 Hardware Bring-Up Note
+# Thin-Pod Gateway rev 0.1 Hardware Bring-Up Note
 
-
-
-\## Purpose
-
-
+## Purpose
 
 This note records stable hardware bring-up evidence for the Thin-Pod Gateway rev 0.1 PCB.
 
-
-
-This document directly supports Gateway completion checklist item 1: stable hardware bring-up note.
-
-
+It supports Gateway completion checklist item 1, the stable hardware bring-up note, and provides supporting evidence for the validation log and OSHWA preparation.
 
 No new Gateway architecture scope is introduced here.
 
-
-
-\## Board under test
-
-
+## Board under test
 
 | Item | Detail |
-
 |---|---|
-
 | Project | Thin-Pod Gateway |
-
 | Hardware revision | rev 0.1 |
-
-| PCB | Thin-Pod Gateway rev 0.1 Gateway PCB |
-
+| Physical fabrication identifier | rev 0.1f where present on the PCB |
 | Main controller | STM32 NUCLEO-N657X0-Q |
-
-| UWB module | DWM3001-CDK |
-
+| UWB module | Qorvo DWM3001-CDK |
 | Wi-Fi / auxiliary module | Seeed XIAO ESP32-C6 |
+| Power source | PoE splitter into NUCLEO USB-C sink/user input |
+| NUCLEO power selector | Pins 3–4, `5V_USB_SNK` |
+| Test state | Populated bench bring-up |
+| Validation date | 12 July 2026 |
 
-| Power source | NUCLEO powered from PoE splitter |
+## Bring-up objective
 
-| Test state | Bench bring-up |
+The bring-up objective is to confirm that the manufactured Gateway PCB:
 
+- accepts the intended PoE-derived 5 V supply arrangement;
+- distributes power to the attached development modules;
+- provides a stable common ground;
+- releases the DWM reset input correctly;
+- carries the DWM READY signal at valid rail levels;
+- supports a complete bidirectional NUCLEO-to-DWM host-interface exchange;
+- operates without temporary jumper wiring after solder-joint correction.
 
+## Assembly issues discovered and corrected
 
-\## Bring-up objective
+### DWM ground return
 
+Initial bring-up found unreliable DWM power unless a temporary jumper was fitted between the CDK battery-ground connection and Gateway ground.
 
+The issue was associated with the fitted DWM header ground path, including a marginal connection around J10.25. Reflow restored stable common ground, and the temporary jumper was removed.
 
-The objective of this bring-up stage is to confirm that the manufactured Gateway PCB powers the attached development modules correctly and no longer requires a temporary jumper workaround for the DWM3001-CDK ground return.
+### DWM RESET connection
 
+During TPHIP host-interface validation, DWM J10.12 RESET measured approximately 2 V when released under PoE-only operation. This level was insufficiently close to the 3.3 V logic rail and coincided with invalid READY levels of approximately 0.5 V to 0.8 V.
 
+The J10.12 solder connection was reflowed. The released RESET level then measured approximately 3.3 V.
 
-Required evidence:
+A subsequent static READY diagnostic produced clean alternating levels at:
 
+```text
+DWM J10.15    approximately 0 V / 3.3 V
+Gateway TP6   approximately 0 V / 3.3 V
+NUCLEO PB9    approximately 0 V / 3.3 V
+```
 
-
-\- NUCLEO powers normally from the PoE splitter.
-
-\- Gateway PCB distributes power to the DWM3001-CDK.
-
-\- Gateway PCB distributes 3.3 V power to the XIAO ESP32-C6.
-
-\- Gateway ground continuity is verified.
-
-\- DWM3001-CDK ground return is stable.
-
-\- No jumper wire is required between the CDK J1 negative pin and the ground post after reflow/repair.
-
-\- No unexpected heating, brownout, reset loop, smoke, or unstable power behaviour is observed.
-
-
-
-\## Known issue discovered during bring-up
-
-
-
-During initial bring-up, the DWM3001-CDK did not power reliably from the Gateway PCB unless an additional jumper was fitted between the CDK J1 negative pin and the ground post.
-
-
-
-Further probing indicated that the issue was associated with the CDK ground return, specifically around CDK pin 25 / ground continuity.
-
-
-
-The issue was resolved by reflowing the relevant CDK ground connection. After reflow, the DWM3001-CDK powered from the Gateway PCB without the temporary jumper ground.
-
-
-
-\## Power checks
-
-
+## Power checks
 
 | Test point / location | Expected | Observed | Result |
-
 |---|---:|---:|---|
+| NUCLEO CN3.6 to TP1 | approximately 5 V | approximately 5 V | PASS |
+| DWM J10.2 to TP1 | approximately 5 V | approximately 5 V | PASS |
+| NUCLEO CN3.16 to TP1 | approximately 3.3 V | approximately 3.3 V | PASS |
+| DWM J10.12 RESET to TP1 after reflow | approximately 3.3 V | approximately 3.3 V | PASS |
+| Gateway ground to DWM ground pins | continuity | continuity confirmed | PASS |
+| Gateway ground to XIAO ground | continuity | continuity confirmed | PASS |
 
-| TP1 / TP2, DWM ground to DWM 5 V | \~5 V | TBD | TBD |
+The XIAO is outside the measurement-critical path. Its full onward-networking function remains deferred.
 
-| TP3 / TP4, C6 ground to C6 3.3 V | \~3.3 V | TBD | TBD |
+## Host-interface checks
 
-| DWM3001-CDK J10.2 to Gateway ground | \~5 V | TBD | TBD |
+| Check | Expected | Observed | Result |
+|---|---|---|---|
+| READY low level at J10.15, TP6 and PB9 | approximately 0 V | approximately 0 V | PASS |
+| READY high level at J10.15, TP6 and PB9 | approximately 3.3 V | approximately 3.3 V | PASS |
+| Ten valid `GET_CAPABILITIES` exchanges | all pass | all pass | PASS |
+| Unknown version | `BAD_VERSION` | `BAD_VERSION` | PASS |
+| Reserved flags | `BAD_FLAGS` | `BAD_FLAGS` | PASS |
+| Oversized payload | `BAD_LENGTH` | `BAD_LENGTH` | PASS |
+| Bad CRC | `BAD_CRC` | `BAD_CRC` | PASS |
+| Unknown opcode | `UNKNOWN_OPCODE` | `UNKNOWN_OPCODE` | PASS |
+| Buffer guards | intact | `guard=OK` | PASS |
+| Suite summary | 16 passes, 0 failures | 16 passes, 0 failures | PASS |
+| Three PoE power-cycle procedures | suite passes after each cycle | confirmed | PASS |
 
-| XIAO ESP32-C6 3V3 to GND | \~3.3 V | TBD | TBD |
-
-| Gateway ground to CDK ground pins | Continuity | TBD | TBD |
-
-| Gateway ground to XIAO ground | Continuity | TBD | TBD |
-
-
-
-\## Functional observations
-
-
+## Functional observations
 
 | Observation | Expected | Observed | Result |
-
 |---|---|---|---|
+| NUCLEO powers from PoE splitter | normal boot | normal boot | PASS |
+| DWM powers from Gateway PCB | powers without jumper | confirmed | PASS |
+| DWM firmware executes after PoE power-up | stable execution | confirmed | PASS |
+| DWM red LED diagnostic behaviour | firmware-dependent activity | flashing observed during static diagnostic | PASS |
+| READY returns low after response | low idle state | confirmed | PASS |
+| NUCLEO host remains in idle loop after suite | stable PASS state | confirmed | PASS |
+| Unexpected heating | absent | none observed | PASS |
+| Brownout or repeated reset loop | absent | none observed after J10.12 repair | PASS |
 
-| NUCLEO powers from PoE splitter | Board powers normally | TBD | TBD |
+## Stable bring-up conclusion
 
-| DWM3001-CDK powers from Gateway PCB | CDK powers without jumper workaround | TBD | TBD |
+The Thin-Pod Gateway rev 0.1 carrier board has completed stable PoE-powered bring-up for the NUCLEO and Gateway DWM3001-CDK.
 
-| XIAO ESP32-C6 powers from Gateway PCB | C6 powers normally | TBD | TBD |
+The board distributes the required power rails, provides stable ground continuity and supports valid RESET, READY and bidirectional SPI paths. Following reflow of the marginal DWM J10.12 RESET joint, the released RESET level reached approximately 3.3 V and READY reached valid 0 V and 3.3 V levels across DWM J10.15, Gateway TP6 and NUCLEO PB9.
 
-| CDK red LED behaviour | Stable expected module behaviour | TBD | TBD |
+The TPHIP `GET_CAPABILITIES` suite completed with:
 
-| C6 amber LED behaviour | Stable expected module behaviour | TBD | TBD |
+```text
+suite=GET_CAPABILITIES passes=16 failures=0 guard=OK result=PASS
+```
 
-| Thermal behaviour | No unusual heating | TBD | TBD |
+Three PoE power-cycle procedures produced successful power-up suites and fully captured passing reruns after NUCLEO reset.
 
-| Reset / brownout behaviour | No repeated reset loop | TBD | TBD |
+The NUCLEO-to-DWM host-interface and physical carrier pin-path milestone is closed.
 
+## Remaining verification boundary
 
+Pending work includes:
 
-\## Stable bring-up conclusion
+- real DWM-to-DWM DW3110 UWB RF exchange;
+- node-to-Gateway vibration-window transport;
+- Gateway buffering, DSP and TinyML evaluation;
+- optional XIAO onward-networking validation;
+- later production-security and regulatory work.
 
-
-
-TBD.
-
-
-
-\## Completion checklist link
-
-
+## Completion checklist link
 
 This document satisfies:
 
+- Item 1: stable hardware bring-up note.
 
+It provides supporting evidence for:
 
-\- Item 1: stable hardware bring-up note
+- Item 3: minimal SPI/GPIO and host-interface probe;
+- Item 7: validation log;
+- Item 10: OSHWA certification preparation.
 
-
-
-It also provides supporting evidence for:
-
-
-
-\- Item 7: validation log
-
-\- Item 10: OSHWA certification preparation
-
-
-
-\## Revision history
-
-
+## Revision history
 
 | Date | Change |
-
 |---|---|
-
 | 2026-06-27 | Initial bring-up note created |
-
+| 2026-07-12 | Replaced provisional entries with measured PoE, RESET, READY and complete TPHIP host-interface evidence |

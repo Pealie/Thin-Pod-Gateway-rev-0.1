@@ -1,156 +1,234 @@
 # 99 Engineering Log
 
-**Date:** 11 July 2026  
+**Date:** 11–12 July 2026  
 **Repository:** `Pealie/Thin-Pod-Gateway-rev-0.1`  
 **Branch:** `gateway-dwm-spis-get-capabilities`  
-**Scope:** Gateway power-path investigation and TPHIP READY-line diagnostics
+**Scope:** Completion of the PoE-powered NUCLEO-to-DWM TPHIP `GET_CAPABILITIES` physical host-interface proof
 
 ## Session summary
 
-Today’s work substantially narrowed the remaining TPHIP host-interface fault.
+The Thin-Pod Gateway rev 0.1 NUCLEO-to-DWM host interface has completed its first repeatable bidirectional physical protocol proof.
 
-The DWM3001-CDK and NUCLEO-N657X0-Q were powered independently through their own USB connections. Under this arrangement, the DWM endpoint repeatedly received valid 16-byte `GET_CAPABILITIES` requests from the NUCLEO, validated them correctly, and constructed the expected 32-byte responses. Normal requests and deliberately malformed requests produced the expected protocol status values, with guard checks remaining intact.
-
-The physical request path is therefore established across:
-
-- NUCLEO SPI5 clock;
-- NUCLEO COPI/MOSI to DWM;
-- chip select;
-- DWM request parsing and CRC validation;
-- DWM response construction.
-
-The response phase remained out of synchronisation. The DWM consistently reported:
+The investigation began with a deterministic two-transaction phase slip. The DWM3001-CDK received valid 16-byte requests and constructed valid 32-byte responses, although the NUCLEO did not recognise the READY assertion reliably. Each following 16-byte request then clocked only half of the pending response, producing:
 
 ```text
 response_callback_result=16
 response_complete ret=-122
 ```
 
-The DWM was armed for a 32-byte response, while only 16 clocks arrived. The request sequence observed by the DWM was `1, 3, 5, 7, 9, 1001, 1003, 1005`, showing that each intervening request was being consumed as a short response transaction. This establishes a repeatable two-transaction phase slip centred on the READY handshake.
+The failure was traced through the RESET and READY hardware paths. A marginal solder connection at DWM J10.12 held the DWM RESET net at approximately 2 V under PoE-only power. Reflowing J10.12 restored the released RESET level to approximately 3.3 V.
 
-## READY diagnostic firmware
-
-A temporary DWM diagnostic was added to:
+A temporary static READY-toggle diagnostic then demonstrated valid rail-level signalling at every accessible point on the physical READY route:
 
 ```text
-firmware/dwm3001cdk_host_interface_stub/src/main.c
+DWM J10.15    approximately 0 V / 3.3 V
+Gateway TP6   approximately 0 V / 3.3 V
+NUCLEO PB9    approximately 0 V / 3.3 V
 ```
 
-The READY GPIO was configured for output with input sensing enabled, and the physical GPIO state was read back immediately after READY was asserted.
+The TPHIP SPIS endpoint was restored and rebuilt with the supported READY readback diagnostic retained. The existing NUCLEO host-interface probe was retained with its complete hexadecimal response dump. The resulting tested source therefore matches the diagnostic behaviour present in the captured validation evidence.
 
-The diagnostic firmware built successfully with:
+## Hardware configuration
+
+| Item | Test configuration |
+|---|---|
+| Gateway carrier | Thin-Pod Gateway rev 0.1 physical fabrication build |
+| Main host | STM32 NUCLEO-N657X0-Q |
+| UWB subsystem | Qorvo DWM3001-CDK |
+| Power | PoE splitter into NUCLEO USB-C sink/user connector |
+| NUCLEO selector | Pins 3–4, `5V_USB_SNK` |
+| DWM power | Gateway carrier 5 V path to DWM J10.2 |
+| NUCLEO console | ST-LINK virtual COM port, 115200 8N1 |
+| Host bus | SPI5, mode 0, 1 MHz, MSB first |
+| Request length | 16 bytes |
+| Response length | 32 bytes |
+
+## Corrective action
+
+The DWM J10.12 RESET solder connection was reflowed with flux and minimal fresh solder.
+
+Before corrective action:
 
 ```text
-FLASH: 32264 B
-RAM:    7488 B
+DWM J10.12 RESET to TP1: approximately 2.0 V
+READY path: approximately 0.5 V to 0.8 V during attempted assertion
 ```
 
-Generated artefact hashes:
+After corrective action:
 
 ```text
-zephyr.elf
-SHA-256 7C97E0FB4519EC9583D8682B740EFB98348CBBD15329B37626D1E63701FBDF0E
-
-merged.hex
-SHA-256 235F109A3D7E01337A4EEC97599A83EB29A73323EC8036B874A7AA2BD5B81E60
+DWM J10.12 RESET to TP1: approximately 3.3 V
+DWM J10.15 READY:        approximately 0 V / 3.3 V
+Gateway TP6 READY:       approximately 0 V / 3.3 V
+NUCLEO PB9 READY:        approximately 0 V / 3.3 V
 ```
 
-The image was flashed successfully through J-Link probe `760203854`.
+The observed change establishes the J10.12 joint as the principal physical cause of the marginal DWM start-up and invalid READY levels.
 
-Across every response attempt, the DWM reported:
+## Supported diagnostic source retained
+
+Two diagnostic changes are retained as supported behaviour in the rev 0.1 bring-up applications.
+
+### DWM READY output readback
+
+The DWM READY pin remains configured with input sensing enabled while operating as an output. Input sensing is used solely to read back the physical logic level driven by the endpoint for bring-up observability.
+
+The endpoint reports:
 
 ```text
-ready_set_ret=0 ready_physical=1
+tphip_dwm ready_set_ret=<return value> ready_physical=<0 or 1>
 ```
 
-This shows that the nRF52833 successfully commanded P0.28 high and sensed the pin as logically high at the processor.
+Protocol flow does not depend on this readback value.
 
-## Electrical investigation
+### NUCLEO complete response dump
 
-A loose resistor used earlier in the session was confirmed as approximately 10 kΩ. Resistance checks found no hard short between the principal power or READY nets:
+The NUCLEO host-interface probe retains the complete 32-byte hexadecimal response dump:
 
 ```text
-TP2 to TP1:                 approximately 2.9 kΩ to 4.4 kΩ
-NUCLEO CN3.06 to GND:       approximately 0.96 MΩ
-TP6 to TP1:                 open circuit
-TP6 to TP2:                 open circuit
+response_after_clock=54 50 47 57 ...
 ```
 
-The 10 kΩ resistor itself therefore did not create a sustained short or damage the READY route. It remains removed.
+This output permits direct comparison between captured physical responses and the frozen TPHIP test vectors. The application is a validation probe, so this detailed output forms part of its intended observability.
 
-The externally measured READY voltages initially appeared contradictory, including negative readings when DWM J10.9 was used as the ground reference. Subsequent inspection identified DWM J10.9 as a dry joint. Those negative READY readings are consequently invalid because the meter reference was floating.
+## TPHIP validation result
 
-The READY route from DWM J10.15 through TP6 to NUCLEO PB9 showed matching measured behaviour, while the firmware’s internal P0.28 readback remained high. The dry J10.9 ground joint now provides the most direct explanation for the contradictory voltage measurements.
+Each complete suite contains:
 
-## Power-path status
+- one local valid-CRC sequence-mismatch parser self-test;
+- ten valid `GET_CAPABILITIES` exchanges with sequences 1 through 10;
+- one unknown-version test;
+- one reserved-flags test;
+- one oversized-payload test;
+- one bad-CRC test;
+- one unknown-opcode test.
 
-The shared Gateway 5 V path remains a separate unresolved issue.
-
-Observed evidence included:
+The ten valid exchanges returned:
 
 ```text
-TP1 to TP2:                 effectively 0 V under PoE
-NUCLEO input from PoE:      0 V
-NUCLEO CN3.06 from PoE:     0 V
-NUCLEO CN3.06 from mains USB:
-                              unstable, approximately 2.9 V to 4.4 V
+status=OK
+crc=OK
+protocol=1.0
+flags=0x000c
+max_payload=64
+max_record=0
+build_id=0x00010001
+guard=OK
+result=PASS
 ```
 
-Resistance checks did not indicate a hard short. The DWM and NUCLEO remain operational when powered independently through USB. The PoE-derived and carrier-distributed 5 V route requires a separate continuity and solder-joint investigation after the READY reference fault is corrected.
+The adverse requests returned the required statuses:
 
-## Current evidence boundary
+| Test | Required status | Observed status |
+|---|---|---|
+| Unknown version | `BAD_VERSION` | `BAD_VERSION` |
+| Reserved flags | `BAD_FLAGS` | `BAD_FLAGS` |
+| Oversized payload | `BAD_LENGTH` | `BAD_LENGTH` |
+| Bad request CRC | `BAD_CRC` | `BAD_CRC` |
+| Unknown opcode | `UNKNOWN_OPCODE` | `UNKNOWN_OPCODE` |
+
+Every fully captured suite concluded:
+
+```text
+suite=GET_CAPABILITIES passes=16 failures=0 guard=OK result=PASS
+```
+
+## Repeatability evidence
+
+Three independent PoE power-cycle procedures were completed.
+
+PuTTY could attach only after the boards were powered. Each power-cycle log therefore begins with repeated:
+
+```text
+host_if_probe idle ready=0 suite_result=PASS
+```
+
+This records that the power-up suite had completed successfully before console capture began. A manual NUCLEO reset was then applied, and each log captured a second complete suite from boot banner through final PASS.
+
+| Evidence record | Power-up state | Fully captured rerun |
+|---|---|---|
+| `nucleo_putty_sun2.log` | `suite_result=PASS` visible on attachment | 16 passes, 0 failures |
+| `nucleo_putty_sun3.log` | `suite_result=PASS` visible on attachment | 16 passes, 0 failures |
+| `nucleo_putty_sun4.log` | `suite_result=PASS` visible on attachment | 16 passes, 0 failures |
+
+An earlier complete passing record is also present in `nucleo_putty_sun1.log`.
+
+The evidence supports three successful PoE power-up executions and three fully captured NUCLEO-reset reruns with identical protocol results.
+
+## Physical path established
+
+The completed proof covers:
+
+```text
+NUCLEO SPI5 SCK / COPI / CS
+    →
+Gateway carrier routing and test access
+    →
+DWM3001-CDK SPIS request reception
+    →
+TPHIP request validation and response construction
+    →
+DWM READY assertion and CIPO response transfer
+    →
+Gateway carrier READY / CIPO routing
+    →
+NUCLEO response reception, CRC validation and decoding
+```
+
+The following carrier routes are now physically exercised:
+
+| Function | NUCLEO | DWM3001-CDK | Gateway test point |
+|---|---|---|---|
+| SCK | PE15 | J10.23 / P0.31 | TP10 |
+| COPI / MOSI | PG2 | J10.19 / P0.27 | TP11 |
+| CIPO / MISO | PG1 | J10.21 / P0.07 | TP12 |
+| CS | PA3 | J10.24 / P0.30 | TP7 |
+| READY | PB9 | J10.15 / P0.28 | TP6 |
+| RESET | PD0 | J10.12 / P0.18 | TP5 |
+
+## Milestone conclusion
+
+The PoE-powered Thin-Pod Gateway has completed three independent power-cycle validations of the NUCLEO-to-DWM TPHIP `GET_CAPABILITIES` interface.
+
+Each validation demonstrated:
+
+- stable DWM RESET release at approximately 3.3 V;
+- valid READY low and high rail levels across J10.15, TP6 and PB9;
+- ten consecutive valid bidirectional SPI exchanges;
+- complete 32-byte CIPO responses;
+- request and response CRC validation;
+- sequence correlation;
+- expected adverse-request handling;
+- intact request and response buffer guards;
+- zero suite failures.
+
+The NUCLEO host-interface and physical pin-path confirmation milestone is closed.
+
+## Evidence boundary
 
 Established:
 
-- DWM and NUCLEO firmware both boot.
-- NUCLEO sends valid 16-byte requests across the physical SPI path.
-- DWM validates normal and adverse requests correctly.
-- DWM constructs the expected responses.
-- DWM P0.28 is commanded high and reads back high internally.
-- The response transfer remains truncated to 16 bytes because the NUCLEO does not progress into a valid 32-byte response read.
-- DWM J10.9 has been identified as a dry ground joint.
+- PoE power reaches the NUCLEO and DWM through the intended Gateway arrangement.
+- The DWM RESET path releases correctly after J10.12 reflow.
+- READY is physically valid from DWM P0.28 through J10.15 and TP6 to NUCLEO PB9.
+- The NUCLEO sends valid 16-byte requests over the physical SPI path.
+- The DWM validates requests and constructs the expected responses.
+- The DWM returns complete 32-byte responses over CIPO.
+- The NUCLEO validates magic, version, flags, lengths, opcode, sequence, status and CRC.
+- All normal and adverse host-interface tests pass.
+- Three PoE power-up executions and three fully captured reruns pass.
 
 Pending:
 
-- reflow and verification of DWM J10.9;
-- valid external READY voltage measurement;
-- NUCLEO detection of READY at PB9;
-- a complete 32-byte DWM-to-NUCLEO response transfer;
-- `response_callback_result=32`;
-- `response_complete ret=0`;
-- restoration and verification of the shared 5 V power path;
-- repeated cold-start confirmation.
+- real DWM-to-DWM DW3110 UWB RF exchange;
+- node-to-Gateway vibration-window transport;
+- Gateway buffering, DSP and later TinyML validation;
+- any later production security, secure-boot or regulatory claims.
 
-No RF, production-security, secure-boot or full Gateway host-interface completion claim is made from today’s work.
+## Next Gateway milestone
 
-## Next action
+The next gated Gateway activity is:
 
-At the next bench session:
+> Real DWM3001-CDK to DWM3001-CDK UWB RF proof using the staged node responder and Gateway initiator roles.
 
-1. Disconnect all power sources.
-2. Reflow DWM J10.9 with flux and minimal fresh solder.
-3. Inspect adjacent J10 joints for bridges.
-4. Confirm low-resistance continuity from J10.9 to TP1 and NUCLEO ground.
-5. Power the DWM and NUCLEO independently through USB.
-6. Run the existing diagnostic until READY remains asserted.
-7. Measure READY at DWM J10.15, TP6 and NUCLEO PB9 using the repaired ground reference.
-8. Confirm that all three points reach approximately 3.3 V.
-9. Re-run the TPHIP suite and look for:
-
-```text
-response_callback_result=32
-response_complete ret=0
-```
-
-10. Preserve the temporary firmware changes uncommitted until the diagnostic result is resolved and recorded.
-
-## Worktree state
-
-Two temporary diagnostic source changes remain intentionally uncommitted:
-
-```text
-firmware/dwm3001cdk_host_interface_stub/src/main.c
-firmware/nucleo_dwm_host_interface_probe/src/main.c
-```
-
-The engineering log should be committed independently so that these diagnostic changes remain available for the next bench session without being folded into the documentation commit.
+No RF, vibration-transport, DSP, TinyML, production-security or regulatory claim is made from the completed host-interface proof.
