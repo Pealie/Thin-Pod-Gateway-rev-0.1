@@ -67,6 +67,13 @@ REQUIRED_CURRENT_FILES = [
     "docs/security/Thin-Pod_Security_Architecture_and_Threat_Model.md",
     "docs/security/Thin-Pod_Protocol_Security_Requirements.md",
     "docs/security/Thin-Pod_Firmware_Assurance_Register.md",
+    "firmware/common/tphip/tphip.h",
+    "firmware/common/tphip/tphip.c",
+    "firmware/dwm3001cdk_host_interface_stub/src/main.c",
+    "firmware/nucleo_dwm_host_interface_probe/src/main.c",
+    "samples/tphip_get_capabilities_request_v1.hex",
+    "samples/tphip_get_capabilities_response_v1.hex",
+    "scripts/check_tphip_vectors.py",
 ]
 
 
@@ -91,6 +98,7 @@ EXPECTED_ARCHIVE_FILES = [
 PYTHON_FILES_TO_COMPILE = [
     "scripts/gateway_packet_logger.py",
     "scripts/check_gateway_release_artifacts.py",
+    "scripts/check_tphip_vectors.py",
 ]
 
 
@@ -320,6 +328,34 @@ def run_parser_against_sample(root: Path, result: CheckResult) -> None:
         result.warn(f"parser produced stderr output: {completed.stderr.strip()}")
 
 
+def run_tphip_vector_check(root: Path, result: CheckResult) -> None:
+    script = root / "scripts/check_tphip_vectors.py"
+
+    if not script.is_file():
+        result.fail("TPHIP vector checker missing")
+        return
+
+    completed = subprocess.run(
+        [sys.executable, str(script)],
+        cwd=str(root),
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    if completed.returncode != 0:
+        result.fail(
+            "TPHIP vector checker returned non-zero exit code "
+            f"{completed.returncode}: {completed.stdout.strip()} {completed.stderr.strip()}"
+        )
+        return
+
+    if "TPHIP golden vectors passed." in completed.stdout:
+        result.pass_("TPHIP GET_CAPABILITIES golden vectors passed")
+    else:
+        result.fail("TPHIP vector checker output missing success marker")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Check Thin-Pod Gateway rev 0.1 completion artefacts."
@@ -386,6 +422,7 @@ def main() -> int:
 
     check_sample_packet(root, result)
     run_parser_against_sample(root, result)
+    run_tphip_vector_check(root, result)
     print()
 
     check_files_exist(root, REQUIRED_RELEASE_FILES, result, required=args.release)

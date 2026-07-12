@@ -1,0 +1,76 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.07.12 11:23:46 =~=~=~=~=~=~=~=~=~=~=~=
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+*** Booting Zephyr OS build v4.4.0-7558-g9a27e2e135af ***
+
+Thin-Pod NUCLEO DWM TPHIP GET_CAPABILITIES probe
+board=nucleo_n657x0_q spi=SPI5 frequency=1000000 mode=0
+request_len=16 response_len=32 valid_exchanges=10
+pin_map sck=PE15 copi=PG2 cipo=PG1 cs=PA3 ready=PB9 reset=PD0
+gpio_ready name=DWM_RESET controller=gpio@56020c00 pin=0
+gpio_ready name=DWM_CS controller=gpio@56020000 pin=3
+gpio_ready name=DWM_READY controller=gpio@56020400 pin=9
+self_test=sequence_mismatch expected=BAD_SEQUENCE actual=BAD_SEQUENCE result=PASS
+dwm_reset phase=drive_low duration_ms=10
+dwm_reset phase=released_high_z settle_ms=1000
+response_after_clock=54 50 47 57 01 10 81 01 01 00 00 00 10 00 2d fe 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=1 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 02 00 00 00 10 00 28 a7 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=2 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 03 00 00 00 10 00 2b 90 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=3 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 04 00 00 00 10 00 22 15 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=4 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 05 00 00 00 10 00 21 22 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=5 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 06 00 00 00 10 00 24 7b 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=6 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 07 00 00 00 10 00 27 4c 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=7 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 08 00 00 00 10 00 17 61 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=8 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 09 00 00 00 10 00 14 56 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=9 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 01 0a 00 00 00 10 00 11 0f 01 00 0c 00 40 00 00 00 00 00 00 00 01 00 01 00
+response_after_clock test=valid_get_capabilities validation=OK ready=0
+host_if_probe=GET_CAPABILITIES sequence=10 status=OK crc=OK protocol=1.0 flags=0x000c max_payload=64 max_record=0 build_id=0x00010001 guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 03 e9 03 03 00 00 00 83 33 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+response_after_clock test=unknown_version validation=OK ready=0
+test=unknown_version expected=BAD_VERSION actual=BAD_VERSION sequence=1001 crc=OK guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 03 ea 03 09 00 00 00 f4 7d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+response_after_clock test=reserved_flags validation=OK ready=0
+test=reserved_flags expected=BAD_FLAGS actual=BAD_FLAGS sequence=1002 crc=OK guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 03 eb 03 04 00 00 00 64 74 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+response_after_clock test=oversized_payload validation=OK ready=0
+test=oversized_payload expected=BAD_LENGTH actual=BAD_LENGTH sequence=1003 crc=OK guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 81 03 ec 03 05 00 00 00 dc f6 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+response_after_clock test=bad_crc validation=OK ready=0
+test=bad_crc expected=BAD_CRC actual=BAD_CRC sequence=1004 crc=OK guard=OK result=PASS
+response_after_clock=54 50 47 57 01 10 ff 03 ed 03 06 00 00 00 9a 99 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+response_after_clock test=unknown_opcode validation=OK ready=0
+test=unknown_opcode expected=UNKNOWN_OPCODE actual=UNKNOWN_OPCODE sequence=1005 crc=OK guard=OK result=PASS
+suite=GET_CAPABILITIES passes=16 failures=0 guard=OK result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
+host_if_probe idle ready=0 suite_result=PASS
