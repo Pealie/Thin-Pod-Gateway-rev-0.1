@@ -1,9 +1,9 @@
 # TPHIP GET_CAPABILITIES Physical Validation
 
-**Project:** Thin-Pod Gateway rev 0.1  
-**Validation date:** 12 July 2026  
-**Interface:** STM32 NUCLEO-N657X0-Q to Gateway DWM3001-CDK  
-**Protocol:** Thin-Pod Host Interface Protocol, `GET_CAPABILITIES` proof  
+**Project:** Thin-Pod Gateway rev 0.1
+**Validation date:** 12 July 2026
+**Interface:** STM32 NUCLEO-N657X0-Q to Gateway DWM3001-CDK
+**Protocol:** Thin-Pod Host Interface Protocol, `GET_CAPABILITIES` proof
 **Result:** PASS
 
 ## Purpose
@@ -20,7 +20,7 @@ The validation concerns the carrier-board power, RESET, READY, SPI and test-acce
 | Host | STM32 NUCLEO-N657X0-Q |
 | Peripheral subsystem | Qorvo DWM3001-CDK |
 | Power source | PoE splitter through NUCLEO USB-C sink/user input |
-| NUCLEO power selector | 3–4, `5V_USB_SNK` |
+| NUCLEO power selector | 3â€“4, `5V_USB_SNK` |
 | Host serial output | ST-LINK virtual COM port, 115200 8N1 |
 
 ## Interface mapping
