@@ -1,6 +1,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include "thinpod_protocol.h"
+#include "thinpod_dw3000_platform.h"
 
 static void log_gateway_packet(const thinpod_vibration_window_t *window)
 {
@@ -21,6 +22,8 @@ int main(void)
 
     printk("\n\nThin-Pod Gateway UWB initiator stage-1\n");
     printk("gateway_id=0x%04x role=initiator backend=stub\n", THINPOD_GATEWAY_ID);
+    printk("dw3110_driver=linked version=%s access=deferred\n",
+           thinpod_dw3000_driver_version());
     printk("packet_log_format=TPGW_PKT key=value\n");
 
     while (1) {

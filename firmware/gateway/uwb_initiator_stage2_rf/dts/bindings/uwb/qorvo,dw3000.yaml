@@ -1,0 +1,6 @@
+description: |
+  Qorvo DW3000 and DW3110 ultra-wideband transceiver.
+
+compatible: "qorvo,dw3000"
+
+include: spi-device.yaml

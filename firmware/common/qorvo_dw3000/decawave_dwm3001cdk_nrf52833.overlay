@@ -1,0 +1,23 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    zephyr,user {
+        /*
+         * Internal DWM3001-CDK nRF52833-to-DW3110 connections.
+         */
+        dw3000-reset-gpios = <&gpio0 25 GPIO_ACTIVE_LOW>;
+        dw3000-irq-gpios   = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+        dw3000-cs-gpios    = <&gpio1 6 GPIO_ACTIVE_LOW>;
+    };
+};
+
+&spi3 {
+    status = "okay";
+
+    dw3000: dw3000@0 {
+        compatible = "qorvo,dw3000";
+        reg = <0>;
+        spi-max-frequency = <8000000>;
+        status = "okay";
+    };
+};

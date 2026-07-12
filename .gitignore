@@ -1,3 +1,8 @@
 __pycache__/
 *.py[cod]
 /build/
+
+# Local external Qorvo SDK and private analysis material
+Qorvo/
+ThinPod-Qorvo-DW3110-analysis/
+*.qorvo-local
