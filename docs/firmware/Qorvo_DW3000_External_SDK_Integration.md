@@ -484,3 +484,29 @@ The Thin-Pod Gateway and Node Stage-2 DWM3001-CDK applications compile and link 
 ```
 
 It does not support a claim of physical DW3110 communication, initialisation or RF operation.
+
+## Subsequent physical identity and initialisation validation
+
+Physical validation was completed on 12 July 2026 for both the Gateway-side and Node-side DWM3001-CDK boards.
+
+Each board successfully completed:
+
+- Zephyr SPI3 and GPIO preparation;
+- physical DW3110 reset;
+- `dwt_probe()`;
+- masked device-ID verification;
+- IDLE_RC readiness;
+- `dwt_initialise(DWT_READ_OTP_ALL)`;
+- stable device-ID readback at 2 MHz and 8 MHz;
+- OTP identity capture.
+
+Evidence is recorded in:
+
+```text
+docs/validation/DW3110_Physical_Identity_Initialisation_Validation.md
+logs/validation/dw3110-identity-init/
+```
+
+Both boards reported IRQ high before and after initialisation. IRQ polarity, idle behaviour and event clearing remain subjects for the receive-path milestone.
+
+UWB RF transmission, reception and ranging remain outside this validation step.

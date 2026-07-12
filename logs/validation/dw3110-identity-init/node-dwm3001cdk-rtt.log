@@ -1,0 +1,46 @@
+# SEGGER J-Link RTT Viewer V9.50 Terminal Log File
+# Compiled: 12:26:04 on Jun 10 2026
+# Logging started @ 12 Jul 2026 19:08:33
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+00> *** Booting nRF Connect SDK v3.3.1-1d7a0b0e49b8 ***
+00> *** Using Zephyr OS v4.3.99-37e6c28576ee ***
+00> 
+00> 
+00> Thin-Pod Node-side DWM3001-CDK DW3110 identity proof
+00> role=node role_id=0x0001 proof=identity-initialise-v1
+00> driver=DW3XXX Device Driver Version 08.19.02
+00> 
+00> TPDW_BEGIN role=node role_id=0x0001 proof=identity-initialise-v1
+00> TPDW_STAGE role=node stage=platform rc=0 result=PASS
+00> TPDW_STAGE role=node stage=slow_spi rate_hz=2000000 result=PASS
+00> TPDW_STAGE role=node stage=reset rc=0 result=PASS
+00> TPDW_STAGE role=node stage=probe rc=0 result=PASS
+00> TPDW_STAGE role=node stage=device_id id=0xdeca0302 expected=0xdeca0312 mask=0xffffff0f match=1 result=PASS
+00> TPDW_STAGE role=node stage=idle_rc value=1 rc=0 result=PASS
+00> TPDW_STAGE role=node stage=initialise rc=0 result=PASS
+00> TPDW_STAGE role=node stage=fast_spi rate_hz=8000000 id=0xdeca0302 match=1 stable=1 result=PASS
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+00> TPDW_RESULT role=node role_id=0x0001 result=PASS failure_stage=none final_rc=0 platform_rc=0 reset_rc=0 probe_rc=0 idlerc=1 init_rc=0 devid_match=1 post_match=1 fast_match=1 stable=1
+00> TPDW_DEVICE role=node api=0x00081902 driver=DW3XXX Device Driver Version 08.19.02 expected=0xdeca0312 mask=0xffffff0f devid_slow=0xdeca0302 devid_after_init=0xdeca0302 devid_fast=0xdeca0302
+00> TPDW_OTP role=node part_id=0x8ec49c9a lot_hi=0x00005056 lot_lo=0x34583230 otp_revision=1 ref_voltage=118 ref_temperature=126
+00> TPDW_IRQ role=node before=1 after=1
+
+# Logging stopped @ 12 Jul 2026 19:09:05
