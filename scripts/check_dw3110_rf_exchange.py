@@ -3,8 +3,9 @@
 
 The checker accepts raw SEGGER RTT Logger or RTT Viewer text. Optional channel
 prefixes such as ``00> `` are ignored. A passing record requires at least one
-complete 20-frame transmitter suite and one complete 20-frame receiver suite,
-with no failed, invalid, timed-out, errored, missing or duplicate frames.
+matched 20-frame transmitter and receiver suite, identified by the same first
+and last sequence numbers, with no failed,
+invalid, timed-out, errored, missing or duplicate frames in that matched window.
 """
 
 from __future__ import annotations
@@ -113,17 +114,64 @@ def count_result_lines(path: Path, marker: str, result: str) -> int:
     return count
 
 
-def choose_passing(
-    records: list[Summary],
-    predicate,
-) -> tuple[Summary | None, list[str]]:
+def sequence_window(summary: Summary) -> tuple[int, int]:
+    return integer(summary, "first_seq"), integer(summary, "last_seq")
+
+
+def choose_matching_passing(
+    tx_records: list[Summary],
+    rx_records: list[Summary],
+) -> tuple[Summary | None, Summary | None, list[str]]:
     diagnostics: list[str] = []
-    for record in records:
-        passed, reason = predicate(record)
-        diagnostics.append(f"line {record.line_number}: {reason}: {record.raw}")
+    passing_txs: list[Summary] = []
+    passing_rxs: list[Summary] = []
+
+    for record in tx_records:
+        passed, reason = passing_tx(record)
+        diagnostics.append(
+            f"gateway line {record.line_number}: {reason}: {record.raw}"
+        )
         if passed:
-            return record, diagnostics
-    return None, diagnostics
+            passing_txs.append(record)
+
+    for record in rx_records:
+        passed, reason = passing_rx(record)
+        diagnostics.append(
+            f"node line {record.line_number}: {reason}: {record.raw}"
+        )
+        if passed:
+            passing_rxs.append(record)
+
+    for tx_record in passing_txs:
+        try:
+            tx_window = sequence_window(tx_record)
+        except ValueError as exc:
+            diagnostics.append(
+                f"gateway line {tx_record.line_number}: {exc}: {tx_record.raw}"
+            )
+            continue
+
+        for rx_record in passing_rxs:
+            try:
+                rx_window = sequence_window(rx_record)
+            except ValueError as exc:
+                diagnostics.append(
+                    f"node line {rx_record.line_number}: {exc}: {rx_record.raw}"
+                )
+                continue
+
+            if tx_window == rx_window:
+                diagnostics.append(
+                    "matched sequence window "
+                    f"first_seq={tx_window[0]} last_seq={tx_window[1]}"
+                )
+                return tx_record, rx_record, diagnostics
+
+    diagnostics.append(
+        "no passing transmitter and receiver summaries shared the same "
+        "first_seq and last_seq values"
+    )
+    return None, None, diagnostics
 
 
 def write_report(
@@ -168,9 +216,15 @@ PASS
 ```
 
 The Gateway-side DW3110 transmitted a complete 20-frame suite. The Node-side
-DW3110 received and validated a complete 20-frame suite with no invalid frames,
+DW3110 received and validated the same sequence window with no invalid frames,
 receive timeouts, receive errors, sequence gaps or duplicate frames in the
-selected passing suite.
+selected matched suite.
+
+## Matched sequence window
+
+```text
+first_seq={integer(tx_summary, "first_seq")} last_seq={integer(tx_summary, "last_seq")}
+```
 
 ## Gateway summary
 
@@ -178,7 +232,7 @@ selected passing suite.
 {tx_summary.raw}
 ```
 
-Frame records found in the Gateway log:
+Frame records found across the complete Gateway capture:
 
 ```text
 TPRF_TX result=PASS: {gateway_frame_passes}
@@ -191,7 +245,7 @@ TPRF_TX result=FAIL: {gateway_frame_failures}
 {rx_summary.raw}
 ```
 
-Frame records found in the Node log:
+Frame records found across the complete Node capture:
 
 ```text
 TPRF_RX result=PASS: {node_frame_passes}
@@ -249,8 +303,9 @@ def main() -> int:
 
     tx_records = summaries(args.gateway_log, "TPRF_TX_SUMMARY")
     rx_records = summaries(args.node_log, "TPRF_RX_SUMMARY")
-    tx_pass, tx_diagnostics = choose_passing(tx_records, passing_tx)
-    rx_pass, rx_diagnostics = choose_passing(rx_records, passing_rx)
+    tx_pass, rx_pass, match_diagnostics = choose_matching_passing(
+        tx_records, rx_records
+    )
 
     gateway_frame_passes = count_result_lines(args.gateway_log, "TPRF_TX", "PASS")
     gateway_frame_failures = count_result_lines(args.gateway_log, "TPRF_TX", "FAIL")
@@ -269,27 +324,27 @@ def main() -> int:
     print(f"node_rx_pass_lines={node_frame_passes}")
     print(f"node_rx_fail_lines={node_frame_failures}")
 
-    if tx_pass is not None:
+    if tx_pass is not None and rx_pass is not None:
+        first_seq, last_seq = sequence_window(tx_pass)
         print(f"gateway_summary_line={tx_pass.line_number}")
         print(f"gateway_summary={tx_pass.raw}")
-    else:
-        print("ERROR no passing TPRF_TX_SUMMARY found", file=sys.stderr)
-        if not tx_records:
-            print("  no TPRF_TX_SUMMARY lines were present", file=sys.stderr)
-        else:
-            for diagnostic in tx_diagnostics:
-                print(f"  {diagnostic}", file=sys.stderr)
-
-    if rx_pass is not None:
         print(f"node_summary_line={rx_pass.line_number}")
         print(f"node_summary={rx_pass.raw}")
+        print(
+            f"matched_sequence_window=first_seq={first_seq} "
+            f"last_seq={last_seq}"
+        )
     else:
-        print("ERROR no passing TPRF_RX_SUMMARY found", file=sys.stderr)
+        print(
+            "ERROR no matched passing TX/RX summary pair found",
+            file=sys.stderr,
+        )
+        if not tx_records:
+            print("  no TPRF_TX_SUMMARY lines were present", file=sys.stderr)
         if not rx_records:
             print("  no TPRF_RX_SUMMARY lines were present", file=sys.stderr)
-        else:
-            for diagnostic in rx_diagnostics:
-                print(f"  {diagnostic}", file=sys.stderr)
+        for diagnostic in match_diagnostics:
+            print(f"  {diagnostic}", file=sys.stderr)
 
     passed = (
         tx_pass is not None

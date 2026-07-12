@@ -1,0 +1,6 @@
+branch=gateway-dw3110-rf-exchange
+head=5736322d3e6d319d7b9ce3f43bd5f23695cbf047
+source_commit=5a14e3f25226f8d49e7431ec8381c82bf5c8476b
+qm33_api_fix_commit=5736322d3e6d319d7b9ce3f43bd5f23695cbf047
+ncs_root=C:\ncs\v3.3.1
+qorvo_sdk=C:\Qorvo\DW3_QM33_SDK_1.1.0
