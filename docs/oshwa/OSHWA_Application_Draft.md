@@ -1,6 +1,6 @@
 # Thin-Pod Gateway rev 0.1: OSHWA application draft
 
-**Status:** Preparation record; submission blocked by the editable-source gate  
+**Status:** Preparation record; native source and fabrication package published, final validation and release freeze outstanding  
 **Responsible individual:** Neil Thomson / Pealie  
 **Country:** United Kingdom  
 **Primary project type:** Electronics  
@@ -34,8 +34,8 @@ Thin-Pod Gateway rev 0.1 is an open-hardware carrier PCB for experimental Thin-P
 - DWM and XIAO chip-select pull-ups;
 - shared SPI5 SCK/COPI/CIPO routing and separate control lines;
 - TP1–TP13 test access and mounting geometry;
-- exact editable KiCad project and project-local libraries once committed;
-- derived Gerber and drill outputs;
+- published native KiCad project, schematic and PCB under `hardware/source/kicad/rev0.1/`;
+- published Gerber, drill and fabrication archive under `hardware/fabrication/rev0.1/`;
 - BOM, assembly, bring-up, validation and provenance documentation;
 - Thin-Pod-authored firmware, scripts and test utilities under MIT.
 
@@ -61,33 +61,35 @@ Thin-Pod Gateway rev 0.1 is an open-hardware carrier PCB for experimental Thin-P
 | Physical DW3110 identity and initialisation | PASS |
 | Matched 20-frame Gateway-to-Node UWB exchange | PASS |
 | Raw validation logs and automated checkers | Present |
-| BOM | Present, with several fitted-part identifiers still requiring release reconciliation |
-| Fabrication package | Supplied, audited and hashed; binary archive still to be committed |
-| Exact editable KiCad source | **Missing; submission blocker** |
-| Symbol/footprint provenance | **Incomplete; submission blocker** |
+| Native KiCad source | Published for revision `0.1` |
+| Fabrication package | Published, hashed and revision-labelled `0.1` |
+| Gerber job revision | `0.1`; earlier `rev?` defect resolved |
+| BOM | Present; fitted-part and header/socket reconciliation remains open |
+| Symbol/footprint provenance | Incomplete; release blocker |
+| Clean-environment KiCad opening, ERC and DRC | Outstanding; release blocker |
+| Gerber-viewer inspection record | Outstanding; release blocker |
 | Public immutable release tag | Missing |
 | Public repository visibility | Repository currently private |
 
 ## Licence decision
 
-The licence combination is appropriate because it maps each work category to a recognised licence designed for that category:
+The licence combination maps each work category to a recognised licence designed for that category:
 
 - `CERN-OHL-W-2.0` preserves reciprocal access to modifications of the creator-controlled hardware design while allowing the carrier to interface with separately licensed commercial modules.
 - `MIT` is OSI-approved, concise and suitable for the project-authored proof firmware, protocol code, platform adapters and Python utilities. External vendor SDK source remains excluded.
 - `CC-BY-4.0` permits broad reuse of explanatory documentation and creator-owned images with attribution.
 
-## Submission blockers
+## Remaining submission blockers
 
-1. Commit the exact preferred-format KiCad source used for the manufactured design.
-2. Include every required project-local symbol, footprint and library table.
-3. Record provenance and licence treatment for each non-standard CAD dependency.
-4. Set a definite design revision in the KiCad project; the supplied Gerber job currently records `rev?`.
-5. Commit the binary fabrication archive and, where needed, regenerated outputs.
-6. Reconcile the BOM with the fitted assembly, including exact header/socket choices and any known part numbers.
-7. Run clean-environment project opening, ERC, DRC and Gerber inspection.
-8. Run the OSHWA readiness checker with no blocking failures.
-9. Make the repository public and create the final release tag.
+1. Open the published project in a clean KiCad 10 environment and confirm that all required symbols and footprints resolve.
+2. Record schematic ERC and PCB DRC results.
+3. Inspect and record the published Gerber and drill package in a Gerber viewer.
+4. Record provenance and licence treatment for each non-standard CAD dependency.
+5. Reconcile the BOM with the fitted assembly, including exact header/socket choices and known fitted part identifiers.
+6. Confirm that the regenerated revision-labelled fabrication package preserves the intended electrical and geometric design of the manufactured rev 0.1f carrier.
+7. Run the OSHWA readiness checker with no blocking failures.
+8. Make the repository public and create the final immutable release tag.
 
 ## Submission judgement
 
-The physical carrier and evidence chain are sufficiently mature to justify formal preparation. Submission at the present repository state would be premature because the editable hardware source, CAD provenance and public release freeze are central certification requirements rather than optional polish.
+The physical carrier, editable source, fabrication package and evidence chain are sufficiently mature for final certification preparation. Submission should follow completion of the clean-environment CAD checks, BOM and provenance reconciliation, public repository transition and immutable release freeze.
