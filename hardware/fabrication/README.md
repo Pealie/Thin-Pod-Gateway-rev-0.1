@@ -14,7 +14,7 @@ Size: 114,532 bytes
 
 The package contains 14 files: top and bottom copper, solder mask, paste and silkscreen Gerbers; board profile; PTH and NPTH drill files; drill maps; and a Gerber job file.
 
-The archive is retained in split binary parts under `rev0.1f/archive-parts/` because the connected repository interface used for this audit cannot upload a binary archive directly. Reconstruct it with the supplied script or commands, then verify the SHA-256 value above.
+The binary archive itself still needs to be committed through the normal local Git workflow. This repository update records the complete inventory and hashes without implying that the archive has already been published.
 
 ## Fabrication metadata
 
@@ -39,6 +39,6 @@ The job metadata contains the unresolved revision value `rev?`. The physical boa
 
 These files are derived manufacturing outputs. They do not replace the editable KiCad project, schematic, PCB layout and project-local libraries required as the preferred modification source for an OSHWA application.
 
-The exact KiCad source used to generate this package is not yet present at the repository paths advertised by the existing README. Until it is committed and reconciled against this package, the fabrication outputs are evidence of the manufactured build rather than a complete certifiable hardware-source release.
+The exact KiCad source used to generate this package is not yet present at the repository paths advertised by the earlier README. Until it is committed and reconciled against this package, the fabrication outputs are evidence of the manufactured build rather than a complete certifiable hardware-source release.
 
 See [`RELEASE-MANIFEST.md`](RELEASE-MANIFEST.md) for hashes and [`../source/README.md`](../source/README.md) for the source-file gate.
