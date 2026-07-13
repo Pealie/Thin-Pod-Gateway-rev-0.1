@@ -1,29 +1,26 @@
 # Thin-Pod Gateway rev 0.1 fabrication outputs
 
-This directory records the fabrication package supplied for the manufactured Gateway carrier PCB identified as `rev 0.1f` where that marking appears on the board.
+This directory contains the derived fabrication release for the Thin-Pod Gateway rev 0.1 carrier PCB.
 
-## Package under review
-
-Source archive supplied for the OSHWA preparation audit:
+## Published package
 
 ```text
-ThinPodGatewayFabricationPullupsCouplingCapsRev01f.zip
-SHA-256: 671fdf24f704971b09d9159b12aac790b0bf3fda13ec090275211d718cfb28aa
-Size: 114,532 bytes
+hardware/fabrication/rev0.1/Thin-Pod_Gateway_rev0.1_fabrication.zip
+SHA-256: 3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d
+Size: 114,303 bytes
 ```
 
-The package contains 14 files: top and bottom copper, solder mask, paste and silkscreen Gerbers; board profile; PTH and NPTH drill files; drill maps; and a Gerber job file.
-
-The binary archive itself still needs to be committed through the normal local Git workflow. This repository update records the complete inventory and hashes without implying that the archive has already been published.
+The archive contains 14 manufacturing files: top and bottom copper, solder mask, paste and silkscreen Gerbers; the board profile; PTH and NPTH drill files; PTH and NPTH drill maps; and a Gerber job file.
 
 ## Fabrication metadata
 
-The Gerber job file records:
+The release Gerber job records:
 
 | Property | Value |
 |---|---|
 | Generator | KiCad Pcbnew 10.0.1 |
-| Generation date | 21 May 2026 |
+| Generation date | 13 July 2026, 12:29:39 +01:00 |
+| Project revision | `0.1` |
 | Board size | 160.05 mm × 145.05 mm |
 | Copper layers | 2 |
 | Board thickness | 1.6 mm |
@@ -33,12 +30,16 @@ The Gerber job file records:
 | PTH drill hits | 244 |
 | NPTH drill hits | 9 |
 
-The job metadata contains the unresolved revision value `rev?`. The physical board and repository treat this package as the `rev 0.1f` fabrication build within the Thin-Pod Gateway rev 0.1 release path. The final editable KiCad project should set a definite revision before regenerated release outputs are frozen.
+The release package was regenerated after the schematic and PCB title-block revision was set to `0.1` and the KiCad output path was made repository-relative. The release freeze should still record ERC, DRC and Gerber-viewer inspection, together with confirmation that these metadata and portability changes introduced no intentional electrical or geometric change from the manufactured rev 0.1f carrier.
 
-## Normative-source boundary
+## Source relationship
 
-These files are derived manufacturing outputs. They do not replace the editable KiCad project, schematic, PCB layout and project-local libraries required as the preferred modification source for an OSHWA application.
+The corresponding native KiCad source is published under:
 
-The exact KiCad source used to generate this package is not yet present at the repository paths advertised by the earlier README. Until it is committed and reconciled against this package, the fabrication outputs are evidence of the manufactured build rather than a complete certifiable hardware-source release.
+```text
+hardware/source/kicad/rev0.1/
+```
 
-See [`RELEASE-MANIFEST.md`](RELEASE-MANIFEST.md) for hashes and [`../source/README.md`](../source/README.md) for the source-file gate.
+The editable KiCad project is the normative design source. These Gerber and drill files are derived manufacturing outputs supplied for convenience and reproducibility.
+
+See [`RELEASE-MANIFEST.md`](RELEASE-MANIFEST.md) for hashes and [`../source/README.md`](../source/README.md) for source status and remaining validation work.
