@@ -100,8 +100,6 @@ Release preparation is complete:
 2. the repository is public;
 3. immutable public release tag `v0.1` has been created.
 
-The remaining step is to submit a separate Gateway OSHWA application using the licence selections above.
-
 ## Current limitations
 
 The release does not claim Node-to-Gateway vibration-window transport, ranging, field-qualified RF performance, calibrated transmit power, antenna/coexistence performance, authenticated radio records, secure boot enforcement, production OTA, Gateway DSP/TinyML performance, EMC, radio, electrical-safety, CE or UKCA compliance.
