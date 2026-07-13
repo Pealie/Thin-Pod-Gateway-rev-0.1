@@ -13,7 +13,7 @@ on:
 
 jobs:
   gateway-artifact-check:
-    name: Gateway artifact check
+    name: Gateway release checks
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +30,6 @@ jobs:
 
       - name: Run Gateway artifact check
         run: python scripts/check_gateway_release_artifacts.py
+
+      - name: Run OSHWA readiness check
+        run: python scripts/check_oshwa_readiness.py
