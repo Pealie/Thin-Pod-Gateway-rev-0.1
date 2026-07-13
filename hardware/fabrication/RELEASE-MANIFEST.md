@@ -1,31 +1,40 @@
-# Thin-Pod Gateway rev 0.1f fabrication manifest
+# Thin-Pod Gateway rev 0.1 fabrication manifest
 
 **Hardware family:** Thin-Pod Gateway rev 0.1  
-**Fabrication-build identity:** rev 0.1f  
-**Source archive:** `ThinPodGatewayFabricationPullupsCouplingCapsRev01f.zip`  
-**Archive SHA-256:** `671fdf24f704971b09d9159b12aac790b0bf3fda13ec090275211d718cfb28aa`  
-**Archive size:** 114,532 bytes  
+**Fabrication-build identity:** rev 0.1 / manufactured-board marking rev 0.1f where present  
+**Release archive:** `hardware/fabrication/rev0.1/Thin-Pod_Gateway_rev0.1_fabrication.zip`  
+**Archive SHA-256:** `3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d`  
+**Archive size:** 114,303 bytes  
 **Generator recorded by package:** KiCad Pcbnew 10.0.1  
-**Generation timestamp:** 2026-05-21T16:43:01+01:00
+**Generation timestamp:** 2026-07-13T12:29:39+01:00  
+**Project revision recorded by Gerber job:** `0.1`
 
 ## File inventory
 
 | File | Bytes | SHA-256 | Function |
 |---|---:|---|---|
-| `Thin-Pod Gateway-F_Cu.gbr` | 32,024 | `7ce11d80560ed5170f7e6e2e5933961218ee58cc14fcbf6244ca58d16e26bf15` | Top copper |
-| `Thin-Pod Gateway-B_Cu.gbr` | 309,610 | `169ef69f7a9a26bd193159fec0bd02f635377917626288fb155cceb8e35f24cc` | Bottom copper |
-| `Thin-Pod Gateway-F_Mask.gbr` | 8,793 | `8067e7a07bcc5134c42a4fee32745c98c3cc66a532cc0665a36dbff882e03fae` | Top solder mask |
-| `Thin-Pod Gateway-B_Mask.gbr` | 7,498 | `7d3f692f3830f252001702ba75704a969f76ae7aad34c07fe3c6e3e37cd90f3b` | Bottom solder mask |
-| `Thin-Pod Gateway-F_Paste.gbr` | 476 | `8ae967fa0bc1626a19b66ed42efe40a70b045e063f60fc4a37a5b105d7d2a9a4` | Top solder paste |
-| `Thin-Pod Gateway-B_Paste.gbr` | 476 | `8724f6da1f1c4e4bf66bd1d2f891fabacb3bf0ee3e1a4fe6ee45d6869ff699eb` | Bottom solder paste |
-| `Thin-Pod Gateway-F_Silkscreen.gbr` | 54,297 | `bb6631dce678719449306f11b1a36bdc75c15eda23bfe2f69d7c055c0742e351` | Top legend |
-| `Thin-Pod Gateway-B_Silkscreen.gbr` | 477 | `cfe0680559bd70cf3d66a93a3ad95d600073a4e73e179a9d2d1de135464ff468` | Bottom legend |
-| `Thin-Pod Gateway-Edge_Cuts.gbr` | 881 | `6b3e2bf569b48e6c0a17776a842d3372a3df39797f0f5e0b7cde346c686098c5` | Board profile |
-| `Thin-Pod Gateway-PTH.drl` | 4,985 | `340d57f6955cf85f55c941bd0b7c30a05f77388c4d5cfb273ff5258fe96da593` | Plated drill data |
-| `Thin-Pod Gateway-NPTH.drl` | 561 | `1c55192885fb70c8e26aadac8f2454e61a7a612aa35e20e9a06ff274711adf1e` | Non-plated drill data |
-| `Thin-Pod Gateway-PTH-drl_map.gbr` | 134,924 | `0659a6b580be94d4dce8520a93dde7308db891df78fd205f7a655f2d9e685137` | PTH drill map |
-| `Thin-Pod Gateway-NPTH-drl_map.gbr` | 41,674 | `db3467c5df6f8c99ccb8ddb704660a7577cbb475765414f9ba3fd82b1609afea` | NPTH drill map |
-| `Thin-Pod Gateway-job.gbrjob` | 2,897 | `47c23ccc42f8ae054f2417b5349571d479fb8e5c96d90c9eb9e549d402e90683` | Gerber job metadata |
+| `Thin-Pod Gateway-F_Cu.gbr` | 31,714 | `d53ecf1dcd7c5785a7a7fc6143ffa8b5bdc0befad1e07c39fe1dc3aee664d8ae` | Top copper |
+| `Thin-Pod Gateway-B_Cu.gbr` | 318,882 | `a2cdf633cf8ac7402bfa648f41ed1f6e2865463d733e7ed4d25d74827f5d0cc4` | Bottom copper |
+| `Thin-Pod Gateway-F_Mask.gbr` | 8,792 | `4006df558baa3d8b32d5b2e37b87dd932b5ddfca58e697babdd12722668dd043` | Top solder mask |
+| `Thin-Pod Gateway-B_Mask.gbr` | 7,497 | `7e397fec2e413123703999820a5e582f58c4baf0796576630afe5329f3108224` | Bottom solder mask |
+| `Thin-Pod Gateway-F_Paste.gbr` | 475 | `877ed2a93545d4eabdc8f0e34bf01fb03dcf937f09013d3f81f8fc6e5426fb52` | Top solder paste |
+| `Thin-Pod Gateway-B_Paste.gbr` | 475 | `d02550a28dab085ef9a43730f1a463dc945aebc4ab5feac473a34ed8cbe1b76b` | Bottom solder paste |
+| `Thin-Pod Gateway-F_Silkscreen.gbr` | 54,296 | `43ccb841c19d5442a63f25fede90486f6809dc8b6f8b45a0b0914ab151bc64a2` | Top legend |
+| `Thin-Pod Gateway-B_Silkscreen.gbr` | 476 | `9df9ca770cfdaf16d5be41a48b017ca21640a0c1776d81031d473013db6641cb` | Bottom legend |
+| `Thin-Pod Gateway-Edge_Cuts.gbr` | 880 | `70209bca86ac737d28adab44c9e2b96f6b5566bc91eb5fdad739d55ac1248ea6` | Board profile |
+| `Thin-Pod Gateway-PTH.drl` | 4,985 | `8dfbf0d564c35edac91340e6aa42c1717f36a19cf655086a7c6fcc7eef35f243` | Plated drill data |
+| `Thin-Pod Gateway-NPTH.drl` | 561 | `fe3a21e4f43f74fa8db504e04c258274c24c9a537797563c814edfbabe1a87b6` | Non-plated drill data |
+| `Thin-Pod Gateway-PTH-drl_map.gbr` | 134,923 | `492f01252aa097a44e9ac1c7e79720999adaf1112be062e6ec2c6b3435db5c1b` | PTH drill map |
+| `Thin-Pod Gateway-NPTH-drl_map.gbr` | 41,673 | `fda6dc4ef0539f90b781fd966e27fa389fdfca0385531bcc9b7161dfa6558271` | NPTH drill map |
+| `Thin-Pod Gateway-job.gbrjob` | 2,896 | `795904a9500c31edf20cb09ecccc22a65c2a70b8135fdc3cffeed287f6c986bf` | Gerber job metadata |
+
+## Native source inventory
+
+| File | Bytes | SHA-256 |
+|---|---:|---|
+| `hardware/source/kicad/rev0.1/Thin-Pod Gateway.kicad_pro` | 15,837 | `d93b70403ad736d2e7d07ddffba312bf5544fadb74fdcd4fb3fcb8de90163d13` |
+| `hardware/source/kicad/rev0.1/Thin-Pod Gateway.kicad_sch` | 186,604 | `6cfe02408b4071275b44bfcb8ee031cb30589e9aa85f7ce8fe3c587f5354a685` |
+| `hardware/source/kicad/rev0.1/Thin-Pod Gateway.kicad_pcb` | 511,755 | `50ca43bfd5fa709f13785a92ca706bf4c4f41bb3bd32f28f012f2a7ffb4db47d` |
 
 ## Drill summary
 
@@ -52,12 +61,14 @@
 
 ## Audit result
 
-The package is internally coherent as a two-layer KiCad Gerber/drill set and records a 160.05 mm × 145.05 mm, 1.6 mm FR4 board. All 14 files are text-readable and individually hashed above.
+The native KiCad source, individual Gerber and drill files, Gerber job and binary fabrication archive are now committed together. The job metadata records revision `0.1`, resolving the earlier `rev?` release defect.
 
-The release remains incomplete for OSHWA submission because the corresponding preferred editable KiCad source is absent from the repository. Before release freeze:
+Before the public release freeze:
 
-1. commit the exact `.kicad_pro`, `.kicad_sch`, `.kicad_pcb`, project-local library tables and required local symbols/footprints;
-2. set a definite source revision instead of `rev?`;
-3. regenerate or byte-compare the fabrication package from that source;
-4. run ERC, DRC and Gerber-viewer inspection and record the results;
-5. freeze the reconciled source, BOM and fabrication package under one public release tag.
+1. open the project in a clean KiCad 10 environment;
+2. complete and record schematic ERC and PCB DRC;
+3. inspect the release package in a Gerber viewer;
+4. document symbol and footprint provenance;
+5. reconcile the BOM with the fitted assembly and exact module-header/socket choices;
+6. confirm that the regenerated release package preserves the intended electrical and geometric design of the manufactured rev 0.1f board;
+7. freeze the reconciled source, BOM and fabrication package under one public release tag.
