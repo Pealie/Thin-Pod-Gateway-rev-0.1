@@ -11,11 +11,13 @@ The manufactured `rev 0.1f` carrier board has completed stable PoE-powered bring
 - valid RESET and READY rail levels;
 - a repeatable bidirectional NUCLEO-to-DWM `TPHIP GET_CAPABILITIES` exchange across the carrier PCB;
 - physical DW3110 identity and initialisation on Gateway and Node DWM3001-CDKs;
-- a matched 20-frame Gateway-to-Node one-way UWB exchange with retained raw RTT evidence and automated validation.
+- a matched 20-frame Gateway-to-Node one-way UWB exchange with retained raw RTT evidence and automated validation;
+- published native KiCad project, schematic and PCB source for revision `0.1`;
+- published Gerber, drill and fabrication ZIP outputs generated from the revision-labelled source.
 
-The carrier design is a credible OSHWA candidate, although the repository is **not yet ready for submission**. The decisive open gate is publication and reconciliation of the exact editable KiCad source used for the manufactured board. The attached Gerber/drill package has been audited and manifested, but derived fabrication outputs do not replace native modifiable design source.
+The carrier design is a credible OSHWA candidate. The editable-source and fabrication-publication gates are now cleared. Remaining release gates concern clean-environment KiCad validation, ERC and DRC evidence, Gerber inspection, CAD provenance, fitted-BOM reconciliation, public repository visibility and an immutable release tag.
 
-No Gateway OSHWA application has been submitted. The OSHWA mark must not be used for this Gateway until certification is granted.
+No Gateway OSHWA application has been submitted. The OSHWA mark must remain unused for this Gateway until certification is granted.
 
 ## Relationship to the certified Thin-Pod node
 
@@ -61,27 +63,43 @@ The current RF proof runs Gateway-to-Node. The intended sensor-to-Gateway Node-t
 | NUCLEO-to-DWM physical host interface | PASS | [`docs/firmware/TPHIP_GET_CAPABILITIES_Physical_Validation.md`](docs/firmware/TPHIP_GET_CAPABILITIES_Physical_Validation.md) |
 | DW3110 identity and initialisation | PASS | [`docs/validation/DW3110_Physical_Identity_Initialisation_Validation.md`](docs/validation/DW3110_Physical_Identity_Initialisation_Validation.md) |
 | Matched 20-frame one-way RF exchange | PASS | [`docs/validation/DW3110_One_Way_RF_Exchange_Validation.md`](docs/validation/DW3110_One_Way_RF_Exchange_Validation.md) |
-| Fabrication package inventory and hashes | AUDITED | [`hardware/fabrication/RELEASE-MANIFEST.md`](hardware/fabrication/RELEASE-MANIFEST.md) |
-| Exact editable KiCad source | OPEN GATE | [`hardware/source/README.md`](hardware/source/README.md) |
+| Native KiCad source | PUBLISHED | [`hardware/source/README.md`](hardware/source/README.md) |
+| Fabrication package inventory and hashes | PUBLISHED | [`hardware/fabrication/RELEASE-MANIFEST.md`](hardware/fabrication/RELEASE-MANIFEST.md) |
+| ERC, DRC and clean-environment opening | OPEN GATE | Release verification record required |
+| CAD symbol and footprint provenance | OPEN GATE | Provenance record required |
+| Fitted BOM and module-mounting reconciliation | OPEN GATE | [`hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md`](hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md) |
 
-## Fabrication-build identity
+## Design and fabrication identity
 
-The manufactured board may carry `rev 0.1f`. This is treated as the fabrication-build identity within the Thin-Pod Gateway rev 0.1 release path.
+The manufactured board may carry `rev 0.1f`. This is retained as the physical fabrication-build identity within the Thin-Pod Gateway rev 0.1 release path.
 
-The supplied package records:
+The published native source is stored at:
+
+```text
+hardware/source/kicad/rev0.1/
+```
+
+The corresponding published manufacturing outputs are stored at:
+
+```text
+hardware/fabrication/rev0.1/
+```
+
+The release Gerber job records:
 
 ```text
 Generator:       KiCad Pcbnew 10.0.1
-Generated:       21 May 2026
+Generated:       13 July 2026, 12:29:39 +01:00
+Project revision: 0.1
 Board size:      160.05 mm × 145.05 mm
 Copper layers:   2
 Board thickness: 1.6 mm
 PTH drill hits:  244
 NPTH drill hits: 9
-Archive SHA-256: 671fdf24f704971b09d9159b12aac790b0bf3fda13ec090275211d718cfb28aa
+Archive SHA-256: 3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d
 ```
 
-Its Gerber job metadata contains `rev?`. The final native design source must set a definite revision, then regenerate or reconcile the fabrication outputs before release freeze.
+The earlier `rev?` Gerber-job value is resolved. The KiCad project uses a repository-relative fabrication output path, replacing the earlier private Windows/OneDrive location.
 
 ## Electrical interface summary
 
@@ -119,33 +137,36 @@ See [`LICENSE.md`](LICENSE.md), [`LICENSE-HARDWARE.md`](LICENSE-HARDWARE.md), [`
 
 ```text
 hardware/
-  bom/             Bill of materials
-  fabrication/     Audited rev 0.1f fabrication metadata and manifest
-  source/          Native KiCad source gate; exact source still required
-firmware/           Zephyr applications, protocol code and hardware proofs
+  bom/                         Bill of materials and release reconciliation
+  fabrication/
+    rev0.1/                    Published Gerber, drill and fabrication ZIP files
+  source/
+    kicad/rev0.1/              Published native KiCad project, schematic and PCB
+firmware/                      Zephyr applications, protocol code and hardware proofs
 docs/
-  bringup/          Physical bring-up records
-  firmware/         Build, interface and RF procedures
-  validation/       Measured validation records
-  oshwa/            Certification preparation and application draft
-logs/                Raw and interpreted engineering evidence
-scripts/             Parsers and automated evidence checks
-images/              Physical hardware and measurement evidence
+  bringup/                     Physical bring-up records
+  firmware/                    Build, interface and RF procedures
+  validation/                  Measured validation records
+  oshwa/                       Certification preparation and application draft
+logs/                          Raw and interpreted engineering evidence
+scripts/                       Parsers and automated evidence checks
+images/                        Physical hardware and measurement evidence
 ```
 
 ## OSHWA submission gate
 
-A Gateway application should be submitted only after all of the following are complete:
+A Gateway application should be submitted after all of the following are complete:
 
-1. commit the exact editable KiCad project and all required project-local libraries;
-2. resolve footprint and symbol provenance;
-3. reconcile source, BOM and the manufactured `rev 0.1f` fabrication package;
-4. commit the binary Gerber/drill archive and regenerated release outputs;
-5. run and record ERC, DRC, Gerber-viewer and release-artifact checks;
-6. update stale status statements in historical release-facing documents;
-7. make the repository public;
-8. create an immutable public release tag;
-9. submit a separate Gateway OSHWA application using the licence selections above.
+1. open the published project in a clean KiCad 10 environment;
+2. record schematic ERC and PCB DRC results;
+3. inspect and record the Gerber and drill release in a Gerber viewer;
+4. resolve symbol and footprint provenance;
+5. reconcile the BOM with the fitted assembly and exact header/socket choices;
+6. confirm the regenerated release outputs preserve the intended electrical and geometric design of the manufactured rev 0.1f carrier;
+7. clear `scripts/check_oshwa_readiness.py` and the existing release-artifact checks;
+8. make the repository public;
+9. create an immutable public release tag;
+10. submit a separate Gateway OSHWA application using the licence selections above.
 
 ## Current limitations
 
