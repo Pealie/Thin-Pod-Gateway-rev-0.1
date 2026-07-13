@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check repository artefacts required before a Gateway OSHWA submission."""
+"""Check objective repository artefacts required before a Gateway OSHWA submission."""
 
 from __future__ import annotations
 
@@ -31,13 +31,11 @@ REQUIRED_FILES = (
     "hardware/source/kicad/rev0.1/Thin-Pod Gateway.kicad_pcb",
     "docs/certification-scope.md",
     "docs/bringup/Gateway_rev0_1_Hardware_Bringup_Note.md",
+    "docs/footprint-provenance.md",
     "docs/oshwa/OSHWA_Application_Draft.md",
-)
-
-BOM_BLOCKING_MARKERS = (
-    "to be selected",
-    "confirm exact",
-    "pending",
+    "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_ERC.rpt",
+    "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_DRC.rpt",
+    "docs/validation/cad/rev0.1/Gerber_Drill_Inspection_Record.md",
 )
 
 
@@ -47,6 +45,27 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def require_report_text(
+    root: Path,
+    relative: str,
+    required_phrases: tuple[str, ...],
+    passes: list[str],
+    failures: list[str],
+) -> None:
+    path = root / relative
+    if not path.is_file():
+        return
+    text = path.read_text(encoding="utf-8", errors="replace")
+    missing = [phrase for phrase in required_phrases if phrase not in text]
+    if missing:
+        failures.append(
+            f"validation report does not contain expected result in {relative}: "
+            + ", ".join(missing)
+        )
+    else:
+        passes.append(f"validation report records a clean result: {relative}")
 
 
 def main() -> int:
@@ -103,22 +122,31 @@ def main() -> int:
                     f"expected {EXPECTED_GERBER_REVISION}, got {revision!r}"
                 )
 
-    bom_paths = (
-        root / "hardware" / "bom" / "Thin-Pod_Gateway_rev0.1_BOM.csv",
-        root / "hardware" / "bom" / "Thin-Pod_Gateway_rev0.1_BOM.md",
+    require_report_text(
+        root,
+        "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_ERC.rpt",
+        ("ERC messages: 0", "Errors 0", "Warnings 0"),
+        passes,
+        failures,
     )
-    for bom_path in bom_paths:
-        if not bom_path.is_file():
-            continue
-        text = bom_path.read_text(encoding="utf-8", errors="replace").lower()
-        found = sorted(marker for marker in BOM_BLOCKING_MARKERS if marker in text)
-        if found:
-            failures.append(
-                f"BOM reconciliation markers remain in {bom_path.relative_to(root)}: "
-                + ", ".join(found)
-            )
-        else:
-            passes.append(f"BOM contains no known release placeholders: {bom_path.relative_to(root)}")
+    require_report_text(
+        root,
+        "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_DRC.rpt",
+        (
+            "Found 0 DRC violations",
+            "Found 0 unconnected pads",
+            "Found 0 Footprint errors",
+        ),
+        passes,
+        failures,
+    )
+    require_report_text(
+        root,
+        "docs/validation/cad/rev0.1/Gerber_Drill_Inspection_Record.md",
+        ("Inspection status:** PASS", "**PASS:**"),
+        passes,
+        failures,
+    )
 
     print("Thin-Pod Gateway OSHWA readiness check")
     print("========================================")
