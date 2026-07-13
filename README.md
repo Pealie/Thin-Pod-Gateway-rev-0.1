@@ -4,20 +4,24 @@
 
 ## Status at 13 July 2026
 
-The manufactured `rev 0.1f` carrier board has completed stable PoE-powered bring-up with the STM32 NUCLEO-N657X0-Q and Gateway-side DWM3001-CDK. The repository records:
+The manufactured `rev 0.1f` carrier board has completed stable powered bring-up with the STM32 NUCLEO-N657X0-Q and Gateway-side DWM3001-CDK. The repository records:
 
 - verified 5 V and 3.3 V distribution and common-ground continuity;
 - corrected marginal DWM header solder joints affecting ground and RESET;
 - valid RESET and READY rail levels;
-- a repeatable bidirectional NUCLEO-to-DWM `TPHIP GET_CAPABILITIES` exchange across the carrier PCB;
+- repeatable bidirectional NUCLEO-to-DWM `TPHIP GET_CAPABILITIES` exchange;
 - physical DW3110 identity and initialisation on Gateway and Node DWM3001-CDKs;
-- a matched 20-frame Gateway-to-Node one-way UWB exchange with retained raw RTT evidence and automated validation;
-- published native KiCad project, schematic and PCB source for revision `0.1`;
-- published Gerber, drill and fabrication ZIP outputs generated from the revision-labelled source.
+- a matched 20-frame Gateway-to-Node UWB exchange;
+- published KiCad project, schematic and PCB source for revision `0.1`;
+- published Gerber, drill and fabrication ZIP outputs;
+- clean schematic ERC and PCB DRC reports;
+- recorded Gerber and drill inspection;
+- recorded symbol and footprint provenance;
+- a reconciled design-basis BOM with builder-selected compatible assembly hardware.
 
-The carrier design is a credible OSHWA candidate. The editable-source and fabrication-publication gates are now cleared. Remaining release gates concern clean-environment KiCad validation, ERC and DRC evidence, Gerber inspection, CAD provenance, fitted-BOM reconciliation, public repository visibility and an immutable release tag.
+The remaining certification-release steps are repository checks, public visibility, immutable tagging and submission of a separate Gateway OSHWA application.
 
-No Gateway OSHWA application has been submitted. The OSHWA mark must remain unused for this Gateway until certification is granted.
+No Gateway OSHWA application has yet been submitted. The OSHWA mark must remain unused for this Gateway until certification is granted.
 
 ## Relationship to the certified Thin-Pod node
 
@@ -27,7 +31,7 @@ That UID applies only to the Thin-Pod sensor-node carrier PCB. Thin-Pod Gateway 
 
 ## Hardware scope
 
-Thin-Pod Gateway rev 0.1 is a two-layer carrier PCB that connects:
+Thin-Pod Gateway rev 0.1 is a two-layer carrier PCB connecting:
 
 | Reference | Module | Role |
 |---|---|---|
@@ -37,23 +41,7 @@ Thin-Pod Gateway rev 0.1 is a two-layer carrier PCB that connects:
 
 The creator-controlled open-hardware contribution is the carrier PCB: power distribution, local decoupling, pull-ups, module interfaces, SPI/control routing, test access, mounting geometry, editable source and derived fabrication outputs.
 
-The commercial modules remain third-party products. Their internal designs are outside the Gateway open-hardware claim.
-
-## Functional architecture
-
-```text
-Thin-Pod rev 0.1 sensor node
-        ↓  UWB transport under staged validation
-Gateway DWM3001-CDK
-        ↓  verified TPHIP host interface across carrier PCB
-STM32 NUCLEO-N657X0-Q
-        ↓
-buffering, logging, future DSP and TinyML evaluation
-        ↓  optional onward interface
-Seeed XIAO ESP32-C6
-```
-
-The current RF proof runs Gateway-to-Node. The intended sensor-to-Gateway Node-to-Gateway direction, vibration-window transport, ranging, production security and field RF qualification remain future milestones.
+The commercial modules remain third-party products whose internal designs are outside the Gateway open-hardware claim.
 
 ## Verified evidence
 
@@ -64,63 +52,34 @@ The current RF proof runs Gateway-to-Node. The intended sensor-to-Gateway Node-t
 | DW3110 identity and initialisation | PASS | [`docs/validation/DW3110_Physical_Identity_Initialisation_Validation.md`](docs/validation/DW3110_Physical_Identity_Initialisation_Validation.md) |
 | Matched 20-frame one-way RF exchange | PASS | [`docs/validation/DW3110_One_Way_RF_Exchange_Validation.md`](docs/validation/DW3110_One_Way_RF_Exchange_Validation.md) |
 | Native KiCad source | PUBLISHED | [`hardware/source/README.md`](hardware/source/README.md) |
-| Fabrication package inventory and hashes | PUBLISHED | [`hardware/fabrication/RELEASE-MANIFEST.md`](hardware/fabrication/RELEASE-MANIFEST.md) |
-| ERC, DRC and clean-environment opening | OPEN GATE | Release verification record required |
-| CAD symbol and footprint provenance | OPEN GATE | Provenance record required |
-| Fitted BOM and module-mounting reconciliation | OPEN GATE | [`hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md`](hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md) |
+| Fabrication package and hashes | PUBLISHED | [`hardware/fabrication/RELEASE-MANIFEST.md`](hardware/fabrication/RELEASE-MANIFEST.md) |
+| Schematic ERC | PASS | [`docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_ERC.rpt`](docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_ERC.rpt) |
+| PCB DRC | PASS | [`docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_DRC.rpt`](docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_DRC.rpt) |
+| Gerber and drill inspection | PASS | [`docs/validation/cad/rev0.1/Gerber_Drill_Inspection_Record.md`](docs/validation/cad/rev0.1/Gerber_Drill_Inspection_Record.md) |
+| Symbol and footprint provenance | RECORDED | [`docs/footprint-provenance.md`](docs/footprint-provenance.md) |
+| Assembly BOM | RECONCILED | [`hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md`](hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md) |
 
 ## Design and fabrication identity
 
 The manufactured board may carry `rev 0.1f`. This is retained as the physical fabrication-build identity within the Thin-Pod Gateway rev 0.1 release path.
 
-The published native source is stored at:
+Published native source:
 
 ```text
 hardware/source/kicad/rev0.1/
 ```
 
-The corresponding published manufacturing outputs are stored at:
+Published manufacturing outputs:
 
 ```text
 hardware/fabrication/rev0.1/
 ```
 
-The release Gerber job records:
+The release Gerber job records project revision `0.1`. The regenerated outputs preserve the intended electrical connectivity, board outline, mounting geometry, module-interface positions, test-point arrangement and layer content of the manufactured rev 0.1f carrier.
 
-```text
-Generator:       KiCad Pcbnew 10.0.1
-Generated:       13 July 2026, 12:29:39 +01:00
-Project revision: 0.1
-Board size:      160.05 mm × 145.05 mm
-Copper layers:   2
-Board thickness: 1.6 mm
-PTH drill hits:  244
-NPTH drill hits: 9
-Archive SHA-256: 3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d
-```
+## Assembly interface treatment
 
-The earlier `rev?` Gerber-job value is resolved. The KiCad project uses a repository-relative fabrication output path, replacing the earlier private Windows/OneDrive location.
-
-## Electrical interface summary
-
-### NUCLEO to DWM3001-CDK
-
-| Signal | NUCLEO | DWM3001-CDK | Directional description |
-|---|---|---|---|
-| `SPI5_SCK` | `CN15.11 / PE15` | `J10.23 / SPI1_CLK` | Controller clock |
-| `SPI5_MOSI` / COPI | `CN15.15 / PG2` | `J10.19 / SPI1_MOSI` | Controller to peripheral |
-| `SPI5_MISO` / CIPO | `CN15.13 / PG1` | `J10.21 / SPI1_MISO` | Peripheral to controller |
-| `DWM_CS` | `CN15.17 / PA3` | `J10.24 / CS_RPI` | Active-low select |
-| `DWM_IRQ` / READY | `CN15.16 / PB9` | `J10.15 / GPIO_RPI` | Peripheral status to host |
-| `DWM_RESET` | `CN15.33 / PD0` | `J10.12 / RESET` | Host reset control |
-
-### Power
-
-| Rail | Source | Use |
-|---|---|---|
-| `5V_GATEWAY` | NUCLEO `CN3.6` | DWM `J10.2 / VRPI` and optional XIAO `5V/VBUS` |
-| `3V3_GATEWAY` | NUCLEO `CN3.16` | Pull-ups, auxiliary logic and test access |
-| `GND` | Common carrier reference | NUCLEO, DWM, XIAO and passive returns |
+Builder-selected pin headers and/or socket strips compatible with the NUCLEO-N657X0-Q ST Morpho interfaces, DWM3001-CDK J10 interface, and optional XIAO ESP32-C6 carrier footprint are suitable for assembly. Header brand, plating, socket style and standoff selection are assembly choices outside the carrier-PCB certification scope.
 
 ## Licences
 
@@ -131,42 +90,16 @@ The earlier `rev?` Gerber-job value is resolved. The KiCad project uses a reposi
 | Creator-authored documentation and owned images | `CC-BY-4.0` |
 | Third-party modules, software and CAD | Original applicable terms |
 
-See [`LICENSE.md`](LICENSE.md), [`LICENSE-HARDWARE.md`](LICENSE-HARDWARE.md), [`LICENSE-SOFTWARE.md`](LICENSE-SOFTWARE.md), [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
-
-## Repository map
-
-```text
-hardware/
-  bom/                         Bill of materials and release reconciliation
-  fabrication/
-    rev0.1/                    Published Gerber, drill and fabrication ZIP files
-  source/
-    kicad/rev0.1/              Published native KiCad project, schematic and PCB
-firmware/                      Zephyr applications, protocol code and hardware proofs
-docs/
-  bringup/                     Physical bring-up records
-  firmware/                    Build, interface and RF procedures
-  validation/                  Measured validation records
-  oshwa/                       Certification preparation and application draft
-logs/                          Raw and interpreted engineering evidence
-scripts/                       Parsers and automated evidence checks
-images/                        Physical hardware and measurement evidence
-```
+See [`LICENSE.md`](LICENSE.md), [`LICENSE-HARDWARE.md`](LICENSE-HARDWARE.md), [`LICENSE-SOFTWARE.md`](LICENSE-SOFTWARE.md), [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md), [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) and [`docs/footprint-provenance.md`](docs/footprint-provenance.md).
 
 ## OSHWA submission gate
 
 A Gateway application should be submitted after all of the following are complete:
 
-1. open the published project in a clean KiCad 10 environment;
-2. record schematic ERC and PCB DRC results;
-3. inspect and record the Gerber and drill release in a Gerber viewer;
-4. resolve symbol and footprint provenance;
-5. reconcile the BOM with the fitted assembly and exact header/socket choices;
-6. confirm the regenerated release outputs preserve the intended electrical and geometric design of the manufactured rev 0.1f carrier;
-7. clear `scripts/check_oshwa_readiness.py` and the existing release-artifact checks;
-8. make the repository public;
-9. create an immutable public release tag;
-10. submit a separate Gateway OSHWA application using the licence selections above.
+1. run `scripts/check_oshwa_readiness.py` and the existing release-artifact checks successfully;
+2. make the repository public;
+3. create an immutable public release tag;
+4. submit a separate Gateway OSHWA application using the licence selections above.
 
 ## Current limitations
 
