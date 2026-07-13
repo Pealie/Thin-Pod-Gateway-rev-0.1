@@ -25,14 +25,16 @@ The files under `firmware/common/qorvo_dw3000/` are Thin-Pod-authored integratio
 
 ## CAD and footprint provenance
 
-The certification release must identify every non-standard symbol, footprint and 3D model used by the editable KiCad project. Each dependency must be placed into one of these categories:
+The editable KiCad project is published under `hardware/source/kicad/rev0.1/`. Its CAD dependencies are classified as follows:
 
-1. independently authored Thin-Pod source, licensed under `CERN-OHL-W-2.0`;
-2. unmodified or adapted KiCad-library material, retaining the KiCad Libraries Licence and exception;
-3. third-party design material, retaining its original terms and attribution;
-4. vendor-controlled material referenced externally and excluded from the release package.
+1. project-authored Thin-Pod source, licensed under `CERN-OHL-W-2.0`;
+2. standard KiCad-library symbols and footprints, retaining the KiCad Libraries Licence and exception;
+3. third-party CAD material, retaining its original terms and attribution;
+4. vendor-controlled products and documentation referenced externally and excluded from the Gateway open-hardware claim.
 
-The current repository does not yet contain the editable KiCad project advertised by the README. Final footprint provenance therefore remains open until that exact project and its project-local libraries are committed and reviewed.
+The NUCLEO-N657X0-Q representation is a project-local carrier-interface model based on public STMicroelectronics connector, pinout and mechanical information. The XIAO ESP32-C6 representation is based on public Seeed Studio interface information. The DWM3001-CDK representation carries an embedded SnapEDA/SnapMagic source reference and is treated as third-party CAD material under its original terms.
+
+The complete provenance inventory and release treatment are recorded in [`docs/footprint-provenance.md`](docs/footprint-provenance.md).
 
 ## Trade marks and certification marks
 
