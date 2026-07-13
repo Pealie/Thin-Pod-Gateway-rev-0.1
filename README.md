@@ -92,14 +92,15 @@ Builder-selected pin headers and/or socket strips compatible with the NUCLEO-N65
 
 See [`LICENSE.md`](LICENSE.md), [`LICENSE-HARDWARE.md`](LICENSE-HARDWARE.md), [`LICENSE-SOFTWARE.md`](LICENSE-SOFTWARE.md), [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md), [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) and [`docs/footprint-provenance.md`](docs/footprint-provenance.md).
 
-## OSHWA submission gate
+## OSHWA submission status
 
-A Gateway application should be submitted after all of the following are complete:
+Release preparation is complete:
 
-1. run `scripts/check_oshwa_readiness.py` and the existing release-artifact checks successfully;
-2. make the repository public;
-3. create an immutable public release tag;
-4. submit a separate Gateway OSHWA application using the licence selections above.
+1. `scripts/check_oshwa_readiness.py` and the release-artifact checks passed successfully;
+2. the repository is public;
+3. immutable public release tag `v0.1` has been created.
+
+The remaining step is to submit a separate Gateway OSHWA application using the licence selections above.
 
 ## Current limitations
 
