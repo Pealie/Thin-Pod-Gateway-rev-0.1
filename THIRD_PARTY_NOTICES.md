@@ -38,4 +38,4 @@ The complete provenance inventory and release treatment are recorded in [`docs/f
 
 ## Trade marks and certification marks
 
-`Thin-Pod`, manufacturer names and product names may be trade marks of their respective owners. The OSHWA certification mark and a future Gateway UID must only be used after certification is granted and in accordance with OSHWA’s mark-usage terms. The existing Thin-Pod node UID `UK000091` applies only to the separate sensor-node carrier PCB.
+`Thin-Pod`, manufacturer names and product names may be trade marks of their respective owners. The OSHWA certification mark used in this repository carries Gateway UID `UK000092` and remains subject to OSHWA’s certification-mark licence and mark-usage terms. Thin-Pod node UID `UK000091` applies only to the separate sensor-node carrier PCB.

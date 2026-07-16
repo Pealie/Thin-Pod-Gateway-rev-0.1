@@ -1,12 +1,13 @@
 # Thin-Pod rev 0.1 to Thin-Pod Gateway rev 0.1: System Interface Control Document
 
-**Document identifier:** `TP-SYS-ICD-0001`  
-**Revision:** Draft A  
-**Document date:** 27 May 2026  
-**Node hardware:** Thin-Pod rev 0.1  
-**Gateway hardware:** Thin-Pod Gateway rev 0.1  
-**System state:** Node OSHWA application submitted; Gateway PCB ordered and awaiting bring-up  
-**Scope note:** This system document does not expand the submitted OSHWA certification scope of Thin-Pod rev 0.1. The Gateway remains a separate hardware product and future certification candidate.
+**Document identifier:** `TP-SYS-ICD-0001`<br>
+**Revision:** Draft A<br>
+**Original document date:** 27 May 2026<br>
+**Certification status updated:** 16 July 2026<br>
+**Node hardware:** Thin-Pod rev 0.1<br>
+**Gateway hardware:** Thin-Pod Gateway rev 0.1<br>
+**System state:** Node and Gateway carrier PCBs are independently OSHWA-certified; Gateway powered bring-up, host-interface exchange and matched one-way RF evidence are recorded<br>
+**Scope note:** This system document preserves the separate certification boundaries of Thin-Pod rev 0.1 (`UK000091`) and Thin-Pod Gateway rev 0.1 (`UK000092`).
 
 ## 1\. Purpose
 
@@ -26,10 +27,10 @@ Its purpose is to prevent system integration from drifting into informal assumpt
 
 |Hardware product|Revision|Certification position|
 |-|-:|-|
-|Thin-Pod sensor-node carrier PCB|rev 0.1|Submitted to OSHWA as a bounded open-hardware sensor-node release|
-|Thin-Pod Gateway carrier PCB|rev 0.1|Separate PCB in manufacture/bring-up phase; no OSHWA application yet submitted|
+|Thin-Pod sensor-node carrier PCB|rev 0.1|OSHWA-certified as `UK000091`, 28 May 2026|
+|Thin-Pod Gateway carrier PCB|rev 0.1|OSHWA-certified as `UK000092`, 16 July 2026|
 
-The Gateway is explicitly outside the node certification scope. The submitted node documentation excludes Gateway hardware, implemented wireless transport, DSP and TinyML from the rev 0.1 node claim.
+The Gateway remains outside the node certification scope. The node record excludes Gateway hardware, implemented wireless transport, DSP and TinyML from UID `UK000091`; the Gateway record separately defines UID `UK000092`.
 
 ### 2.2 Deferred rev 0.3 direction
 
@@ -123,9 +124,9 @@ Where receive or analysis capacity is exhausted, the intended behaviour is to wi
 |Transport aspect|Status|
 |-|-|
 |Physical node-side CDK interface|Present in Thin-Pod rev 0.1 release|
-|Physical Gateway-side CDK interface|Present in ordered Gateway rev 0.1 carrier PCB; pending bring-up|
+|Physical Gateway-side CDK interface|Present in the manufactured Gateway rev 0.1 carrier PCB; powered bring-up completed|
 |Radio firmware|Not defined as part of submitted node certification|
-|UWB packet/window transfer|Not yet claimed as demonstrated|
+|UWB packet/window transfer|Matched one-way RF frame exchange demonstrated; complete vibration-window transport remains outside the current claim|
 |Gateway memory receipt|To be proven after Gateway bring-up|
 
 ## 7\. Gateway-side physical interface
@@ -257,7 +258,7 @@ This is a transport-and-observability milestone, not a predictive-maintenance cl
 
 ## 11\. Documentation and repository placement
 
-The system ICD should not be added to the submitted node certification repository in a way that suggests the Gateway has become part of the certified node scope. Suitable placement is:
+The system ICD should not be added to either certified hardware repository in a way that merges the node and Gateway certification scopes. Suitable placement is:
 
 ```text
 Thin-Pod-Gateway-rev0.1/
@@ -267,22 +268,23 @@ Thin-Pod-Gateway-rev0.1/
 
 or, later, a separate system-level documentation repository clearly referencing both independent hardware artefacts.
 
-The node repository may contain only a brief cross-reference after the Gateway exists as a separate public release, while retaining its existing statement that Gateway hardware and system functionality are outside the node’s submitted certification scope.
+The node repository may contain a brief cross-reference to the separately certified Gateway while retaining its statement that Gateway hardware and system functionality remain outside node UID `UK000091`.
 
 ## 12\. Future revision control
 
 |Future change|Revision treatment|
 |-|-|
 |Gateway rev 0.1 test results added without PCB change|Update Gateway rev 0.1 verification documentation|
-|Gateway PCB correction discovered before first OSHWA submission|Incorporate into the clean first Gateway rev 0.1 release and retain prototype record|
+|Gateway PCB electrical or mechanical correction after certified rev 0.1|Assign a later Gateway hardware revision and preserve the `v0.1` certification record|
 |Gateway design changed after a frozen/certified rev 0.1 release|Assign later Gateway revision|
 |SMT/chip-down integration, such as replacing development-module carrier approach|Reserve for later rev 0.3 programme; not part of current work|
-|Changes to node PCB after submitted/frozen Thin-Pod rev 0.1|Separate node revision; do not silently expand certification record|
+|Changes to node PCB after certified Thin-Pod rev 0.1|Separate node revision; preserve UID `UK000091` as the rev 0.1 record|
 |Protocol change|Increment protocol version independently of board version when appropriate|
 
 ## References and source basis
 
-* Thin-Pod rev 0.1 OSHWA certification-scope document, which explicitly excludes Gateway hardware and communications/DSP/TinyML implementation from the submitted node scope.
+* Thin-Pod rev 0.1 OSHWA certification-scope document, UID `UK000091`, which excludes Gateway hardware and communications/DSP/TinyML implementation from the node scope.
+* Thin-Pod Gateway rev 0.1 OSHWA certification-scope document, UID `UK000092`, which defines the separate Gateway carrier-board boundary.
 * Thin-Pod Gateway fabrication-order engineering record dated 21 May 2026, recording module mapping, rails and initial bring-up checklist.
 * STMicroelectronics, `NUCLEO-N657X0-Q` product documentation: [https://www.st.com/en/evaluation-tools/nucleo-n657x0-q.html](https://www.st.com/en/evaluation-tools/nucleo-n657x0-q.html)
 * Qorvo, `DWM3001CDK` product documentation: [https://www.qorvo.com/products/p/DWM3001CDK](https://www.qorvo.com/products/p/DWM3001CDK)

@@ -80,7 +80,7 @@ The hardware layer provides the physical sensing, carrier-board, power, signal, 
 
 ## OSHWA boundary for Gateway rev 0.1
 
-For Thin-Pod Gateway rev 0.1, the most defensible OSHWA framing is that the certified object would be the **creator-designed Gateway carrier PCB and its open hardware documentation**. That would include the KiCad design source, schematics, PCB layout, fabrication outputs, BOM, footprint provenance, release manifest, interface documentation, test-point information and bring-up evidence.
+Thin-Pod Gateway rev 0.1 is OSHWA-certified under UID `UK000092`. The certified hardware object is the **creator-designed Gateway carrier PCB and its open hardware documentation**. The certification package includes the KiCad design source, schematics, PCB layout, fabrication outputs, BOM, footprint provenance, release manifest, interface documentation, test-point information and bring-up evidence.
 
 The third-party development modules remain outside the hardware certification claim. The Gateway carrier board may host or interconnect a Qorvo DWM3001-CDK, an STM32 NUCLEO-N657X0-Q and a Seeed Studio XIAO ESP32-C6, but it does not claim those commercial modules as open hardware.
 

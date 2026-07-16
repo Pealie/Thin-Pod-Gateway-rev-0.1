@@ -1,9 +1,9 @@
 # Thin-Pod Firmware Workspace
 
-**Project context:** Thin-Pod rev 0.1 sensor node and Thin-Pod Gateway rev 0.1  
-**Firmware workspace status:** Prepared for initial acquisition and host-interface experiments; no completed firmware implementation claimed  
-**Document date:** 27 May 2026  
-**Related hardware status:** Thin-Pod rev 0.1 OSHWA application submitted; Thin-Pod Gateway rev 0.1 PCB ordered and awaiting bring-up
+**Project context:** Thin-Pod rev 0.1 sensor node and Thin-Pod Gateway rev 0.1<br>
+**Firmware workspace status:** Prepared for initial acquisition and host-interface experiments; no completed firmware implementation claimed<br>
+**Document date:** 27 May 2026<br>
+**Certification status update (16 July 2026):** Thin-Pod rev 0.1 is OSHWA-certified as `UK000091`; Thin-Pod Gateway rev 0.1 is independently OSHWA-certified as `UK000092`
 
 ## Purpose
 
@@ -33,11 +33,11 @@ The firmware workspace must not blur the hardware certification boundaries.
 
 |Hardware artefact|Current position|Firmware relationship|
 |-|-|-|
-|**Thin-Pod rev 0.1** sensor-node carrier PCB|Separate OSHWA application submitted on 26 May 2026|This workspace may test firmware using that hardware, but it does not retrospectively expand the submitted hardware scope|
-|**Thin-Pod Gateway rev 0.1** carrier PCB|Separate future OSHWA candidate; PCB ordered and bring-up pending|Firmware in this workspace may later support the Gateway release and must be separately licensed if published as part of that release|
+|**Thin-Pod rev 0.1** sensor-node carrier PCB|OSHWA-certified as `UK000091`|This workspace may test firmware using that hardware; the node certification boundary remains unchanged|
+|**Thin-Pod Gateway rev 0.1** carrier PCB|OSHWA-certified as `UK000092`|Project-authored firmware and software in this repository are declared under MIT within the Gateway certification record; external SDKs and vendor firmware retain their own terms|
 |**Gateway rev 0.3** SMT/chip-down direction|Deferred|Not implemented in this workspace at present|
 
-The Gateway hardware licence and documentation licence do not automatically license firmware. Before public firmware release or any Gateway OSHWA submission that includes supplied software, add a suitable `LICENSE-SOFTWARE.md`, apply appropriate source-file notices and ensure the OSHWA software-licence declaration matches the released firmware scope.
+The Gateway hardware, software and documentation categories remain separately licensed. Project-authored firmware and software are covered by `LICENSE-SOFTWARE.md` under MIT, matching the software licence declared for UID `UK000092`. External SDKs, Zephyr components and vendor firmware remain under their original terms.
 
 ## Architectural responsibility split
 
@@ -183,8 +183,8 @@ This directory does not yet claim:
 * successful UWB transmission of vibration records;
 * proven DSP performance;
 * TinyML inference or predictive-maintenance capability;
-* a final firmware licence; or
-* inclusion of firmware in either the submitted Thin-Pod node certification or a submitted Gateway certification application.
+* production-qualified firmware behaviour; or
+* expansion of either certified hardware boundary beyond the public records for UIDs `UK000091` and `UK000092`.
 
 ## Immediate next action
 

@@ -19,9 +19,9 @@ This repository contains hardware design material, software, documentation and r
 4. The CC-BY-4.0 grant applies only to documentation and images for which the copyright holder has authority to grant the licence.
 5. Commercial components may be identified in the BOM for reproducibility without becoming open-hardware contributions of this project.
 
-## OSHWA application declaration
+## OSHWA certification declaration
 
-The intended licence selections for a Thin-Pod Gateway rev 0.1 OSHWA application are:
+The licence selections recorded for Thin-Pod Gateway rev 0.1 OSHWA certification UID [`UK000092`](https://certification.oshwa.org/uk000092.html) are:
 
 ```text
 Hardware:       CERN-OHL-W-2.0
@@ -29,4 +29,4 @@ Software:       MIT
 Documentation:  CC-BY-4.0
 ```
 
-The Gateway is a separate certification candidate from the OSHWA-certified Thin-Pod rev 0.1 sensor-node carrier PCB, UID `UK000091`.
+The Gateway is OSHWA-certified under UID `UK000092`, issued 16 July 2026. It remains a separate hardware certification from the Thin-Pod rev 0.1 sensor-node carrier PCB, UID `UK000091`.

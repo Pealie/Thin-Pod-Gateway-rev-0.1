@@ -1,8 +1,8 @@
 # Thin-Pod Gateway rev 0.1: symbol and footprint provenance
 
-**Project:** Thin-Pod Gateway  
-**Hardware release:** rev 0.1  
-**EDA environment:** KiCad 10  
+**Project:** Thin-Pod Gateway<br>
+**Hardware release:** rev 0.1<br>
+**EDA environment:** KiCad 10<br>
 **Status:** Release provenance record
 
 ## Purpose
@@ -31,4 +31,4 @@ The published KiCad project is self-contained at the schematic and PCB level and
 
 ## Release conclusion
 
-**PASS:** symbol and footprint provenance is recorded at a level consistent with the certified Thin-Pod node release. The remaining release steps concern repository checks, public visibility, immutable tagging and OSHWA submission.
+**PASS:** symbol and footprint provenance is recorded as part of the certified Thin-Pod Gateway rev 0.1 release, OSHWA UID [`UK000092`](https://certification.oshwa.org/uk000092.html). The public `v0.1` baseline, repository checks and certification record are complete.

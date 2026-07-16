@@ -1,11 +1,11 @@
 # Thin-Pod Gateway rev 0.1: Hardware Licence
 
-**Project:** Thin-Pod Gateway  
-**Hardware release path:** rev 0.1  
-**Release status:** Open-hardware candidate; PCB ordered and bring-up pending  
-**Copyright holder:** Copyright © 2026 Neil Thomson / Pealie  
-**Hardware licence:** CERN Open Hardware Licence Version 2 — Weakly Reciprocal  
-**SPDX licence identifier:** `CERN-OHL-W-2.0`  
+**Project:** Thin-Pod Gateway<br>
+**Hardware release path:** rev 0.1<br>
+**Release status:** OSHWA-certified public rev 0.1 hardware baseline, UID `UK000092`<br>
+**Copyright holder:** Copyright © 2026 Neil Thomson / Pealie<br>
+**Hardware licence:** CERN Open Hardware Licence Version 2 — Weakly Reciprocal<br>
+**SPDX licence identifier:** `CERN-OHL-W-2.0`<br>
 
 ## 1. Licence declaration
 
@@ -30,34 +30,33 @@ Unless a file or folder states otherwise, this hardware licence applies to the T
 | Release manifests and hardware-source metadata | Technical material that identifies and supports reproduction of the hardware source, where it is part of the hardware design package |
 | Modifications contributed by the licensor | Later creator-authored changes to the covered rev 0.1 hardware source, unless expressly released separately |
 
-The intended source locations are:
+The released source locations are:
 
 ```text
 hardware/
 ├── source/
-│   ├── Thin-Pod_Gateway_rev0.1.kicad_pro
-│   ├── Thin-Pod_Gateway_rev0.1.kicad_sch
-│   ├── Thin-Pod_Gateway_rev0.1.kicad_pcb
-│   ├── fp-lib-table
-│   ├── sym-lib-table
-│   └── footprints/
+│   └── kicad/
+│       └── rev0.1/
+│           ├── Thin-Pod Gateway.kicad_pro
+│           ├── Thin-Pod Gateway.kicad_sch
+│           └── Thin-Pod Gateway.kicad_pcb
 │
 └── fabrication/
-    ├── gerbers/
-    ├── drills/
-    ├── Thin-Pod_Gateway_rev0.1_fabrication_outputs.zip
-    └── RELEASE-MANIFEST.md
+    ├── RELEASE-MANIFEST.md
+    └── rev0.1/
+        ├── Thin-Pod Gateway-*.gbr
+        ├── Thin-Pod Gateway-*.drl
+        ├── Thin-Pod Gateway-job.gbrjob
+        └── Thin-Pod_Gateway_rev0.1_fabrication.zip
 ```
 
 ## 3. Hardware certified-item boundary
 
-This repository prepares a later, separate OSHWA certification candidate for:
+This repository publishes the hardware certified by OSHWA under UID [`UK000092`](https://certification.oshwa.org/uk000092.html), issued 16 July 2026:
 
 > **Thin-Pod Gateway rev 0.1: an open-hardware Gateway carrier PCB for receiving, supervising and forwarding Thin-Pod vibration-window data using commercially supplied development modules.**
 
-The Gateway is a separate hardware product from **Thin-Pod rev 0.1**, the sensor-node carrier PCB already submitted for OSHWA certification. Nothing in this repository expands or changes the submitted certification boundary of the Thin-Pod node.
-
-No Gateway OSHWA certification application is claimed as submitted unless and until the repository record is updated after physical bring-up, release freeze and a separate application.
+The Gateway is a separate hardware product from **Thin-Pod rev 0.1**, the sensor-node carrier PCB certified under UID `UK000091`. UID `UK000092` does not expand or change the node certification boundary, and UID `UK000091` does not extend to the Gateway.
 
 ## 4. Commercial third-party hardware not covered by this licence
 
@@ -83,7 +82,7 @@ Files not authored by Thin-Pod remain under their original applicable terms. In 
 - manufacturer-provided development-board geometry, models or documentation; or
 - third-party logos, trade marks or branding.
 
-Before a Gateway OSHWA submission, any non-standard published footprint or symbol required by the release must be listed in `docs/footprint-provenance.md`, with its source and licence treatment recorded. Third-party CAD files should either be published under their own compatible terms or replaced with independently authored carrier-interface representations.
+The certified rev 0.1 release records each non-standard published footprint or symbol in `docs/footprint-provenance.md`, together with its source and licence treatment. Third-party CAD files retain their original terms; project-authored carrier-interface representations are identified separately.
 
 ## 6. Documentation and software are licensed separately
 
@@ -92,25 +91,25 @@ This hardware licence does not apply to all repository material indiscriminately
 | Material category | Intended treatment |
 |---|---|
 | Creator-authored documentation, diagrams and creator-owned images | Licensed under `CC-BY-4.0`, as recorded in `LICENSE-DOCUMENTATION.md` |
-| Firmware or software | No firmware/software licence is assigned by this file; any later released software must carry its own compatible licence statement |
+| Firmware or software | Project-authored software is separately licensed under `MIT`, as recorded in `LICENSE-SOFTWARE.md` |
 | Third-party CAD/library dependencies | Retain their own recorded terms |
 | Commercial modules and vendor documents | Not relicensed by this repository |
 
-For a later Gateway OSHWA application, the software licence choice must reflect the actual release: `No software` is appropriate only where the certified Gateway release does not supply or require creator-provided firmware as part of its certified claim.
+The OSHWA record for UID `UK000092` declares `MIT` for project-authored software. External SDKs, vendor firmware and other third-party software retain their own terms.
 
 ## 7. Modification and release discipline
 
-The ordered Gateway PCB may carry a fabrication-build identifier such as `rev 0.1f`. It is treated as a pre-release build within the **Gateway rev 0.1** development path.
+The manufactured Gateway PCB may carry the fabrication-build identifier `rev 0.1f`. The certified repository record reconciles that physical marking with the public **Gateway rev 0.1** source and fabrication package.
 
-Before any OSHWA submission for this Gateway:
+Post-certification revision control requires:
 
-1. the received PCB must be physically inspected and brought up;
-2. the final editable source, BOM and Gerbers must be reconciled with the intended release;
-3. all published non-standard CAD dependencies must have a documented licence/provenance position;
-4. required pre-release electrical or layout corrections must be incorporated into the first clean Gateway rev 0.1 release source; and
-5. the release state should be frozen using a tag such as `v0.1-oshwa-submission`.
+1. preservation of public tag `v0.1` as the certified rev 0.1 hardware baseline;
+2. explicit recording of documentation-only corrections;
+3. a later hardware revision for electrical, mechanical, copper or interface design changes;
+4. continued provenance records for non-standard CAD dependencies; and
+5. continued separation between Gateway UID `UK000092` and node UID `UK000091`.
 
-The later planned SMT/chip-down direction is reserved for a subsequent Gateway hardware revision, presently described as **rev 0.3**, and is not licensed here as if already implemented.
+The planned SMT/chip-down direction remains reserved for a subsequent Gateway hardware revision, presently described as **rev 0.3**, and is not licensed here as if already implemented.
 
 ## 8. Source notice for covered hardware files
 
@@ -133,7 +132,7 @@ In particular, this repository does not claim:
 
 - EMC, radio, electrical-safety, CE or UKCA compliance;
 - safe deployment on industrial or safety-critical equipment;
-- completed UWB node-to-Gateway transport;
+- complete Node-to-Gateway vibration-window transport;
 - validated Gateway DSP or TinyML operation; or
 - open licensing of the commercial modules interfaced by the carrier board.
 
@@ -141,7 +140,7 @@ In particular, this repository does not claim:
 
 The governing licence for the covered hardware material is:
 
-**CERN Open Hardware Licence Version 2 — Weakly Reciprocal (`CERN-OHL-W-2.0`)**  
+**CERN Open Hardware Licence Version 2 — Weakly Reciprocal (`CERN-OHL-W-2.0`)**<br>
 Canonical licence text: <https://ohwr.org/cern_ohl_w_v2.txt>
 
 This file identifies the covered work and its licensing boundary. The canonical CERN-OHL-W-2.0 legal text governs use of the covered hardware material.

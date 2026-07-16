@@ -1,11 +1,15 @@
 # Thin-Pod Gateway rev 0.1: Bring-Up and Verification Protocol
 
-**Product:** Thin-Pod Gateway  
-**Release path:** rev 0.1  
-**Ordered fabrication-build identifier:** `rev 0.1f`, where present on the manufactured PCB/silkscreen  
-**Board state at preparation:** PCB ordered; arrival and assembly pending  
-**Document status:** Test protocol prepared before board arrival  
-**Document date:** 27 May 2026  
+**Product:** Thin-Pod Gateway<br>
+**Release path:** rev 0.1<br>
+**Ordered fabrication-build identifier:** `rev 0.1f`, where present on the manufactured PCB/silkscreen<br>
+**Board state at preparation:** PCB ordered; arrival and assembly were pending<br>
+**Current status:** Protocol completed through the recorded rev 0.1 bring-up evidence; OSHWA UID `UK000092` issued 16 July 2026<br>
+
+> **Historical protocol status (16 July 2026):** This document preserves the original commissioning plan and blank/pending worksheets. Completed bring-up evidence is recorded in [`docs/bringup/Gateway_rev0_1_Hardware_Bringup_Note.md`](bringup/Gateway_rev0_1_Hardware_Bringup_Note.md), and the released carrier is OSHWA-certified as [`UK000092`](https://certification.oshwa.org/uk000092.html).
+
+**Document status:** Test protocol prepared before board arrival<br>
+**Document date:** 27 May 2026<br>
 
 ## 1. Purpose
 

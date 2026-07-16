@@ -22,19 +22,19 @@ By default, the script checks the artefacts already expected at this stage:
 - Gateway packet parser;
 - parser execution against the sample packet.
 
-It also warns about later release artefacts that are not expected to exist yet,
-such as the validation log, GitHub Actions workflow and OSHWA preparation
-checklist.
+Release and certification records are checked in release mode, including the
+validation log, GitHub Actions workflow, OSHWA completion checklist, public
+application record and UID-bearing certification mark.
 
 Release mode
 ------------
-Use --release to make later release artefacts mandatory.
+Use --release to make the complete release and certification record mandatory.
 
 Example:
 
     python scripts/check_gateway_release_artifacts.py --release
 
-This is useful immediately before tagging Gateway rev 0.1.
+This is useful when validating the certified Gateway rev 0.1 repository state.
 """
 
 from __future__ import annotations
@@ -80,6 +80,9 @@ REQUIRED_CURRENT_FILES = [
 REQUIRED_RELEASE_FILES = [
     "docs/validation/Gateway_rev0_1_Validation_Log.md",
     "docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md",
+    "oshwa/README.md",
+    "oshwa/application-record.md",
+    "images/certification/oshwa-uk000092.png",
     ".github/workflows/gateway-checks.yml",
 ]
 
@@ -98,6 +101,7 @@ EXPECTED_ARCHIVE_FILES = [
 PYTHON_FILES_TO_COMPILE = [
     "scripts/gateway_packet_logger.py",
     "scripts/check_gateway_release_artifacts.py",
+    "scripts/check_oshwa_readiness.py",
     "scripts/check_tphip_vectors.py",
 ]
 
@@ -364,7 +368,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--release",
         action="store_true",
-        help="Require later release artefacts such as validation log, OSHWA checklist and GitHub Actions workflow.",
+        help="Require the complete release and OSHWA certification record.",
     )
 
     return parser.parse_args()

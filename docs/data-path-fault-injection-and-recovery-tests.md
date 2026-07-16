@@ -1,13 +1,13 @@
 # Thin-Pod Gateway rev 0.1: Data-Path Fault-Injection and Recovery Tests
 
-**Document identifier:** `TP-GW-TEST-0001`  
-**Document revision:** Draft A  
-**Product:** Thin-Pod Gateway rev 0.1  
-**Related node hardware:** Thin-Pod rev 0.1  
-**Document status:** Verification protocol prepared before firmware/data-path implementation  
-**Document date:** 27 May 2026  
-**Related protocol:** `TPHIP-1`, `docs/dwm-to-nucleo-host-interface-protocol.md`  
-**Certification boundary:** This test plan supports future Gateway evidence and does not amend the submitted OSHWA scope of the Thin-Pod rev 0.1 node.
+**Document identifier:** `TP-GW-TEST-0001`<br>
+**Document revision:** Draft A<br>
+**Product:** Thin-Pod Gateway rev 0.1<br>
+**Related node hardware:** Thin-Pod rev 0.1<br>
+**Document status:** Verification protocol prepared before firmware/data-path implementation<br>
+**Document date:** 27 May 2026<br>
+**Related protocol:** `TPHIP-1`, `docs/dwm-to-nucleo-host-interface-protocol.md`<br>
+**Certification boundary update (16 July 2026):** Thin-Pod Gateway rev 0.1 is OSHWA-certified under UID [`UK000092`](https://certification.oshwa.org/uk000092.html). This retained verification plan does not expand the certified hardware scope of either Gateway UID `UK000092` or node UID `UK000091`.
 
 ## 1. Purpose
 
@@ -421,9 +421,9 @@ These tests begin only after wired host-interface tests pass.
 
 ## 14. Release evidence threshold
 
-For a future Gateway OSHWA-facing release, not every system-level test must be complete, because OSHWA concerns the open hardware design rather than proving an entire analytics product. Nevertheless, the Gateway repository should state accurately which tests have passed.
+During pre-certification planning, the following threshold separated the open-hardware release evidence from later system-level analytics work. OSHWA certification UID `UK000092` was granted on 16 July 2026; the live certification scope and completed evidence record now govern the release.
 
-The minimum evidence recommended before a Gateway rev 0.1 OSHWA submission is:
+The minimum evidence used for the Gateway rev 0.1 certification preparation was:
 
 | Evidence class | Recommended minimum |
 |---|---|

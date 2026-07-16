@@ -1,9 +1,9 @@
 # Thin-Pod Gateway rev 0.1 Bill of Materials
 
-**Project:** Thin-Pod Gateway  
-**Hardware release:** rev 0.1  
-**Manufactured carrier identity:** rev 0.1f  
-**Status:** OSHWA candidate; manufactured, assembled and physically validated  
+**Project:** Thin-Pod Gateway<br>
+**Hardware release:** rev 0.1<br>
+**Manufactured carrier identity:** rev 0.1f<br>
+**Status:** OSHWA certified, UID [`UK000092`](https://certification.oshwa.org/uk000092.html); manufactured, assembled and physically validated<br>
 **BOM basis:** Published KiCad source and demonstrated carrier assembly
 
 ## Scope
@@ -68,7 +68,7 @@ The released PCB geometry and published KiCad footprints define the required pit
 
 ## Verification and release reconciliation
 
-The manufactured rev 0.1f carrier has been assembled and demonstrated through stable powered bring-up, NUCLEO-to-DWM host-interface communication, DW3110 identity and initialisation, and a matched Gateway-to-Node UWB exchange.
+The manufactured rev 0.1f carrier has been assembled and demonstrated through stable powered bring-up, NUCLEO-to-DWM host-interface communication, DW3110 identity and initialisation, and a matched Gateway-to-Node UWB exchange. The reconciled rev 0.1 design basis was certified by OSHWA on 16 July 2026 under UID `UK000092`.
 
 The regenerated revision-0.1 Gerber and drill outputs preserve the intended electrical connectivity, board outline, mounting geometry, module-interface positions, test-point arrangement and layer content of the manufactured carrier. Schematic ERC and PCB DRC reports record clean results under `docs/validation/cad/rev0.1/`.
 
@@ -77,3 +77,7 @@ The regenerated revision-0.1 Gerber and drill outputs preserve the intended elec
 The creator-controlled contribution is the Gateway carrier-board schematic, PCB layout, board-specific interfaces, test access, mechanical arrangement and derived fabrication outputs. U1, U2 and U3 are commercial third-party products and retain their manufacturers' terms.
 
 CAD dependency provenance is recorded in [`docs/footprint-provenance.md`](../../docs/footprint-provenance.md). Creator-authored hardware source is released under `CERN-OHL-W-2.0`; this BOM and related documentation are released under `CC-BY-4.0`.
+
+## Certification record
+
+This reconciled BOM forms part of the Thin-Pod Gateway rev 0.1 public certification package, OSHWA UID [`UK000092`](https://certification.oshwa.org/uk000092.html), issued 16 July 2026.

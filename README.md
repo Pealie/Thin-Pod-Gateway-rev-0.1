@@ -1,8 +1,20 @@
 # Thin-Pod Gateway rev 0.1
 
+<p align="left">
+  <a href="https://certification.oshwa.org/uk000092.html">
+    <img src="images/certification/oshwa-uk000092.png" width="260" alt="Open Source Hardware Association certification mark: UK000092">
+  </a>
+</p>
+<p align="left">
+  <strong>OSHWA Certified Open Source Hardware · UK000092</strong><br>
+  Certified 16 July 2026 · <a href="https://certification.oshwa.org/uk000092.html">View certification record</a>
+</p>
+
 **Open-hardware carrier PCB for Thin-Pod UWB telemetry, host supervision and onward-networking experiments**
 
-## Status at 13 July 2026
+## Status at 16 July 2026
+
+Thin-Pod Gateway rev 0.1 is certified by the Open Source Hardware Association under UID [`UK000092`](https://certification.oshwa.org/uk000092.html). The certified public baseline is the `v0.1` release, with post-certification status and directory references maintained on `main`.
 
 The manufactured `rev 0.1f` carrier board has completed stable powered bring-up with the STM32 NUCLEO-N657X0-Q and Gateway-side DWM3001-CDK. The repository records:
 
@@ -19,15 +31,18 @@ The manufactured `rev 0.1f` carrier board has completed stable powered bring-up 
 - recorded symbol and footprint provenance;
 - a reconciled design-basis BOM with builder-selected compatible assembly hardware.
 
-The remaining certification-release steps are repository checks, public visibility, immutable tagging and submission of a separate Gateway OSHWA application.
-
-No Gateway OSHWA application has yet been submitted. The OSHWA mark must remain unused for this Gateway until certification is granted.
-
 ## Relationship to the certified Thin-Pod node
 
-The companion [`Pealie/Thin-Pod-rev0.1`](https://github.com/Pealie/Thin-Pod-rev0.1) sensor-node carrier PCB is separately certified as OSHWA Open Source Hardware, UID [`UK000091`](https://certification.oshwa.org/uk000091.html).
+The companion [`Pealie/Thin-Pod-rev0.1`](https://github.com/Pealie/Thin-Pod-rev0.1) sensor-node carrier PCB is separately certified as OSHWA Open Source Hardware, UID [`UK000091`](https://certification.oshwa.org/uk000091.html), certified 28 May 2026.
 
-That UID applies only to the Thin-Pod sensor-node carrier PCB. Thin-Pod Gateway rev 0.1 is a distinct hardware artefact requiring its own application and UID.
+The two certifications describe distinct hardware artefacts:
+
+| Hardware artefact | OSHWA UID | Certification date |
+|---|---|---|
+| Thin-Pod rev 0.1 sensor-node carrier PCB | [`UK000091`](https://certification.oshwa.org/uk000091.html) | 28 May 2026 |
+| Thin-Pod Gateway rev 0.1 carrier PCB | [`UK000092`](https://certification.oshwa.org/uk000092.html) | 16 July 2026 |
+
+The node UID applies only to the sensor-node carrier PCB. The Gateway UID applies only to the Gateway carrier PCB and its declared certification package.
 
 ## Hardware scope
 
@@ -61,7 +76,7 @@ The commercial modules remain third-party products whose internal designs are ou
 
 ## Design and fabrication identity
 
-The manufactured board may carry `rev 0.1f`. This is retained as the physical fabrication-build identity within the Thin-Pod Gateway rev 0.1 release path.
+The manufactured board may carry `rev 0.1f`. This is retained as the physical fabrication-build identity within the certified Thin-Pod Gateway rev 0.1 release record.
 
 Published native source:
 
@@ -90,15 +105,24 @@ Builder-selected pin headers and/or socket strips compatible with the NUCLEO-N65
 | Creator-authored documentation and owned images | `CC-BY-4.0` |
 | Third-party modules, software and CAD | Original applicable terms |
 
+These are the licence selections recorded for OSHWA certification UID `UK000092`.
+
 See [`LICENSE.md`](LICENSE.md), [`LICENSE-HARDWARE.md`](LICENSE-HARDWARE.md), [`LICENSE-SOFTWARE.md`](LICENSE-SOFTWARE.md), [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md), [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) and [`docs/footprint-provenance.md`](docs/footprint-provenance.md).
 
-## OSHWA submission status
+## OSHWA certification record
 
-Release preparation is complete:
+| Item | Record |
+|---|---|
+| Project | Thin-Pod Gateway |
+| Hardware release | rev 0.1 |
+| OSHWA UID | [`UK000092`](https://certification.oshwa.org/uk000092.html) |
+| Certification date | 16 July 2026 |
+| Canonical release tag | `v0.1` |
+| Public application record | [`oshwa/application-record.md`](oshwa/application-record.md) |
+| Certification scope | [`docs/certification-scope.md`](docs/certification-scope.md) |
+| Certification completion checklist | [`docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md`](docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md) |
 
-1. `scripts/check_oshwa_readiness.py` and the release-artifact checks passed successfully;
-2. the repository is public;
-3. immutable public release tag `v0.1` has been created.
+The OSHWA certification confirms the declared open-source hardware, software and documentation licensing position. It does not constitute EMC, radio, electrical-safety, CE, UKCA, industrial-performance or product-safety approval.
 
 ## Current limitations
 

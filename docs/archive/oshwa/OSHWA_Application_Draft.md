@@ -1,9 +1,13 @@
+# Archived pre-certification application draft
+
+> **Historical record.** This document preserves the pre-certification application draft as it existed before OSHWA certification was issued on 16 July 2026. The current public record is [`oshwa/application-record.md`](../../../oshwa/application-record.md), and the official directory entry is [`UK000092`](https://certification.oshwa.org/uk000092.html).
+
 # Thin-Pod Gateway rev 0.1: OSHWA application draft
 
-**Status:** Preparation record; native source and fabrication package published, final validation and release freeze outstanding  
-**Responsible individual:** Neil Thomson / Pealie  
-**Country:** United Kingdom  
-**Primary project type:** Electronics  
+**Status:** Preparation record; native source and fabrication package published, final validation and release freeze outstanding<br>
+**Responsible individual:** Neil Thomson / Pealie<br>
+**Country:** United Kingdom<br>
+**Primary project type:** Electronics<br>
 **Related certified project:** Thin-Pod rev 0.1, OSHWA UID `UK000091`
 
 ## Proposed application fields

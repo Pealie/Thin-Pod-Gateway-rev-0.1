@@ -1,12 +1,16 @@
-# Thin-Pod Gateway rev 0.1 fabrication manifest
+# Thin-Pod Gateway rev 0.1 Release and Fabrication Manifest
 
-**Hardware family:** Thin-Pod Gateway rev 0.1  
-**Fabrication-build identity:** rev 0.1 / manufactured-board marking rev 0.1f where present  
-**Release archive:** `hardware/fabrication/rev0.1/Thin-Pod_Gateway_rev0.1_fabrication.zip`  
-**Archive SHA-256:** `3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d`  
-**Archive size:** 114,303 bytes  
-**Generator recorded by package:** KiCad Pcbnew 10.0.1  
-**Generation timestamp:** 2026-07-13T12:29:39+01:00  
+**Release status:** OSHWA-certified public rev 0.1 baseline<br>
+**OSHWA UID:** [`UK000092`](https://certification.oshwa.org/uk000092.html)<br>
+**Certification date:** 16 July 2026<br>
+**Canonical release tag:** `v0.1`<br>
+**Hardware family:** Thin-Pod Gateway rev 0.1<br>
+**Fabrication-build identity:** rev 0.1 / manufactured-board marking rev 0.1f where present<br>
+**Release archive:** `hardware/fabrication/rev0.1/Thin-Pod_Gateway_rev0.1_fabrication.zip`<br>
+**Archive SHA-256:** `3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d`<br>
+**Archive size:** 114,303 bytes<br>
+**Generator recorded by package:** KiCad Pcbnew 10.0.1<br>
+**Generation timestamp:** 2026-07-13T12:29:39+01:00<br>
 **Project revision recorded by Gerber job:** `0.1`
 
 ## File inventory
@@ -59,16 +63,22 @@
 | 3.200 mm | 4 |
 | **Total** | **9** |
 
-## Audit result
+## Release and certification result
 
-The native KiCad source, individual Gerber and drill files, Gerber job and binary fabrication archive are now committed together. The job metadata records revision `0.1`, resolving the earlier `rev?` release defect.
+The native KiCad source, individual Gerber and drill files, Gerber job and binary fabrication archive are committed together. The job metadata records revision `0.1`, resolving the earlier `rev?` release defect.
 
-Before the public release freeze:
+The release package has completed the recorded certification gates:
 
-1. open the project in a clean KiCad 10 environment;
-2. complete and record schematic ERC and PCB DRC;
-3. inspect the release package in a Gerber viewer;
-4. document symbol and footprint provenance;
-5. reconcile the BOM with the fitted assembly and exact module-header/socket choices;
-6. confirm that the regenerated release package preserves the intended electrical and geometric design of the manufactured rev 0.1f board;
-7. freeze the reconciled source, BOM and fabrication package under one public release tag.
+1. clean KiCad 10 source opening and source-resolution review;
+2. schematic ERC and PCB DRC with zero reported blocking results;
+3. Gerber and drill inspection;
+4. symbol and footprint provenance documentation;
+5. BOM reconciliation with the release assembly basis;
+6. confirmation that the regenerated package preserves the intended electrical and geometric design of the manufactured rev 0.1f board; and
+7. immutable public release freeze under tag `v0.1`.
+
+This source and fabrication identity forms part of the Thin-Pod Gateway rev 0.1 certification record, OSHWA UID [`UK000092`](https://certification.oshwa.org/uk000092.html), issued 16 July 2026.
+
+## Post-certification maintenance
+
+Any change to the released schematic, PCB layout, copper, board outline, mounting geometry or module-interface design requires a later hardware revision. Documentation-only corrections should preserve the file hashes and certified rev 0.1 hardware identity recorded here.

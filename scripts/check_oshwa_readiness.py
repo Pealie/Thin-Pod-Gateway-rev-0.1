@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
-"""Check objective repository artefacts required before a Gateway OSHWA submission."""
+"""Check the objective repository record for OSHWA certification UID UK000092."""
 
 from __future__ import annotations
 
 import hashlib
 import json
+import struct
 from pathlib import Path
 
 EXPECTED_FABRICATION_ARCHIVE_SHA256 = (
     "3e51d68cb120c55aa06f386f4c433a48845a45d1cb986b2b08ac874ea5ec2d4d"
 )
 EXPECTED_GERBER_REVISION = "0.1"
+EXPECTED_OSHWA_UID = "UK000092"
+EXPECTED_CERTIFICATION_DATE = "16 July 2026"
+EXPECTED_OSHWA_RECORD_URL = "https://certification.oshwa.org/uk000092.html"
+EXPECTED_MARK_DIMENSIONS = (4000, 1122)
 
 REQUIRED_FILES = (
     "README.md",
@@ -19,6 +24,9 @@ REQUIRED_FILES = (
     "LICENSE-SOFTWARE.md",
     "LICENSE-DOCUMENTATION.md",
     "THIRD_PARTY_NOTICES.md",
+    "images/certification/oshwa-uk000092.png",
+    "oshwa/README.md",
+    "oshwa/application-record.md",
     "hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.csv",
     "hardware/bom/Thin-Pod_Gateway_rev0.1_BOM.md",
     "hardware/fabrication/README.md",
@@ -32,10 +40,20 @@ REQUIRED_FILES = (
     "docs/certification-scope.md",
     "docs/bringup/Gateway_rev0_1_Hardware_Bringup_Note.md",
     "docs/footprint-provenance.md",
-    "docs/oshwa/OSHWA_Application_Draft.md",
+    "docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md",
+    "docs/archive/oshwa/OSHWA_Application_Draft.md",
     "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_ERC.rpt",
     "docs/validation/cad/rev0.1/Thin-Pod_Gateway_rev0.1_DRC.rpt",
     "docs/validation/cad/rev0.1/Gerber_Drill_Inspection_Record.md",
+)
+
+CERTIFICATION_TEXT_FILES = (
+    "README.md",
+    "docs/certification-scope.md",
+    "oshwa/application-record.md",
+    "docs/oshwa/Gateway_OSHWA_Preparation_Checklist.md",
+    "hardware/fabrication/RELEASE-MANIFEST.md",
+    "LICENSE.md",
 )
 
 
@@ -66,6 +84,68 @@ def require_report_text(
         )
     else:
         passes.append(f"validation report records a clean result: {relative}")
+
+
+def require_certification_text(
+    root: Path,
+    relative: str,
+    passes: list[str],
+    failures: list[str],
+) -> None:
+    path = root / relative
+    if not path.is_file():
+        return
+    text = path.read_text(encoding="utf-8", errors="replace")
+    required = (
+        EXPECTED_OSHWA_UID,
+        EXPECTED_CERTIFICATION_DATE,
+        EXPECTED_OSHWA_RECORD_URL,
+    )
+    missing = [phrase for phrase in required if phrase not in text]
+    if missing:
+        failures.append(
+            f"certification record is incomplete in {relative}: "
+            + ", ".join(missing)
+        )
+    else:
+        passes.append(f"certification identity is consistent: {relative}")
+
+
+def check_mark_png(
+    root: Path,
+    passes: list[str],
+    failures: list[str],
+) -> None:
+    relative = "images/certification/oshwa-uk000092.png"
+    path = root / relative
+    if not path.is_file():
+        return
+
+    try:
+        with path.open("rb") as handle:
+            signature = handle.read(8)
+            length = struct.unpack(">I", handle.read(4))[0]
+            chunk_type = handle.read(4)
+            ihdr = handle.read(length)
+    except (OSError, struct.error) as exc:
+        failures.append(f"could not inspect certification mark: {exc}")
+        return
+
+    if signature != b"\x89PNG\r\n\x1a\n" or chunk_type != b"IHDR" or len(ihdr) < 8:
+        failures.append(f"certification mark is not a valid PNG header: {relative}")
+        return
+
+    dimensions = struct.unpack(">II", ihdr[:8])
+    if dimensions != EXPECTED_MARK_DIMENSIONS:
+        failures.append(
+            "certification mark dimensions mismatch: "
+            f"expected {EXPECTED_MARK_DIMENSIONS}, got {dimensions}"
+        )
+    else:
+        passes.append(
+            "certification mark PNG is present with expected dimensions: "
+            f"{dimensions[0]}x{dimensions[1]}"
+        )
 
 
 def main() -> int:
@@ -148,8 +228,13 @@ def main() -> int:
         failures,
     )
 
-    print("Thin-Pod Gateway OSHWA readiness check")
-    print("========================================")
+    for relative in CERTIFICATION_TEXT_FILES:
+        require_certification_text(root, relative, passes, failures)
+
+    check_mark_png(root, passes, failures)
+
+    print("Thin-Pod Gateway OSHWA certification-record check")
+    print("=================================================")
     for item in passes:
         print(f"PASS: {item}")
     for item in failures:
@@ -160,10 +245,10 @@ def main() -> int:
     print(f"Failures: {len(failures)}")
 
     if failures:
-        print("Result: BLOCKED")
+        print("Result: CERTIFICATION RECORD INCONSISTENT")
         return 1
 
-    print("Result: READY FOR FINAL HUMAN REVIEW")
+    print("Result: CERTIFICATION PACKAGE CONSISTENT")
     return 0
 
 

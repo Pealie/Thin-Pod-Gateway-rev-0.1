@@ -1,9 +1,9 @@
 # Gateway DWM Firmware: UWB Communications Coprocessor and Host Record Interface
 
-**Firmware area:** `firmware/gateway-dwm/`  
-**Hardware target:** Gateway-side Qorvo DWM3001-CDK / DWM3001C nRF52833 on Thin-Pod Gateway rev 0.1  
-**Status:** Host-interface architecture specified; implementation and hardware verification pending  
-**Document date:** 27 May 2026  
+**Firmware area:** `firmware/gateway-dwm/`<br>
+**Hardware target:** Gateway-side Qorvo DWM3001-CDK / DWM3001C nRF52833 on Thin-Pod Gateway rev 0.1<br>
+**Status:** Host-interface architecture specified; implementation and hardware verification pending<br>
+**Document date:** 27 May 2026<br>
 **Primary role:** Present complete validated records to the NUCLEO through a firmware-defined host interface
 
 ## Purpose
@@ -53,9 +53,9 @@ This requires firmware implementation and verification. The routed copper does n
 
 ## Certification and licence boundary
 
-Thin-Pod Gateway rev 0.1 is a separate future OSHWA candidate from the already submitted Thin-Pod rev 0.1 node. This firmware supports the Gateway development path, but no Gateway OSHWA submission or firmware scope is currently claimed.
+Thin-Pod Gateway rev 0.1 is OSHWA-certified as `UK000092`, separately from the Thin-Pod rev 0.1 node certified as `UK000091`. Project-authored firmware in this repository is licensed under MIT and forms part of the declared Gateway software record; the certified hardware object remains the creator-designed carrier PCB.
 
-Before publishing operational Gateway DWM firmware as a released software component, select and add an appropriate software licence under `LICENSE-SOFTWARE.md`; the hardware/documentation licence files do not automatically license firmware.
+`LICENSE-SOFTWARE.md` applies MIT to Thin-Pod-authored firmware and software. External Qorvo SDK material, vendor firmware and other third-party components remain under their original terms.
 
 ## Controlling protocol and architecture documents
 

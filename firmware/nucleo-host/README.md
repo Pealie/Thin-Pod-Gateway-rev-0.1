@@ -1,9 +1,9 @@
 # NUCLEO Host Firmware: Gateway Analytic Supervisor
 
-**Firmware area:** `firmware/nucleo-host/`  
-**Hardware target:** STM32 NUCLEO-N657X0-Q mounted on Thin-Pod Gateway rev 0.1  
-**Status:** Ingestion architecture specified; implementation and physical Gateway verification pending  
-**Document date:** 27 May 2026  
+**Firmware area:** `firmware/nucleo-host/`<br>
+**Hardware target:** STM32 NUCLEO-N657X0-Q mounted on Thin-Pod Gateway rev 0.1<br>
+**Status:** Ingestion architecture specified; implementation and physical Gateway verification pending<br>
+**Document date:** 27 May 2026<br>
 **Primary role:** Authoritative admission control, raw-window ownership and later analysis
 
 ## Purpose
@@ -39,7 +39,7 @@ The NUCLEO is the **authoritative admission controller** because it knows whethe
 
 ## Relationship to hardware and certification
 
-Thin-Pod Gateway rev 0.1 is a separate future OSHWA candidate from the Thin-Pod rev 0.1 node application already submitted. NUCLEO firmware created here is a future software deliverable and will require its own software licence before any public firmware release is treated as part of a formal Gateway release.
+Thin-Pod Gateway rev 0.1 is OSHWA-certified as `UK000092`, separately from the Thin-Pod rev 0.1 node certified as `UK000091`. Thin-Pod-authored NUCLEO firmware is licensed under MIT through `LICENSE-SOFTWARE.md` and is part of the declared Gateway software record. The commercial NUCLEO hardware and vendor software remain outside the Thin-Pod licence grants.
 
 The commercial NUCLEO board is included as a dependency of the open Gateway carrier PCB; it is not claimed as creator-authored open hardware.
 

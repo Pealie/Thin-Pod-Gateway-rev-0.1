@@ -1,11 +1,11 @@
 # Thin-Pod Gateway rev 0.1: Documentation Licence
 
-**Project:** Thin-Pod Gateway  
-**Hardware release path:** rev 0.1  
-**Documentation status:** Open-hardware candidate documentation; PCB bring-up pending  
-**Copyright holder:** Copyright © 2026 Neil Thomson / Pealie  
-**Documentation licence:** Creative Commons Attribution 4.0 International  
-**SPDX licence identifier:** `CC-BY-4.0`  
+**Project:** Thin-Pod Gateway<br>
+**Hardware release path:** rev 0.1<br>
+**Documentation status:** OSHWA-certified rev 0.1 release documentation, UID `UK000092`<br>
+**Copyright holder:** Copyright © 2026 Neil Thomson / Pealie<br>
+**Documentation licence:** Creative Commons Attribution 4.0 International<br>
+**SPDX licence identifier:** `CC-BY-4.0`<br>
 
 ## 1. Licence declaration
 
@@ -25,16 +25,13 @@ This licence applies to Thin-Pod-created written, drawn and photographic documen
 | Covered material | Description |
 |---|---|
 | `README.md` | Gateway release overview, scope and repository navigation |
-| `docs/certification-scope.md` | Intended separate OSHWA boundary for the Gateway carrier PCB |
-| `docs/gateway-bring-up-and-verification-protocol.md` | Prepared physical and firmware-stage verification procedure |
+| `docs/certification-scope.md` | Authoritative OSHWA boundary for the certified Gateway carrier PCB |
+| `docs/gateway-bring-up-and-verification-protocol.md` | Physical and firmware-stage verification procedure |
 | `docs/system-interface-control-document.md` | Interface definition linking Thin-Pod rev 0.1 and Gateway rev 0.1 without merging certification scopes |
-| `docs/third-party-components.md` | Third-party module/component identification, once added |
-| `docs/footprint-provenance.md` | CAD provenance and publication boundary, once added |
-| `docs/design-verification.md` | Measurements, inspection records and evidence, once added |
-| `docs/future-revisions.md` | Deferred rev 0.3 SMT/chip-down and later system scope, once added |
+| `docs/footprint-provenance.md` | CAD provenance and publication boundary |
 | Creator-authored diagrams and tables | Explanatory content prepared for the Gateway project |
 | Creator-owned photographs and test images | Board/assembly/measurement photographs made by the project author, unless otherwise marked |
-| `oshwa/application-record.md` | Public non-sensitive application record, if and when a Gateway submission is made |
+| `oshwa/application-record.md` | Public non-sensitive application and issued-certification record |
 
 ## 3. Permission granted under CC BY 4.0
 
@@ -55,7 +52,7 @@ A suitable attribution for reused or adapted Gateway documentation is:
 Thin-Pod Gateway rev 0.1 documentation
 Copyright © 2026 Neil Thomson / Pealie
 Licensed under CC BY 4.0
-Source: https://github.com/Pealie/Thin-Pod-Gateway-rev0.1
+Source: https://github.com/Pealie/Thin-Pod-Gateway-rev-0.1
 ```
 
 Where the material has been changed, add an indication such as:
@@ -74,11 +71,11 @@ Documentation and hardware source are licensed separately.
 |---|---|
 | Creator-designed Gateway hardware source, including editable schematic and PCB material | `CERN-OHL-W-2.0`, as recorded in `LICENSE-HARDWARE.md` |
 | Creator-authored documentation, diagrams and creator-owned images | `CC-BY-4.0`, as recorded in this file |
-| Firmware/software, if later released | Must be separately licensed and documented |
+| Project-authored firmware/software | `MIT`, as recorded in `LICENSE-SOFTWARE.md` |
 | Third-party CAD/library dependencies | Remain under their recorded applicable terms |
 | Purchased modules and vendor documentation | Not relicensed by Thin-Pod |
 
-The submitted OSHWA application for **Thin-Pod rev 0.1** concerns the separate sensor-node PCB only. This Gateway documentation prepares a distinct future release and does not retrospectively extend the node certification boundary.
+Thin-Pod rev 0.1 and Thin-Pod Gateway rev 0.1 are independently certified under UIDs `UK000091` and `UK000092`. Each documentation set preserves its own hardware and evidence boundary.
 
 ## 6. Excluded or separately licensed material
 
@@ -99,17 +96,11 @@ Where a repository document includes both Thin-Pod-created content and a separat
 
 ## 7. Documentation status and evidential caution
 
-The Gateway PCB is currently ordered and awaiting arrival and bring-up. Documentation may describe:
+The Gateway rev 0.1 documentation records design intent, module connections, test procedures, measured bring-up results, host-interface validation, one-way RF evidence and the issued OSHWA certification.
 
-- design intent;
-- intended module connections;
-- prepared test procedures;
-- proposed OSHWA certification scope; and
-- later verification evidence once actually obtained.
+Claims remain limited to the evidence recorded in the repository. The documentation does not convert the carrier-board certification into a claim for complete vibration-window transport, field-qualified RF performance, DSP/TinyML performance, security assurance or regulatory approval.
 
-Documentation must not state that the Gateway has been physically validated, OSHWA-certified, or proven to transfer UWB vibration windows until the relevant events have occurred and are recorded.
-
-This evidential boundary is part of the open documentation practice: the repository separates design expectation from measured result.
+This evidential boundary keeps measured results, certification scope and future system objectives distinct.
 
 ## 8. Open-hardware publication purpose
 
@@ -118,8 +109,8 @@ This documentation is published to support independent understanding, modificati
 The documentation supports a modular project structure in which:
 
 ```text
-Thin-Pod rev 0.1 sensor-node PCB       separate submitted OSHWA item
-Thin-Pod Gateway rev 0.1 carrier PCB   separate future OSHWA candidate
+Thin-Pod rev 0.1 sensor-node PCB       OSHWA UID UK000091
+Thin-Pod Gateway rev 0.1 carrier PCB   OSHWA UID UK000092
 Thin-Pod Gateway rev 0.3               later SMT/chip-down direction, deferred
 ```
 
@@ -135,8 +126,8 @@ The Creative Commons licence does not grant permission to imply endorsement by t
 
 The governing licence for the covered documentation is:
 
-**Creative Commons Attribution 4.0 International (`CC-BY-4.0`)**  
-Licence deed: <https://creativecommons.org/licenses/by/4.0/>  
+**Creative Commons Attribution 4.0 International (`CC-BY-4.0`)**<br>
+Licence deed: <https://creativecommons.org/licenses/by/4.0/><br>
 Legal code: <https://creativecommons.org/licenses/by/4.0/legalcode.en>
 
 This file identifies the covered documentation and its licensing boundary. The canonical CC BY 4.0 legal code governs use of the covered material.

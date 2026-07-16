@@ -1,13 +1,13 @@
 # Thin-Pod Gateway rev 0.1: Data-Path Flow Control and Buffering
 
-**Document identifier:** `TP-GW-DATA-0001`  
-**Document revision:** Draft A  
-**Product:** Thin-Pod Gateway  
-**Hardware release path:** rev 0.1  
-**Related node hardware:** Thin-Pod rev 0.1  
-**Document status:** Pre-bring-up architecture and commissioning specification  
-**Document date:** 27 May 2026  
-**Certification boundary:** Gateway rev 0.1 is a separate future OSHWA candidate; this document does not extend the submitted OSHWA scope of Thin-Pod rev 0.1.
+**Document identifier:** `TP-GW-DATA-0001`<br>
+**Document revision:** Draft A<br>
+**Product:** Thin-Pod Gateway<br>
+**Hardware release path:** rev 0.1<br>
+**Related node hardware:** Thin-Pod rev 0.1<br>
+**Document status:** Pre-bring-up architecture and commissioning specification<br>
+**Document date:** 27 May 2026<br>
+**Certification boundary update (16 July 2026):** Thin-Pod Gateway rev 0.1 is OSHWA-certified under UID [`UK000092`](https://certification.oshwa.org/uk000092.html). This pre-implementation architecture document does not expand the certified hardware scope of either Gateway UID `UK000092` or node UID `UK000091`.
 
 ## 1\. Purpose
 
